@@ -6,7 +6,7 @@ const app = express();
   const port = 3000;
 
 // Parcel 번들러 설정
-const bundler = new Bundler(['html/main.html', 'html/signup.html', 'html/home.html', 'html/board.html'], {
+const bundler = new Bundler(['public/main.html', 'html/signup.html', 'html/home.html', 'html/board.html'], {
   outDir: './dist', // 번들된 파일들이 저장될 디렉토리
   watch: true, // 파일 변경 감지
 });

@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICTicket</title>
-    <link rel="stylesheet" href="/component.741b3053.css">
+    <link rel="stylesheet" href="../src/assets/css/component.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/component.741b3053.js"></script></head>
-<style>body, html {
+</head>
+<style>
+    body, html {
         height: 100%;
         margin: 0;
         font-size: 0px;
@@ -80,14 +81,15 @@
     }
     .dot.active {
         background-color: #3A5AAD;
-    }</style>
+    }
+</style>
 <body>
 <div class="main">
     <div class="inner">
         <!-- [00_main-header 최상단 영역] -->
         <div class="main-header">
             <div class="text-logo">
-                <img src="/img_logo_01.70b5bafc.png" style="width: 200px;">
+                <img src="../src/assets/images/img_logo_01.png" style="width: 200px;">
             </div>
             <div class="text-wrapper">
                 <div class="login">
@@ -113,81 +115,97 @@
     </div> 
 </div>
 
-<script>$(document).ready(function () {
-  var $slider = $('.slider');
-  var $dots = $('.dot');
-  var $images = $slider.children('img');
-  var imageCount = $images.length;
-  var isDragging = false;
-  var startPos = 0;
-  var currentTranslate = 0;
-  var prevTranslate = 0;
-  var currentIndex = 0;
-  $slider.on('mousedown touchstart', function (event) {
-    isDragging = true;
-    startPos = getPositionX(event);
-    $slider.addClass('grabbing');
-    event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
-  });
-  $slider.on('mouseup mouseleave touchend', function () {
-    isDragging = false;
-    $slider.removeClass('grabbing');
-    var movedBy = currentTranslate - prevTranslate;
-    if (movedBy < -100) {
-      currentIndex = (currentIndex + 1) % imageCount;
-    }
-    if (movedBy > 100) {
-      currentIndex = (currentIndex - 1 + imageCount) % imageCount;
-    }
-    setPositionByIndex(true);
-    updateDots();
-  });
-  $slider.on('mousemove touchmove', function (event) {
-    if (isDragging) {
-      var currentPosition = getPositionX(event);
-      currentTranslate = prevTranslate + currentPosition - startPos;
-      setSliderPosition();
-      event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
-    }
-  });
-  $dots.on('click', function () {
-    currentIndex = $(this).index();
-    setPositionByIndex(true);
-    updateDots();
-  });
-  function getPositionX(event) {
-    return event.type.includes('mouse') ? event.pageX : event.originalEvent.touches[0].clientX;
-  }
-  function setSliderPosition() {
-    $slider.css('transform', "translateX(".concat(currentTranslate, "px)"));
-  }
-  function setPositionByIndex(animate) {
-    if (animate) {
-      $slider.css('transition', 'transform 0.3s ease-out');
-    } else {
-      $slider.css('transition', 'none');
-    }
-    currentTranslate = currentIndex * -$slider.width();
-    prevTranslate = currentTranslate;
-    setSliderPosition();
-  }
-  function updateDots() {
-    $dots.each(function (index) {
-      $(this).toggleClass('active', index === currentIndex);
+<script>
+$(document).ready(function() {
+    const $slider = $('.slider');
+    const $dots = $('.dot');
+    const $images = $slider.children('img');
+    const imageCount = $images.length;
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let currentIndex = 0;
+
+    $slider.on('mousedown touchstart', function(event) {
+        isDragging = true;
+        startPos = getPositionX(event);
+        $slider.addClass('grabbing');
+        event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
     });
-  }
-  $slider.on('transitionend', function () {
-    if (currentIndex === imageCount) {
-      $slider.css('transition', 'none');
-      currentIndex = 0;
-      setPositionByIndex(false);
-    } else if (currentIndex === -1) {
-      $slider.css('transition', 'none');
-      currentIndex = imageCount - 1;
-      setPositionByIndex(false);
+
+    $slider.on('mouseup mouseleave touchend', function() {
+        isDragging = false;
+        $slider.removeClass('grabbing');
+
+        const movedBy = currentTranslate - prevTranslate;
+
+        if (movedBy < -100) {
+            currentIndex = (currentIndex + 1) % imageCount;
+        }
+        if (movedBy > 100) {
+            currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+        }
+
+        setPositionByIndex(true);
+        updateDots();
+    });
+
+    $slider.on('mousemove touchmove', function(event) {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            currentTranslate = prevTranslate + currentPosition - startPos;
+            setSliderPosition();
+            event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
+        }
+    });
+
+    $dots.on('click', function() {
+        currentIndex = $(this).index();
+        setPositionByIndex(true);
+        updateDots();
+    });
+
+    function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.originalEvent.touches[0].clientX;
     }
-  });
-  updateDots();
-});</script>
+
+    function setSliderPosition() {
+        $slider.css('transform', `translateX(${currentTranslate}px)`);
+    }
+
+    function setPositionByIndex(animate) {
+        if (animate) {
+            $slider.css('transition', 'transform 0.3s ease-out');
+        } else {
+            $slider.css('transition', 'none');
+        }
+        currentTranslate = currentIndex * -$slider.width();
+        prevTranslate = currentTranslate;
+        setSliderPosition();
+    }
+
+    function updateDots() {
+        $dots.each(function(index) {
+            $(this).toggleClass('active', index === currentIndex);
+        });
+    }
+
+    $slider.on('transitionend', function() {
+        if (currentIndex === imageCount) {
+            $slider.css('transition', 'none');
+            currentIndex = 0;
+            setPositionByIndex(false);
+        } else if (currentIndex === -1) {
+            $slider.css('transition', 'none');
+            currentIndex = imageCount - 1;
+            setPositionByIndex(false);
+        }
+    });
+
+    updateDots();
+});
+
+</script>
 </body>
 </html>

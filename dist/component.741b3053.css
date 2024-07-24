@@ -1,0 +1,55 @@
+/* 폰트 크기 */
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+/* 폰트 두께 */
+.thin {
+    font-weight: 100;
+}
+
+.extra-light {
+    font-weight: 200;
+}
+
+.light {
+    font-weight: 300;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.medium {
+    font-weight: 500;
+}
+
+.semi-bold {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.extra-bold {
+    font-weight: 800;
+}
+
+.black {
+    font-weight: 900;
+}
+
+.text-logo {
+    cursor: pointer;
+}
+
+/*# sourceMappingURL=/component.741b3053.css.map */
