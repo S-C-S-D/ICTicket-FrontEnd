@@ -11,6 +11,28 @@
     font-size: 16px;
 }
 
+.fs-17 {
+    font-size: 17px;
+}
+
+.fs-18 {
+    font-size: 18px;
+}
+
+.fs-19 {
+    font-size: 19px;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+
+
+.fs-28 {
+    font-size: 28px;
+}
+
 /* 폰트 두께 */
 .thin {
     font-weight: 100;
@@ -48,6 +70,19 @@
     font-weight: 900;
 }
 
+
+/* 로고 마우스 포인터 */
 .text-logo {
     cursor: pointer;
+}
+
+/* flex */
+.display-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0 0;
+    cursor: default;
+    width: 100%;
 }

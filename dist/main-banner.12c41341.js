@@ -117,62 +117,84 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
+})({"../src/components/main-banner.js":[function(require,module,exports) {
+$(document).ready(function () {
+  var $slider = $('.slider');
+  var $dots = $('.dot');
+  var $images = $slider.children('img');
+  var imageCount = $images.length;
+  var isDragging = false;
+  var startPos = 0;
+  var currentTranslate = 0;
+  var prevTranslate = 0;
+  var currentIndex = 0;
+  $slider.on('mousedown touchstart', function (event) {
+    isDragging = true;
+    startPos = getPositionX(event);
+    $slider.addClass('grabbing');
+    event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
+  });
+  $slider.on('mouseup mouseleave touchend', function () {
+    isDragging = false;
+    $slider.removeClass('grabbing');
+    var movedBy = currentTranslate - prevTranslate;
+    if (movedBy < -100) {
+      currentIndex = (currentIndex + 1) % imageCount;
     }
-  }
-  return '/';
-}
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+    if (movedBy > 100) {
+      currentIndex = (currentIndex - 1 + imageCount) % imageCount;
     }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../src/assets/css/component.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+    setPositionByIndex(true);
+    updateDots();
+  });
+  $slider.on('mousemove touchmove', function (event) {
+    if (isDragging) {
+      var currentPosition = getPositionX(event);
+      currentTranslate = prevTranslate + currentPosition - startPos;
+      setSliderPosition();
+      event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
+    }
+  });
+  $dots.on('click', function () {
+    currentIndex = $(this).index();
+    setPositionByIndex(true);
+    updateDots();
+  });
+  function getPositionX(event) {
+    return event.type.includes('mouse') ? event.pageX : event.originalEvent.touches[0].clientX;
+  }
+  function setSliderPosition() {
+    $slider.css('transform', "translateX(".concat(currentTranslate, "px)"));
+  }
+  function setPositionByIndex(animate) {
+    if (animate) {
+      $slider.css('transition', 'transform 0.3s ease-out');
+    } else {
+      $slider.css('transition', 'none');
+    }
+    currentTranslate = currentIndex * -$slider.width();
+    prevTranslate = currentTranslate;
+    setSliderPosition();
+  }
+  function updateDots() {
+    $dots.each(function (index) {
+      $(this).toggleClass('active', index === currentIndex);
+    });
+  }
+  $slider.on('transitionend', function () {
+    if (currentIndex === imageCount) {
+      $slider.css('transition', 'none');
+      currentIndex = 0;
+      setPositionByIndex(false);
+    } else if (currentIndex === -1) {
+      $slider.css('transition', 'none');
+      currentIndex = imageCount - 1;
+      setPositionByIndex(false);
+    }
+  });
+  updateDots();
+});
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -341,5 +363,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/component.741b3053.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/main-banner.js"], null)
+//# sourceMappingURL=/main-banner.12c41341.js.map
