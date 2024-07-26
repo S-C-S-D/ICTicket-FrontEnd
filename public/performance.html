@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/assets/css/component.css">
+    <link rel="stylesheet" href="../src/assets/css/main-genre-rank-swiper.css">
+    <link rel="stylesheet" href="../src/assets/css/header.css">
+    <title>Performance</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../src/components/main-rank-swiper.js"></script>
+</head>
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        font-size: 0px;
+        color: #242424;
+    }
+
+    p {
+        margin: 0px;
+        font-size: 16px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+    }
+
+    .text-wrapper {
+        display: flex;
+        gap: 40px;
+    }
+
+    .text-wrapper #login,
+    #signUp {
+        cursor: pointer;
+    }
+
+    .session-title {
+        margin-bottom: 40px;
+    }
+</style>
+
+<body>
+    <div class="main">
+        <div class="inner">
+            <!-- [00_main-header 최상단 영역] -->
+            <div class="header">
+                <div class="text-logo">
+                    <img src="../src/assets/images/img_logo_01.png" style="width: 200px;">
+                </div>
+                <div class="text-wrapper">
+                    <div class="login">
+                        <span id="login" class="fs-15 medium">로그인</span>
+                    </div>
+                    <div class="회원가입">
+                        <span id="signUp" class="fs-15 medium">로그아웃</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-bar">
+                <div class="nav-option active" data-type="HOME">홈</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="CONCERT">콘서트</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="MUSICAL">뮤지컬</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="FESTIVAL">페스티벌</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="SPORTS">스포츠</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="THEATER">연극</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="EXHIBITION">전시회</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="CLASSIC">클래식/무용</div>
+                <div class="border"></div>
+                <div class="nav-option" data-type="RANK-ALL">랭킹</div>
+            </div>
+
+            <div class="main-genre-ranking display-flex">
+                <div class="session-title fs-28 semi-bold">
+                    <!-- <span>장르별 랭킹</span> -->
+                </div>
+    
+    
+                <div class="slider-container-rank">
+                    <button class="nav-button left" style="z-index: 20;">&lt;</button>
+                    <div class="slider-wrapper">
+                        <div class="performance-list-genre">
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">1</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24007345_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">2</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010088_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">3</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005971_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">4</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2FP0%2FP0003831_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">5</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010223_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">6</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24007631_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">7</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24006851_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">8</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005266_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">9</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005266_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">10</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005266_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">11</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005266_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+    
+                            <div class="performance-info">
+                                <div class="image-wrapper">
+                                    <span class="rank absolute fs-28">12</span>
+                                    <img
+                                        src="https://tickets.interpark.com/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24005266_p.gif&w=3840&q=75">
+                                </div>
+                                <p class="performance-title fs-17 bold">프랑켄슈타인, 안보면 후회할걸?</p>
+                                <p class="venue-location fs-15 medium">링크아트센터 벅스홀</p>
+                                <p class="performance-date fs-15 medium">2024-05-21 ~ 10-27</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="nav-button right"></button>
+                </div>
+                <div class="dots-container"></div>
+    
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
