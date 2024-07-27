@@ -1,8 +1,7 @@
 $(document).ready(function() {
-
-    const $container = $('.slider-wrapper');
-    const $btnLeft = $('.nav-button.left');
-    const $btnRight = $('.nav-button.right');
+    const $container = $('.main-genre-ranking > .slider-container-rank > .slider-wrapper');
+    const $btnLeft = $('.main-genre-ranking > .slider-container-rank > .nav-button.left');
+    const $btnRight = $('.main-genre-ranking > .slider-container-rank > .nav-button.right');
     const $dotsContainer = $('.dots-container');
     let currentIndex = 0;
     const itemsToShow = 5;
@@ -83,7 +82,15 @@ $(document).ready(function() {
     $(document).on('mouseup', (e) => {
         if (isDragging) {
             isDragging = false;
-            updateSliderPosition(); // 마우스 버튼을 놓았을 때 슬라이드와 dot 상태 업데이트
+            // 드래그 거리가 50px 이상일 때만 이동
+            const endX = e.pageX;
+            const diff = startX - endX;
+            if (diff > 50 && currentIndex < $container.find('.performance-info').length - itemsToShow) {
+                currentIndex++;
+            } else if (diff < -50 && currentIndex > 0) {
+                currentIndex--;
+            }
+            updateSliderPosition(); // 마우스 버튼을 놓았을 때 슬라이드 상태 업데이트
             e.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
         }
     });
@@ -92,17 +99,6 @@ $(document).ready(function() {
     $container.on('mousemove', (e) => {
         if (isDragging) {
             e.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
-            const diff = startX - e.pageX;
-            const $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
-            if (diff > 50 && currentIndex < $items.length - itemsToShow) {
-                currentIndex++;
-                updateSliderPosition();
-                isDragging = false;
-            } else if (diff < -50 && currentIndex > 0) {
-                currentIndex--;
-                updateSliderPosition();
-                isDragging = false;
-            }
         }
     });
 

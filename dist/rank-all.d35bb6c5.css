@@ -1,0 +1,19 @@
+.column-wrapper {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.column-wrapper .column{
+    display: flex;
+    font-size: 17px;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+}
+
+.column-wrapper .column.rank{
+    width: 100px;
+    height: 56px;
+}
+
+/*# sourceMappingURL=/rank-all.d35bb6c5.css.map */

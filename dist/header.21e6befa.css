@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+.text-wrapper {
+    display: flex;
+    gap: 40px;
+}
+
+.text-wrapper #login,
+#signUp {
+    cursor: pointer;
+}
+
+/*# sourceMappingURL=/header.21e6befa.css.map */

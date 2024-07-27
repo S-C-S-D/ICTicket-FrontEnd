@@ -85,6 +85,19 @@
     word-wrap: break-word;
 }
 
+.performance-list-grid.layout-5 .performance-info .sale-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.performance-list-grid.layout-5 .performance-info .sale-wrapper .performance-discount-rate {
+    color: #E33B3B;
+}
+
+.performance-list-grid.layout-5 .performance-info .sale-wrapper .performance-price {
+    color: black
+}
+
 /* 레이아웃 4개 */
 .performance-list-grid.layout-4 {
     display: grid;
@@ -96,7 +109,7 @@
 }
 
 .performance-list-grid.layout-4 .performance-info img {
-    width: 280px;
+    width: 276px;
     border-radius: 8px;
     border: 1px solid #e7e7e7;
 }

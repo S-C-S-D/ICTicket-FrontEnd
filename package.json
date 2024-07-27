@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
-    "build": "parcel build public/main.html"
+    "build": "parcel build public/home.html"
   },
   "keywords": [],
   "author": "",

@@ -19,7 +19,7 @@ $(document).ready(function () {
             //                         <img src="${performance.imageUrl}">
             //                     </div>
             //                     <p class="performance-title fs-17 bold">${performance.title}</p>
-            //                     <p class="venue-location fs-15 medium">${performance.venueLocation}</p>
+            //                     <p class="venue-location fs-15 medium">${performance.ㅍ}</p>
             //                     <p class="performance-date fs-15 medium">${performance.startAt}</p>
             //                 </div>
             //             `;
@@ -58,7 +58,7 @@ $(document).ready(function () {
                                     <img src="${performance.imageUrl}">
                                 </div>
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
-                                <p class="venue-location fs-15 medium">${performance.venueLocation}</p>
+                                <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>
                             </div>
                         `;
@@ -92,7 +92,7 @@ $(document).ready(function () {
                                     <img src="${performance.imageUrl}">
                                 </div>
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
-                                <p class="venue-location fs-15 medium">${performance.venueLocation}</p>
+                                <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>
                             </div>
                         `;
@@ -127,14 +127,14 @@ $(document).ready(function () {
                                         <img src="${performance.imageUrl}">
                                     </div>
                                     <p class="performance-title fs-17 bold">${performance.title}</p>
-                                    <p class="venue-location fs-15 medium">${performance.venueLocation}</p>
+                                    <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                     <p class="performance-date fs-15 medium">${performance.startAt}</p>
                                 </div>
                             `;
                         performanceListFlexDiv.append(genreRankElement);
                 });
 
-                $.getScript('../src/components/main-rank-swiper.js')
+                $.getScript('/main-rank-swiper.98f54644.js')
                 .done(function(script, textStatus) {
                     console.log('main-rank-swiper.js 스크립트가 성공적으로 로드되었습니다.');
                 })
@@ -159,6 +159,7 @@ $(document).ready(function () {
     //[ page 버튼 클릭 시, 어떤 컨테이너 안에서 눌린 넘버인지 확인하는 메서드 ]
     function setupPagination(containerSelector, loadFunction) {
         $(containerSelector).on('click', '.page-num', function () {
+            console.log("test")
             var pageNumber = $(this).text();
 
             $(containerSelector + ' > .page-wrapper > .page-num').removeClass('active');
@@ -185,6 +186,7 @@ $(document).ready(function () {
             $('.slider-wrapper').css('transform', 'translateX(0)');
         }
     });
+    
     
 
 });

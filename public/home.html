@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="../src/assets/css/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../src/components/main-banner.js"></script>
-    <script src="../src/components/main.js"></script>
+    <script src="../src/components/main-rank-swiper.js"></script>
+    <script src="../src/components/home.js"></script>
+    <script src="../src/components/nav-bar.js"></script>
 </head>
 
 <script>
@@ -48,7 +50,9 @@
             <!-- [00_main-header 최상단 영역] -->
             <div class="header">
                 <div class="text-logo">
-                    <img src="../src/assets/images/img_logo_01.png" style="width: 200px;">
+                    <a href="/home">
+                        <img src="../src/assets/images/img_logo_01.png" style="width: 200px;">
+                    </a>
                 </div>
                 <div class="text-wrapper">
                     <div class="login">
@@ -61,23 +65,29 @@
             </div>
 
             <div class="nav-bar">
-                <div class="nav-option active" data-type="HOME">홈</div>
+                <div class="nav-option active" data-type="home">홈</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="CONCERT">콘서트</div>
+                <div class="nav-option" data-type="concert">콘서트</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="MUSICAL">뮤지컬</div>
+                <div class="nav-option" data-type="musical">뮤지컬</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="FESTIVAL">페스티벌</div>
+                <div class="nav-option" data-type="festival">페스티벌</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="SPORTS">스포츠</div>
+                <div class="nav-option" data-type="sports">스포츠</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="THEATER">연극</div>
+                <div class="nav-option" data-type="theater">연극</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="EXHIBITION">전시회</div>
+                <div class="nav-option" data-type="exhibition">전시회</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="CLASSIC">클래식/무용</div>
+                <div class="nav-option" data-type="classic">클래식/무용</div>
                 <div class="border"></div>
-                <div class="nav-option" data-type="RANK-ALL">랭킹</div>
+                <div class="nav-option" data-type="rank-all">랭킹</div>
+            </div>
+        </div>
+
+        <div class="inner">
+            <div class="collumn-wrapper">
+                <div class="collumn">랭킹</div>
             </div>
         </div>
 
@@ -117,7 +127,7 @@
             <div class="slider-container-rank">
                 <button class="nav-button left" style="z-index: 20;">&lt;</button>
                 <div class="slider-wrapper">
-                    <div class="performance-list-genre">
+                    <div class="performance-list-genre layout-5">
                         <!-- <div class="performance-info">
                             <div class="image-wrapper">
                                 <span class="rank absolute fs-28">1</span>
@@ -580,9 +590,6 @@
                 $(this).addClass('active');
             });
         });
-
-
-
     </script>
 
 </body>

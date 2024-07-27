@@ -95,6 +95,18 @@
     width: 100%;
 }
 
+/* flex */
+.display-flex-genre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 150px 0 0;
+    cursor: default;
+    width: 100%;
+    background-color: #0a0629;
+}
+
 /* nav */
 .nav-bar {
     display: flex;
@@ -113,7 +125,7 @@
 .nav-bar .nav-option.active{
     font-size: 16px;
     color: #3A5AAD;
-    font-weight: 600;
+    font-weight: 700;
     border-bottom: 2px solid #3A5AAD;
 }
 

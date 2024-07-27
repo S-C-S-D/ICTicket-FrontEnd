@@ -6,7 +6,7 @@ const app = express();
   const port = 3000;
 
 // Parcel 번들러 설정
-const bundler = new Bundler(['public/main.html', 'html/signup.html', 'html/home.html', 'html/board.html'], {
+const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-rank-all.html'], {
   outDir: './dist', // 번들된 파일들이 저장될 디렉토리
   watch: true, // 파일 변경 감지
 });
@@ -19,12 +19,12 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // 기본 루트 경로 요청 처리
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'main.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
 
 // /login 경로 요청 처리
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'login.html'));
+app.get('/performances', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'performance.html'));
 });
 
 // /signup 경로 요청 처리
@@ -37,17 +37,14 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
 
-// /boards/:boardId 경로 요청 처리
-app.get('/boards/:boardId', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'board.html'));
-});
-
+app.get('/performances/rank-all', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'performance-rank-all.html'));
+  });
 
 // /boards/:boardId 경로 요청 처리
-app.get('/boards/:boardId/decks/:deckId', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'board.html'));
+app.get('/performances/:genreType', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'performance.html'));
 });
-
 
 // 토큰 유효성 검사 미들웨어
 const checkAuth = (req, res, next) => {

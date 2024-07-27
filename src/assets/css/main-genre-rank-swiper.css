@@ -25,41 +25,40 @@
     color: white;
 }
 
-.performance-list-genre {
+.performance-list-genre.layout-5 {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 20px;
     margin-bottom: 50px;
-    grid-template-columns: repeat(5, 1fr);
     box-sizing: border-box;
 }
 
-.performance-list-genre .performance-info {
+.performance-list-genre.layout-5 .performance-info {
     display: flex;
     flex-direction: column;
     cursor: pointer;
 }
 
-.performance-list-genre .performance-info:first-child {
+.performance-list-genre.layout-5 .performance-info:first-child {
     display: flex;
     flex-direction: column;
     cursor: pointer;
     margin-left: 14px;
 }
 
-.performance-list-genre .performance-info img {
+.performance-list-genre.layout-5 .performance-info img {
     width: 220px;
     border-radius: 8px;
     border: 1px solid #e7e7e7;
     box-sizing: border-box;
 }
 
-.performance-list-genre .performance-info .image-wrapper {
+.performance-list-genre.layout-5 .performance-info .image-wrapper {
     position: relative;
     margin-bottom: 18px;
 }
 
-.performance-list-genre .performance-info .image-wrapper::before {
+.performance-list-genre.layout-5 .performance-info .image-wrapper::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -71,25 +70,25 @@
     pointer-events: none;
 }
 
-.performance-list-genre .performance-info .absolute {
+.performance-list-genre.layout-5 .performance-info .absolute {
     color: white;
     left: 20px;
     bottom: 10px;
     position: absolute;
 }
 
-.performance-list-genre .performance-info .rank {
+.performance-list-genre.layout-5 .performance-info .rank {
     font-size: 50px;
     font-weight: 600;
 }
 
-.performance-list-genre .performance-info .open-time {
+.performance-list-genre.layout-5 .performance-info .open-time {
     font-size: 20px;
     font-weight: 600;
 }
 
 
-.performance-list-genre .performance-info .performance-title {
+.performance-list-genre.layout-5 .performance-info .performance-title {
     width: 220px;
     margin-bottom: 8px;
     white-space: normal;
@@ -102,7 +101,7 @@
     text-overflow: ellipsis;
 }
 
-.performance-list-genre .performance-info .venue-location {
+.performance-list-genre.layout-5 .performance-info .venue-location {
     width: 220px;
     margin-bottom: 4px;
     white-space: normal;
@@ -110,7 +109,7 @@
     word-wrap: break-word;
 }
 
-.performance-list-genre .performance-info .performance-date {
+.performance-list-genre.layout-5 .performance-info .performance-date {
     width: 220px;
     margin-bottom: 4px;
     white-space: normal;
@@ -200,30 +199,39 @@
 }
 
 
-.slider-container-rank {
+.gerne-ranking .slider-container-rank {
     position: relative;
     width: 1204px;
     margin: 0 auto;
     overflow: hidden;
 }
 
-.slider-container-rank .slider-wrapper {
+.gerne-ranking .slider-container-rank .slider-wrapper {
     display: flex;
     transition: transform 0.3s ease;
     will-change: transform;
-    height: 451px;
 }
 
-.performance-list-genre {
-    display: flex;
-    flex-wrap: nowrap;
+.main-genre-ranking .slider-container-rank {
+    position: relative;
+    width: 1204px;
+    margin: 0 auto;
+    overflow: hidden;
 }
+
+.main-genre-ranking .slider-container-rank .slider-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    height: 460px;
+}
+
 
 .image-wrapper img {
     width: 100%;
 }
 
-.nav-button {
+.main-genre-ranking .nav-button {
     position: absolute;
     top: 36%;
     transform: translateY(-50%);
@@ -239,7 +247,7 @@
     flex-shrink: 0;
 }
 
-.nav-button.left {
+.main-genre-ranking .nav-button.left {
     left: 2px;
     background: url('../images/img-arrow-left.png') no-repeat center center;
     background-position-x: 6px;
@@ -247,11 +255,140 @@
     background-color: white;
 }
 
-.nav-button.right {
+.main-genre-ranking .nav-button.right {
     right: 2px;
     background: url('../images/img-arrow-right.png') no-repeat center center;
     background-position-x: 11px;
     background-size: 50%;
     background-color: white;
+}
+
+
+.gerne-ranking .nav-button {
+    position: absolute;
+    top: 46%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    flex-shrink: 0;
+}
+
+.gerne-ranking .nav-button.left {
+    left: 0px;
+    background: url('../images/img-arrow-left.png') no-repeat center center;
+    background-position-x: 9px;
+    background-size: 50%;
+    background-color: white;
+}
+
+.gerne-ranking .nav-button.right {
+    right: 0px;
+    background: url('../images/img-arrow-right.png') no-repeat center center;
+    background-position-x: 17px;
+    background-size: 50%;
+    background-color: white;
+}
+
+
+.performance-list-genre.layout-4 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-4 .performance-info {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.performance-list-genre.layout-4 .performance-info:first-child {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 14px;
+}
+
+.performance-list-genre.layout-4 .performance-info img {
+    width: 280px;
+    border-radius: 8px;
+    border: 1px solid #7b7b7b;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-4 .performance-info .image-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.performance-list-genre.layout-4 .performance-info .image-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to top, rgb(0 0 0 / 53%), rgba(0, 0, 0, 0));
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.performance-list-genre.layout-4 .performance-info .absolute {
+    color: white;
+    left: 25px;
+    bottom: 5px;
+    position: absolute;
+}
+
+.performance-list-genre.layout-4 .performance-info .rank {
+    font-size: 70px;
+    font-weight: 600;
+}
+
+.performance-list-genre.layout-4 .performance-info .open-time {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.performance-list-genre.layout-4 .performance-info .performance-title {
+    width: 280px;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e5e5e5;
+}
+
+.performance-list-genre.layout-4 .performance-info .venue-location {
+    width: 280px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #242424;
+    word-wrap: break-word;
+}
+
+.performance-list-genre.layout-4 .performance-info .performance-date {
+    width: 280px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #999999;
+    word-wrap: break-word;
 }
 
