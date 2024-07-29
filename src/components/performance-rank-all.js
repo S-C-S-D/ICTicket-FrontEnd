@@ -40,13 +40,15 @@ $(document).ready(function () {
                     const genreRankElement = `
                         <div class="row-wrapper">
                             <div class="row rank" data-rank="${(page * 10) - (9 - index)}">${(page * 10) - (9 - index)}</div>
-                            <div class="row title" data-id="${performance.id}">
-                                <img class="performance-image" src="${performance.imageUrl}">
-                                <div class="info-wrapper">
-                                    <span class="performance-genre">${getKoreanGenreName(performance.genreType)}</span>
-                                    <span class="performance-title">${performance.title}</span>
+                            <a href="/performances/${performance.id}">
+                                <div class="row title" data-id="${performance.id}">
+                                    <img class="performance-image" src="${performance.imageUrl}">
+                                    <div class="info-wrapper">
+                                        <span class="performance-genre">${getKoreanGenreName(performance.genreType)}</span>
+                                        <span class="performance-title">${performance.title}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <div class="row location">
                                 <div class="location-wrapper">
                                     <span class="performance-date">${performance.startAt} ~ ${performance.endAt}</span>

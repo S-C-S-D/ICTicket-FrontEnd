@@ -1,0 +1,109 @@
+.image-info-wrapper img {
+    width: 370px;
+    border-radius: 8px;
+    border: 1px solid rgb(109, 109, 109);
+}
+
+.performance-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 70px;
+}
+
+.performance-info-wrapper .title-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.performance-info-wrapper .title-wrapper .genre-type{
+    font-size: 15px;
+    color: white;
+    padding: 6px 16px 4px 16px;
+    background-color: #5C77BE;
+    border-radius: 20px;
+}
+
+.performance-info-wrapper .title-wrapper .performance-title{
+    font-size: 28px;
+    color: #242424;
+    font-weight: 700;
+}
+
+.performance-info-wrapper .image-info-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-title-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 0 20px 0 40px;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-title-wrapper .info-title{
+    font-size: 16px;
+    font-weight: 400;
+    color: #454545;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-detail{
+    font-size: 16px;
+    font-weight: 600;
+    color: #242424;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .seat-price-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-seat{
+    font-size: 15px;
+    color: #4E4E4E;
+    font-weight: 500;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price{
+    font-size: 16px;
+    color: #242424;
+    font-weight: 700;
+}
+
+.performance-info-wrapper .like-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.performance-info-wrapper .like-wrapper .like-count{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+
+/*# sourceMappingURL=/performance.3d0336e7.css.map */

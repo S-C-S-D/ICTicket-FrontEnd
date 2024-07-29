@@ -119,115 +119,46 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"../src/components/performance.js":[function(require,module,exports) {
 $(document).ready(function () {
-  // 현재 페이지의 URL에서 장르 부분을 추출하고 대문자로 변환하는 함수
-  function extractAndTransformGenreType() {
-    var path = window.location.pathname;
-    var genreType = path.split('/')[2]; // '/performances/festival'에서 'festival'을 추출
-    return genreType.toUpperCase(); // 'festival'을 'FESTIVAL'로 변환
-  }
-
-  // 장르 타입을 추출하고 대문자로 변환
-  var genreType = extractAndTransformGenreType();
-
-  // genreType에 따라 한글 텍스트를 반환하는 함수
-  function getKoreanGenreName(genreType) {
-    switch (genreType) {
-      case 'MUSICAL':
-        return '뮤지컬';
-      case 'CONCERT':
-        return '콘서트';
-      case 'FESTIVAL':
-        return '페스티벌';
-      case 'SPORTS':
-        return '스포츠';
-      case 'EXHIBITION':
-        return '전시회';
-      case 'CLASSIC':
-        return '클래식/무용';
-      case 'RANKING':
-        return '랭크';
-      default:
-        return '공연';
-      // 기본값 설정
-    }
-  }
-  $(".sale-title").text("할인 중인 " + getKoreanGenreName(genreType));
-
-  //[ 장르별 랭킹 조회 ]
+  // URL에서 performanceId 추출
+  var pathParts = window.location.pathname.split('/');
+  var performanceId = pathParts[pathParts.indexOf('performances') + 1];
   $.ajax({
-    url: "http://localhost:8080/performances/ranking?genre=".concat(genreType, "&page=1&size=10"),
+    url: "http://localhost:8080/performances/".concat(performanceId),
     type: 'GET',
-    success: function success(PerformanceGenreRankResponseDto) {
-      console.log(PerformanceGenreRankResponseDto);
-      var performances = PerformanceGenreRankResponseDto.data;
-      var performanceListFlexDiv = $('.performance-list-genre');
-      performanceListFlexDiv.empty();
-      performances.forEach(function (performance, index) {
-        var genreRankElement = "\n                <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                    <div class=\"image-wrapper\">\n                        <span class=\"rank absolute fs-28\">").concat(index + 1, "</span>\n                        <img src=\"").concat(performance.imageUrl, "\">\n                    </div>\n                    <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                    \n                </div>\n            ");
-        performanceListFlexDiv.append(genreRankElement);
-      });
+    success: function success(performanceDetailResponseDto) {
+      console.log(performanceDetailResponseDto);
+      var performance = performanceDetailResponseDto.data;
+      var performanceListGridDiv = $('.performance-info-wrapper');
+      performanceListGridDiv.empty();
+      function getKoreanGenreName(genreType) {
+        switch (genreType) {
+          case 'MUSICAL':
+            return '뮤지컬';
+          case 'CONCERT':
+            return '콘서트';
+          case 'FESTIVAL':
+            return '페스티벌';
+          case 'SPORTS':
+            return '스포츠';
+          case 'EXHIBITION':
+            return '전시회';
+          case 'CLASSIC':
+            return '클래식/무용';
+          case 'RANKING':
+            return '랭크';
+          default:
+            return '공연';
+          // 기본값 설정
+        }
+      }
+      var todayOpenElement = "\n                <div class=\"title-wrapper\">\n                    <span class=\"genre-type\">".concat(getKoreanGenreName(performance.genreType), "</span>\n                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                </div>\n                <div class=\"image-info-wrapper\">\n                    <img src=\"").concat(performance.imageUrl, "\">\n                    <div class=\"info-wrapper\">\n                        <div class=\"info-title-wrapper\">\n                            <span class=\"info-title\">\uC7A5\uC18C</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uAE30\uAC04</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uC2DC\uAC04</span>\n                            <span class=\"info-title\">\uAD00\uB78C\uC5F0\uB839</span>\n                            <span class=\"info-title\">\uAC00\uACA9</span>\n                        </div>\n                        <div class=\"info-detail-wrapper\">\n                            <span class=\"info-detail\">").concat(performance.venueName, "</span>\n                            <span class=\"info-detail\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                            <span class=\"info-detail\">").concat(performance.runTime, "\uBD84</span>\n                            <span class=\"info-detail\">").concat(performance.ageGroup, "</span>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"like-wrapper\">\n                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\">\n                        <path d=\"M7.234 3.00391C4.582 3.00391 2 4.83291 2 8.18091C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18091C22 4.82791 19.42 3.01291 16.771 3.01291C14.935 3.01291 13.125 3.87891 12 5.56691C10.87 3.87091 9.065 3.00391 7.234 3.00391ZM7.234 4.50391C9.224 4.50491 10.436 5.85691 11.389 7.20391C11.529 7.40191 11.757 7.51991 12 7.52091C12.243 7.52091 12.471 7.40391 12.612 7.20691C13.567 5.86791 14.802 4.51291 16.771 4.51291C18.567 4.51291 20.5 5.66091 20.5 8.18091C20.5 10.8519 17.619 13.8539 12 19.3079C6.546 14.0229 3.5 10.9189 3.5 8.18091C3.5 7.05591 3.889 6.11191 4.624 5.45391C5.297 4.84991 6.249 4.50391 7.234 4.50391Z\" fill=\"black\"/>\n                    </svg>\n                    <!-- <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\">\n                        <path d=\"M12 5.71987C9.376 1.20287 2 2.52187 2 8.18087C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18087C22 2.50287 14.604 1.23687 12 5.71987Z\" fill=\"#DA3F36\"/>\n                    </svg> -->\n                    <span class=\"like-count\">142,000\uBA85\uC774 \uAD00\uC2EC\uC788\uC74C</span>\n                </div>\n        ");
+      performanceListGridDiv.append(todayOpenElement);
     },
     error: function error(xhr) {
       var perforamceTodayResponse = JSON.parse(xhr.responseText);
       console.log(perforamceTodayResponse.message);
     }
   });
-
-  //[ 할인 중 조회 ]
-  function loadSalePerformances(page) {
-    $.ajax({
-      url: "http://localhost:8080/performances/genre/discount?genre=".concat(genreType, "&page=").concat(page, "&size=5"),
-      type: 'GET',
-      success: function success(PerformanceDiscountResponseDto) {
-        console.log(PerformanceDiscountResponseDto);
-        var performances = PerformanceDiscountResponseDto.data;
-        var performanceListGridDiv = $('.performance-list-grid.sale');
-        performanceListGridDiv.empty();
-        performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <div class=\"image-wrapper\">\n                                <img src=\"").concat(performance.imageUrl, "\">\n                            </div>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            <div class=\"sale-wrapper\">\n                                <p class=\"performance-discount-rate fs-17 black\">").concat(performance.discountRate, "%</p>\n                                <p class=\"performance-price fs-17 black\">56,000\uC6D0</p>\n                            </div>\n                        </div>\n                    ");
-          performanceListGridDiv.append(genreRankElement);
-        });
-      },
-      error: function error(xhr) {
-        var perforamceTodayResponse = JSON.parse(xhr.responseText);
-        console.log(perforamceTodayResponse.message);
-      }
-    });
-  }
-
-  //[ 오픈 예정 조회 ]
-  function loadOpenSoonPerformances(page) {
-    $.ajax({
-      url: "http://localhost:8080/performances/genre/will-be-opened?genre=".concat(genreType, "&page=").concat(page, "&size=5"),
-      type: 'GET',
-      success: function success(PerformanceDiscountResponseDto) {
-        console.log(PerformanceDiscountResponseDto);
-        var performances = PerformanceDiscountResponseDto.data;
-        var performanceListGridDiv = $('.performance-list-grid.open-soon');
-        performanceListGridDiv.empty();
-        performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <div class=\"image-wrapper\">\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
-          performanceListGridDiv.append(genreRankElement);
-        });
-      },
-      error: function error(xhr) {
-        var perforamceTodayResponse = JSON.parse(xhr.responseText);
-        console.log(perforamceTodayResponse.message);
-      }
-    });
-  }
-  loadSalePerformances(1);
-  loadOpenSoonPerformances(1);
-  function setupPagination(containerSelector, loadFunction) {
-    $(containerSelector).on('click', '.page-num', function () {
-      var pageNumber = $(this).text();
-      $(containerSelector + ' > .page-wrapper > .page-num').removeClass('active');
-      $(this).addClass('active');
-      loadFunction(pageNumber);
-    });
-  }
-  setupPagination('.main-today-sale', loadSalePerformances);
-  setupPagination('.main-open-soon', loadOpenSoonPerformances);
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -254,7 +185,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54453" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62327" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

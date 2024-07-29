@@ -1,164 +1,94 @@
-
 $(document).ready(function () {
-    // 현재 페이지의 URL에서 장르 부분을 추출하고 대문자로 변환하는 함수
-    function extractAndTransformGenreType() {
-        const path = window.location.pathname;
-        const genreType = path.split('/')[2]; // '/performances/festival'에서 'festival'을 추출
-        return genreType.toUpperCase(); // 'festival'을 'FESTIVAL'로 변환
-    }
+    // URL에서 performanceId 추출
+    const pathParts = window.location.pathname.split('/');
+    const performanceId = pathParts[pathParts.indexOf('performances') + 1];
 
-    // 장르 타입을 추출하고 대문자로 변환
-    const genreType = extractAndTransformGenreType();
-
-    // genreType에 따라 한글 텍스트를 반환하는 함수
-    function getKoreanGenreName(genreType) {
-        switch (genreType) {
-            case 'MUSICAL':
-                return '뮤지컬';
-            case 'CONCERT':
-                return '콘서트';
-            case 'FESTIVAL':
-                return '페스티벌';
-            case 'SPORTS':
-                return '스포츠';
-            case 'EXHIBITION':
-                return '전시회';
-            case 'CLASSIC':
-                return '클래식/무용';
-            case 'RANKING':
-                return '랭크';
-            default:
-                return '공연'; // 기본값 설정
-        }
-    }
-
-
-    $(".sale-title").text("할인 중인 " + getKoreanGenreName(genreType))
-
-    //[ 장르별 랭킹 조회 ]
     $.ajax({
-        url: `http://localhost:8080/performances/ranking?genre=${genreType}&page=1&size=10`,
+        url: `http://localhost:8080/performances/${performanceId}`,
         type: 'GET',
-        success: function (PerformanceGenreRankResponseDto) {
-            console.log(PerformanceGenreRankResponseDto);
+        success: function (performanceDetailResponseDto) {
+            console.log(performanceDetailResponseDto);
 
-            const performances = PerformanceGenreRankResponseDto.data;
-            const performanceListFlexDiv = $('.performance-list-genre');
+            const performance = performanceDetailResponseDto.data;
+            const performanceListGridDiv = $('.performance-info-wrapper');
 
-            performanceListFlexDiv.empty();
+            performanceListGridDiv.empty();
 
-            performances.forEach((performance, index) => {
-                const genreRankElement = `
-                <div class="performance-info" data-id="${performance.id}">
-                    <div class="image-wrapper">
-                        <span class="rank absolute fs-28">${index + 1}</span>
-                        <img src="${performance.imageUrl}">
-                    </div>
-                    <p class="performance-title fs-17 bold">${performance.title}</p>
-                    
+            function getKoreanGenreName(genreType) {
+                switch (genreType) {
+                    case 'MUSICAL':
+                        return '뮤지컬';
+                    case 'CONCERT':
+                        return '콘서트';
+                    case 'FESTIVAL':
+                        return '페스티벌';
+                    case 'SPORTS':
+                        return '스포츠';
+                    case 'EXHIBITION':
+                        return '전시회';
+                    case 'CLASSIC':
+                        return '클래식/무용';
+                    case 'RANKING':
+                        return '랭크';
+                    default:
+                        return '공연'; // 기본값 설정
+                }
+            }
+
+            const todayOpenElement = `
+                <div class="title-wrapper">
+                    <span class="genre-type">${getKoreanGenreName(performance.genreType)}</span>
+                    <span class="performance-title">${performance.title}</span>
                 </div>
-            `;
-                performanceListFlexDiv.append(genreRankElement);
-
-            });
-
-
+                <div class="image-info-wrapper">
+                    <img src="${performance.imageUrl}">
+                    <div class="info-wrapper">
+                        <div class="info-title-wrapper">
+                            <span class="info-title">장소</span>
+                            <span class="info-title">공연기간</span>
+                            <span class="info-title">공연시간</span>
+                            <span class="info-title">관람연령</span>
+                            <span class="info-title">가격</span>
+                        </div>
+                        <div class="info-detail-wrapper">
+                            <span class="info-detail">${performance.venueName}</span>
+                            <span class="info-detail">${performance.startAt} ~ ${performance.endAt}</span>
+                            <span class="info-detail">${performance.runTime}분</span>
+                            <span class="info-detail">${performance.ageGroup}</span>
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">VIP석</span>
+                                <span class="info-price">159,000원</span>
+                            </div>
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">VIP석</span>
+                                <span class="info-price">159,000원</span>
+                            </div>
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">VIP석</span>
+                                <span class="info-price">159,000원</span>
+                            </div>
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">VIP석</span>
+                                <span class="info-price">159,000원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="like-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <path d="M7.234 3.00391C4.582 3.00391 2 4.83291 2 8.18091C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18091C22 4.82791 19.42 3.01291 16.771 3.01291C14.935 3.01291 13.125 3.87891 12 5.56691C10.87 3.87091 9.065 3.00391 7.234 3.00391ZM7.234 4.50391C9.224 4.50491 10.436 5.85691 11.389 7.20391C11.529 7.40191 11.757 7.51991 12 7.52091C12.243 7.52091 12.471 7.40391 12.612 7.20691C13.567 5.86791 14.802 4.51291 16.771 4.51291C18.567 4.51291 20.5 5.66091 20.5 8.18091C20.5 10.8519 17.619 13.8539 12 19.3079C6.546 14.0229 3.5 10.9189 3.5 8.18091C3.5 7.05591 3.889 6.11191 4.624 5.45391C5.297 4.84991 6.249 4.50391 7.234 4.50391Z" fill="black"/>
+                    </svg>
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5.71987C9.376 1.20287 2 2.52187 2 8.18087C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18087C22 2.50287 14.604 1.23687 12 5.71987Z" fill="#DA3F36"/>
+                    </svg> -->
+                    <span class="like-count">142,000명이 관심있음</span>
+                </div>
+        `;
+    performanceListGridDiv.append(todayOpenElement);
         },
         error: function (xhr) {
             const perforamceTodayResponse = JSON.parse(xhr.responseText);
             console.log(perforamceTodayResponse.message);
         }
     });
-
-    //[ 할인 중 조회 ]
-    function loadSalePerformances(page) {
-        $.ajax({
-            url: `http://localhost:8080/performances/genre/discount?genre=${genreType}&page=${page}&size=5`,
-            type: 'GET',
-            success: function (PerformanceDiscountResponseDto) {
-                console.log(PerformanceDiscountResponseDto);
-
-                const performances = PerformanceDiscountResponseDto.data;
-                const performanceListGridDiv = $('.performance-list-grid.sale');
-
-                performanceListGridDiv.empty();
-
-                performances.forEach((performance, index) => {
-                    const genreRankElement = `
-                        <div class="performance-info" data-id="${performance.id}">
-                            <div class="image-wrapper">
-                                <img src="${performance.imageUrl}">
-                            </div>
-                            <p class="performance-title fs-17 bold">${performance.title}</p>
-                            <p class="venue-location fs-15 medium">${performance.venueName}</p>
-                            <p class="performance-date fs-15 medium">${performance.startAt}</p>
-                            <div class="sale-wrapper">
-                                <p class="performance-discount-rate fs-17 black">${performance.discountRate}%</p>
-                                <p class="performance-price fs-17 black">56,000원</p>
-                            </div>
-                        </div>
-                    `;
-                    performanceListGridDiv.append(genreRankElement);
-                });
-
-            },
-            error: function (xhr) {
-                const perforamceTodayResponse = JSON.parse(xhr.responseText);
-                console.log(perforamceTodayResponse.message);
-            }
-        });
-    }
-
-    //[ 오픈 예정 조회 ]
-    function loadOpenSoonPerformances(page) {
-        $.ajax({
-            url: `http://localhost:8080/performances/genre/will-be-opened?genre=${genreType}&page=${page}&size=5`,
-            type: 'GET',
-            success: function (PerformanceDiscountResponseDto) {
-                console.log(PerformanceDiscountResponseDto);
-
-                const performances = PerformanceDiscountResponseDto.data;
-                const performanceListGridDiv = $('.performance-list-grid.open-soon');
-
-                performanceListGridDiv.empty();
-
-                performances.forEach((performance, index) => {
-                    const genreRankElement = `
-                            <div class="performance-info" data-id="${performance.id}">
-                                <div class="image-wrapper">
-                                    <img src="${performance.imageUrl}">
-                                </div>
-                                <p class="performance-title fs-17 bold">${performance.title}</p>
-                                <p class="venue-location fs-15 medium">${performance.venueName}</p>
-                                <p class="performance-date fs-15 medium">${performance.startAt}</p>
-                            </div>
-                        `;
-                    performanceListGridDiv.append(genreRankElement);
-                });
-
-            },
-            error: function (xhr) {
-                const perforamceTodayResponse = JSON.parse(xhr.responseText);
-                console.log(perforamceTodayResponse.message);
-            }
-        });
-    }
-
-    loadSalePerformances(1)
-    loadOpenSoonPerformances(1)
-
-    function setupPagination(containerSelector, loadFunction) {
-        $(containerSelector).on('click', '.page-num', function () {
-            var pageNumber = $(this).text();
-
-            $(containerSelector + ' > .page-wrapper > .page-num').removeClass('active');
-            $(this).addClass('active');
-
-            loadFunction(pageNumber);
-        });
-    }
-
-    setupPagination('.main-today-sale', loadSalePerformances);
-    setupPagination('.main-open-soon', loadOpenSoonPerformances);
-
 });

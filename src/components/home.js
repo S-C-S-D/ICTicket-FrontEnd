@@ -53,10 +53,12 @@ $(document).ready(function () {
                     const openTime = performance.openAt.split('-').pop();
                     const todayOpenElement = `
                             <div class="performance-info" data-id="${performance.id}">
-                                <div class="image-wrapper">
-                                    <span class="open-time absolute fs-28">${openTime}</span>
-                                    <img src="${performance.imageUrl}">
-                                </div>
+                                <a href="/performances/${performance.id}">
+                                    <div class="image-wrapper">
+                                        <span class="open-time absolute fs-28">${openTime}</span>
+                                        <img src="${performance.imageUrl}">
+                                    </div>
+                                </a
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
                                 <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>
@@ -88,9 +90,11 @@ $(document).ready(function () {
                 performances.forEach(performance => {
                     const todayOpenElement = `
                             <div class="performance-info" data-id="${performance.id}">
-                                <div class="image-wrapper">
-                                    <img src="${performance.imageUrl}">
-                                </div>
+                                <a href="/performances/${performance.id}">
+                                    <div class="image-wrapper">
+                                        <img src="${performance.imageUrl}">
+                                    </div>
+                                </a>
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
                                 <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>
@@ -122,10 +126,12 @@ $(document).ready(function () {
                 performances.forEach((performance, index) => {
                         const genreRankElement = `
                                 <div class="performance-info" data-id="${performance.id}">
-                                    <div class="image-wrapper">
-                                        <span class="rank absolute fs-28">${index + 1}</span>
-                                        <img src="${performance.imageUrl}">
-                                    </div>
+                                    <a href="/performances/${performance.id}">
+                                        <div class="image-wrapper">
+                                            <span class="rank absolute fs-28">${index + 1}</span>
+                                            <img src="${performance.imageUrl}">
+                                        </div>
+                                    </a>
                                     <p class="performance-title fs-17 bold">${performance.title}</p>
                                     <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                     <p class="performance-date fs-15 medium">${performance.startAt}</p>

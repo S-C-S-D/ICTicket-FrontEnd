@@ -125,9 +125,11 @@ $(document).ready(function () {
   // nav-option 클릭 이벤트 핸들러
   $('.nav-bar').on('click', '.nav-option', function () {
     var genreType = $(this).data('type');
-    // console.log(genreType);
-    if (genreType != "home") {
-      window.location.href = "/performances/".concat(genreType); // 절대 경로 사용
+    if (genreType != "home" && genreType != "rank-all") {
+      window.location.href = "/performances/genre/".concat(genreType); // 절대 경로 사용
+    } else if (genreType === "rank-all") {
+      console.log("test");
+      window.location.href = "/performances/".concat(genreType);
     } else {
       window.location.href = "/home";
     }
@@ -165,7 +167,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54453" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62327" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
