@@ -1,0 +1,120 @@
+body,
+html {
+    margin: 0;
+    font-size: 0px;
+    height: 100vh;
+}
+.login {
+    height: 100vh;
+}
+
+.logo-01-img {
+    width: 340px;
+    margin-bottom: 70px;
+}
+
+.logo-02-img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+#navigateButton {
+    cursor: pointer;
+    color: #242424;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+#navigateButton:hover {
+    cursor: pointer;
+    color: #3A5AAD;
+}
+
+#loginForm {
+    display: flex;   
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+.footer.login-page {
+    background-color: #f7f7f7;
+    margin-top: 0px;
+    width: 100%;
+}
+
+.footer-wrapper.login-page {
+    margin-top: 0px;
+}
+
+form {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    width: 510px;
+    height: 54px;
+    border-radius: 20px;
+    background-color: #3A5AAD;
+    font-size: 18px;
+    color: white;
+    border: none; /* 테두리 제거 */
+    box-shadow: none; /* 그림자 제거 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 390px;
+    height: 52px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    background-color: #F8F8F8;
+}
+
+.wrapper-label-input {
+    width: 500px;
+    background-color: #F8F8F8;
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
+    margin-bottom: 24px;
+    
+}
+
+.wrapper-label-input .label{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300;
+    width: 100px;
+    text-align: center;
+}
+
+.wrapper-label-input.focused {
+    box-shadow: 0 0 0 1px #3A5AAD; /* 포커스 시 검은색 테두리 효과 */
+    background-color: white;
+    transition: background-color 0.3s; /* 부드러운 전환 효과를 위해 추가 */
+}
+
+input:focus {
+    outline: none; /* 또는 outline: 2px solid black; */
+    background-color: white;
+    transition: background-color 0.3s; /* 부드러운 전환 효과를 위해 추가 */
+}
+
+.page-title{
+    color: white;
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 80px;
+}
+
+/*# sourceMappingURL=/login.56dddd08.css.map */

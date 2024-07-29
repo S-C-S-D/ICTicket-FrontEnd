@@ -1,32 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICTicket</title>
+    <title>ICticket</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../src/assets/css/header.css">
     <link rel="stylesheet" href="../src/assets/css/footer.css">
     <link rel="stylesheet" href="../src/assets/css/component.css">
-    <link rel="stylesheet" href="../src/assets/css/rank-all.css">
+    <link rel="stylesheet" href="../src/assets/css/login.css">
     <script src="../src/components/nav-bar.js"></script>
-    <script src="../src/components/rank-all.js"></script>
     <script src="../src/components/login.js"></script>
 </head>
-
-<style>
-    body,
-    html {
-        height: 100%;
-        margin: 0;
-        font-size: 0px;
-        color: #242424;
-    }
-</style>
-
 <body>
-    <div class="rank-all">
+    <div class="login">
         <div class="inner">
             <!-- [00_main-header 최상단 영역] -->
             <div class="header">
@@ -44,9 +31,10 @@
                     </div>
                 </div>
             </div>
+            
 
             <div class="nav-bar">
-                <div class="nav-option" data-type="home">홈</div>
+                <div class="nav-option active" data-type="home">홈</div>
                 <div class="border"></div>
                 <div class="nav-option" data-type="concert">콘서트</div>
                 <div class="border"></div>
@@ -66,100 +54,54 @@
             </div>
         </div>
 
-        <div class="inner">
-
-            <div class="table-wrapper">
-                <div class="column-wrapper">
-                    <div class="column rank">랭킹</div>
-                    <div class="column title">공연명</div>
-                    <div class="column location">기간/장소</div>
-                    <div class="column reserve">예매하기</div>
+        <div class="inner center" style="margin-top: 200px;">
+            <img class="logo-02-img"src="../src/assets/images/img_logo_02.png">
+            <img class="logo-01-img" src="../src/assets/images/img_logo_01.png">
+            
+            <form id="loginForm">
+                <div class="wrapper-label-input">
+                    <div class="label">이메일</div>
+                    <input type="email" id="email" name="email" placeholder="email" autocomplete="off" required>
                 </div>
-                <div class="row-table-wrapper">
-                <div class="row-wrapper">
-                    <div class="row rank" data-rank="1">1</div>
-                    <div class="row title" data-id="">
-                        <img class="performance-image" src="https://ifh.cc/g/lcWRWx.png">
-                        <div class="info-wrapper">
-                            <span class="performance-genre">뮤지컬</span>
-                            <span class="performance-title">아이유콘서트는 너무 멋있다.</span>
-                        </div>
-                    </div>
-                    <div class="row location">
-                        <div class="location-wrapper">
-                            <span class="performance-date">2024-08-24 ~ 2024-08-25</span>
-                            <span class="performance-venue">잠실종합운동장</span>
-                        </div>
-                    </div>
-                    <div class="row reserve">
-                        <div id="reserveBtn" data-id="">
-                            예매하기
-                        </div>
-                    </div>
+    
+                <div class="wrapper-label-input">
+                    <div class="label">비밀번호</div>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
-                <div class="row-wrapper">
-                    <div class="row rank" data-rank="2">
-                        2
-                    </div>
-                    <div class="row title">공연명</div>
-                    <div class="row location">기간/장소</div>
-                    <div class="row reserve">예매하기</div>
-                </div>
-
-                <div class="row-wrapper">
-                    <div class="row rank" data-rank="3">
-                        3
-                    </div>
-                    <div class="row title">공연명</div>
-                    <div class="row location">기간/장소</div>
-                    <div class="row reserve">예매하기</div>
-                </div>
-                <div class="row-wrapper">
-                    <div class="row rank" data-rank="4">
-                        4
-                    </div>
-                    <div class="row title">공연명</div>
-                    <div class="row location">기간/장소</div>
-                    <div class="row reserve">예매하기</div>
-                </div>
-            </div>
-            </div>
-            <div class="page-wrapper">
-                <div class="page-num active">1</div>
-                <div class="page-num">2</div>
-                <div class="page-num">3</div>
-                <div class="page-num">4</div>
-                <div class="page-num">5</div>
-                <div class="page-num">6</div>
-                <div class="page-num">7</div>
-                <div class="page-num">8</div>
-                <div class="page-num">9</div>
-                <div class="page-num">10</div>
-            </div>
+    
+                <button type="submit">로그인</button>
+            </form>
+    
+            <p id="navigateButton">회원가입 하러 가기</p>
         </div>
-    </div>
 
-    <div class="footer">
-        <div class="footer-wrapper">
-            <div class="footer-nav-wrapper">
-                <div class="footer-item-wrapper">
-                    <div class="footer-item">
-                        <a target="_blank" href="https://github.com/S-C-S-D">
-                            회사소개
-                        </a>
+
+
+
+
+
+
+        <div class="footer login-page">
+            <div class="footer-wrapper login-page">
+                <div class="footer-nav-wrapper">
+                    <div class="footer-item-wrapper">
+                        <div class="footer-item">
+                            <a target="_blank" href="https://github.com/S-C-S-D">
+                                회사소개
+                            </a>
+                        </div>
+                        <div class="border"></div>
+                        <div class="footer-item">
+                            <a target="_blank" href="https://teamsparta.notion.site/6-972bd15311964acaa64d152068d2fd06">
+                                기획방법
+                            </a>
+                        </div>
+                        <div class="border"></div>
+                        <div class="footer-item">에러처리</div>
                     </div>
-                    <div class="border"></div>
-                    <div class="footer-item">
-                        <a target="_blank" href="https://teamsparta.notion.site/6-972bd15311964acaa64d152068d2fd06">
-                            기획방법
-                        </a>
-                    </div>
-                    <div class="border"></div>
-                    <div class="footer-item">에러처리</div>
+
                 </div>
-
             </div>
-        </div>
             <div class="footer-nav-wrapper" style="margin-top: 20px;">
                 <div class="footer-item-wrapper" style="gap: 70px;">
                     <div class="footer-info-item">
@@ -204,16 +146,15 @@
                 <div class="footer-item-wrapper" style="gap: 70px;">
                     <div class="footer-info-item">
                         <div class="info-description">
-                            ICTicket은 상업적 목적이 아닌, 백엔드 개발자를 꿈꾸는 5인의 스터디를 위해 제작된 웹사이트입니다. 사용된 모든 이미지는 인터파크 티켓(Interpark Ticket)의 저작권 보호를 받으며, 무단 도용이나 상업적 활용 시 법적 제재를 받을 수 있습니다. 이 웹사이트는 순수히 학습과 연구를 목적으로 하여 제작되었으니, "백엔드 개발을 향한 노력의 결실"로 봐주시면 감사하겠습니다.
+                            ICTicket은 상업적 목적이 아닌, 백엔드 개발자를 꿈꾸는 5인의 스터디를 위해 제작된 웹사이트입니다. 사용된 모든 이미지는 인터파크 티켓(Interpark
+                            Ticket)의 저작권 보호를 받으며, 무단 도용이나 상업적 활용 시 법적 제재를 받을 수 있습니다. 이 웹사이트는 순수히 학습과 연구를 목적으로 하여 제작되었으니,
+                            "백엔드 개발을 향한 노력의 결실"로 봐주시면 감사하겠습니다.
                             백엔드를 공부하는 모든 개발자들이 포기하지 말고 열심히 나아갔으면 좋겠습니다.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </body>
-
 </html>

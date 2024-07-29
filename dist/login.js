@@ -117,112 +117,58 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../src/components/main-rank-swiper.js":[function(require,module,exports) {
-$(document).ready(function () {
-  var $container = $('.main-genre-ranking > .slider-container-rank > .slider-wrapper');
-  var $btnLeft = $('.main-genre-ranking > .slider-container-rank > .nav-button.left');
-  var $btnRight = $('.main-genre-ranking > .slider-container-rank > .nav-button.right');
-  var $dotsContainer = $('.dots-container');
-  var currentIndex = 0;
-  var itemsToShow = 5;
-  var gap = parseInt($('.performance-list-genre').css('gap')) || 0;
-  var updateSliderPosition = function updateSliderPosition() {
-    var $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
-    var itemWidth = $items.first().outerWidth() + gap;
-    $container.css('transform', "translateX(-".concat(currentIndex * itemWidth, "px)"));
-    updateButtonStates();
-    updateDots();
+})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+  return bundleURL;
+}
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+  return '/';
+}
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
   };
-  var updateButtonStates = function updateButtonStates() {
-    var $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
-    $btnLeft.prop('disabled', currentIndex <= 0);
-    $btnRight.prop('disabled', currentIndex >= $items.length - itemsToShow);
-  };
-  var createDots = function createDots() {
-    $dotsContainer.empty(); // 기존 dot 제거
-    var $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
-    var totalDots = Math.ceil($items.length / itemsToShow);
-    for (var i = 0; i < totalDots; i++) {
-      var $dot = $('<div>').addClass('dot-rank').data('index', i);
-      if (i === 0) $dot.addClass('active');
-      $dotsContainer.append($dot);
-    }
-    // 추가 dot 생성
-    var additionalDots = $items.length - 4 - totalDots;
-    for (var _i = 0; _i < additionalDots; _i++) {
-      var $extraDot = $('<div>').addClass('dot-rank').data('index', totalDots + _i);
-      $dotsContainer.append($extraDot);
-    }
-  };
-  var updateDots = function updateDots() {
-    $('.dot-rank').removeClass('active');
-    $('.dot-rank').eq(currentIndex).addClass('active');
-  };
-  $dotsContainer.off('click', '.dot-rank'); // 기존 이벤트 핸들러 제거
-  $dotsContainer.on('click', '.dot-rank', function () {
-    var index = $(this).data('index');
-    if (index !== undefined) {
-      currentIndex = index;
-      updateSliderPosition();
-    }
-  });
-  $btnRight.off('click'); // 기존 이벤트 핸들러 제거
-  $btnRight.on('click', function () {
-    var $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
-    if (currentIndex < $items.length - itemsToShow) {
-      currentIndex++;
-      updateSliderPosition();
-    }
-  });
-  $btnLeft.off('click'); // 기존 이벤트 핸들러 제거
-  $btnLeft.on('click', function () {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateSliderPosition();
-    }
-  });
-  var startX,
-    isDragging = false;
-  $container.off('mousedown'); // 기존 이벤트 핸들러 제거
-  $container.on('mousedown', function (e) {
-    startX = e.pageX;
-    isDragging = true;
-    e.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
-  });
-  $(document).off('mouseup'); // 기존 이벤트 핸들러 제거
-  $(document).on('mouseup', function (e) {
-    if (isDragging) {
-      isDragging = false;
-      // 드래그 거리가 50px 이상일 때만 이동
-      var endX = e.pageX;
-      var diff = startX - endX;
-      if (diff > 50 && currentIndex < $container.find('.performance-info').length - itemsToShow) {
-        currentIndex++;
-      } else if (diff < -50 && currentIndex > 0) {
-        currentIndex--;
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
       }
-      updateSliderPosition(); // 마우스 버튼을 놓았을 때 슬라이드 상태 업데이트
-      e.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
     }
-  });
-  $container.off('mousemove'); // 기존 이벤트 핸들러 제거
-  $container.on('mousemove', function (e) {
-    if (isDragging) {
-      e.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
-    }
-  });
-
-  // 초기화 작업
-  createDots();
-  updateSliderPosition();
-
-  // 윈도우 리사이즈 시 슬라이더 재초기화
-  $(window).off('resize'); // 기존 이벤트 핸들러 제거
-  $(window).on('resize', function () {
-    updateSliderPosition();
-  });
-});
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+    cssTimeout = null;
+  }, 50);
+}
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -391,5 +337,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/main-rank-swiper.js"], null)
-//# sourceMappingURL=/main-rank-swiper.98f54644.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/login.js.map

@@ -6,7 +6,7 @@ const app = express();
   const port = 3000;
 
 // Parcel 번들러 설정
-const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-rank-all.html'], {
+const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-rank-all.html', 'public/login.html'], {
   outDir: './dist', // 번들된 파일들이 저장될 디렉토리
   watch: true, // 파일 변경 감지
 });
@@ -20,6 +20,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // 기본 루트 경로 요청 처리
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'home.html'));
+});
+
+app.get('/performances/rank-all', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'performance-rank-all.html'));
+  });
+
+app.get('/login', (req, res) => {
+res.sendFile(path.join(__dirname, 'dist', 'login.html'));
 });
 
 // /login 경로 요청 처리
@@ -36,10 +44,6 @@ app.get('/signup', (req, res) => {
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
-
-app.get('/performances/rank-all', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'performance-rank-all.html'));
-  });
 
 // /boards/:boardId 경로 요청 처리
 app.get('/performances/:genreType', (req, res) => {
