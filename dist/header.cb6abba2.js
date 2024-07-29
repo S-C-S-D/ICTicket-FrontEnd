@@ -117,117 +117,44 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../src/components/performance.js":[function(require,module,exports) {
+})({"../src/components/header.js":[function(require,module,exports) {
 $(document).ready(function () {
-  // 현재 페이지의 URL에서 장르 부분을 추출하고 대문자로 변환하는 함수
-  function extractAndTransformGenreType() {
-    var path = window.location.pathname;
-    var genreType = path.split('/')[2]; // '/performances/festival'에서 'festival'을 추출
-    return genreType.toUpperCase(); // 'festival'을 'FESTIVAL'로 변환
+  var authToken = localStorage.getItem('Authorization');
+  var refreshToken = localStorage.getItem('RefreshToken');
+  if (authToken && refreshToken) {
+    $('#loginOption').html("\n            <div class=\"text-wrapper login-success\">\n                <div class=\"logout\">\n                    <span id=\"logOut\" class=\"fs-15 medium\">\uB85C\uADF8\uC544\uC6C3</span>\n                </div>\n                <div class=\"mypage\">\n                    <span id=\"myPage\" class=\"fs-15 medium\">\uB9C8\uC774\uD398\uC774\uC9C0</span>\n                </div>\n            </div>\n        ");
+  } else {
+    $('#loginOption').html("\n            <div class=\"text-wrapper\">\n                <div class=\"login\">\n                    <span id=\"login\" class=\"fs-15 medium\">\uB85C\uADF8\uC778</span>\n                </div>\n                <div class=\"signup\">\n                    <span id=\"signUp\" class=\"fs-15 medium\">\uD68C\uC6D0\uAC00\uC785</span>\n                </div>\n            </div>\n        ");
   }
-
-  // 장르 타입을 추출하고 대문자로 변환
-  var genreType = extractAndTransformGenreType();
-
-  // genreType에 따라 한글 텍스트를 반환하는 함수
-  function getKoreanGenreName(genreType) {
-    switch (genreType) {
-      case 'MUSICAL':
-        return '뮤지컬';
-      case 'CONCERT':
-        return '콘서트';
-      case 'FESTIVAL':
-        return '페스티벌';
-      case 'SPORTS':
-        return '스포츠';
-      case 'EXHIBITION':
-        return '전시회';
-      case 'CLASSIC':
-        return '클래식/무용';
-      case 'RANKING':
-        return '랭크';
-      default:
-        return '공연';
-      // 기본값 설정
-    }
-  }
-  $(".sale-title").text("할인 중인 " + getKoreanGenreName(genreType));
-
-  //[ 장르별 랭킹 조회 ]
-  $.ajax({
-    url: "http://localhost:8080/performances/ranking?genre=".concat(genreType, "&page=1&size=10"),
-    type: 'GET',
-    success: function success(PerformanceGenreRankResponseDto) {
-      console.log(PerformanceGenreRankResponseDto);
-      var performances = PerformanceGenreRankResponseDto.data;
-      var performanceListFlexDiv = $('.performance-list-genre');
-      performanceListFlexDiv.empty();
-      performances.forEach(function (performance, index) {
-        var genreRankElement = "\n                <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                    <div class=\"image-wrapper\">\n                        <span class=\"rank absolute fs-28\">").concat(index + 1, "</span>\n                        <img src=\"").concat(performance.imageUrl, "\">\n                    </div>\n                    <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                    \n                </div>\n            ");
-        performanceListFlexDiv.append(genreRankElement);
-      });
-    },
-    error: function error(xhr) {
-      var perforamceTodayResponse = JSON.parse(xhr.responseText);
-      console.log(perforamceTodayResponse.message);
+  $('input').focus(function () {
+    $(this).parent().addClass('focused');
+  }).blur(function () {
+    $(this).parent().removeClass('focused');
+  });
+  $('#login').on('click', function () {
+    if (true) {
+      window.location.href = "/login";
+    } else {
+      window.location.href = "/home";
     }
   });
-
-  //[ 할인 중 조회 ]
-  function loadSalePerformances(page) {
-    $.ajax({
-      url: "http://localhost:8080/performances/genre/discount?genre=".concat(genreType, "&page=").concat(page, "&size=5"),
-      type: 'GET',
-      success: function success(PerformanceDiscountResponseDto) {
-        console.log(PerformanceDiscountResponseDto);
-        var performances = PerformanceDiscountResponseDto.data;
-        var performanceListGridDiv = $('.performance-list-grid.sale');
-        performanceListGridDiv.empty();
-        performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <div class=\"image-wrapper\">\n                                <img src=\"").concat(performance.imageUrl, "\">\n                            </div>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            <div class=\"sale-wrapper\">\n                                <p class=\"performance-discount-rate fs-17 black\">").concat(performance.discountRate, "%</p>\n                                <p class=\"performance-price fs-17 black\">56,000\uC6D0</p>\n                            </div>\n                        </div>\n                    ");
-          performanceListGridDiv.append(genreRankElement);
-        });
-      },
-      error: function error(xhr) {
-        var perforamceTodayResponse = JSON.parse(xhr.responseText);
-        console.log(perforamceTodayResponse.message);
+  $('#signUp').on('click', function () {
+    console.log('회원가입 클릭');
+  });
+  $('#logOut').on('click', function () {
+    if (authToken && refreshToken) {
+      if (confirm("로그아웃 하시겠습니까?")) {
+        localStorage.removeItem('Authorization');
+        localStorage.removeItem('RefreshToken');
+        window.location.href = '/home'; // 페이지 이동
       }
-    });
-  }
-
-  //[ 오픈 예정 조회 ]
-  function loadOpenSoonPerformances(page) {
-    $.ajax({
-      url: "http://localhost:8080/performances/genre/will-be-opened?genre=".concat(genreType, "&page=").concat(page, "&size=5"),
-      type: 'GET',
-      success: function success(PerformanceDiscountResponseDto) {
-        console.log(PerformanceDiscountResponseDto);
-        var performances = PerformanceDiscountResponseDto.data;
-        var performanceListGridDiv = $('.performance-list-grid.open-soon');
-        performanceListGridDiv.empty();
-        performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <div class=\"image-wrapper\">\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
-          performanceListGridDiv.append(genreRankElement);
-        });
-      },
-      error: function error(xhr) {
-        var perforamceTodayResponse = JSON.parse(xhr.responseText);
-        console.log(perforamceTodayResponse.message);
-      }
-    });
-  }
-  loadSalePerformances(1);
-  loadOpenSoonPerformances(1);
-  function setupPagination(containerSelector, loadFunction) {
-    $(containerSelector).on('click', '.page-num', function () {
-      var pageNumber = $(this).text();
-      $(containerSelector + ' > .page-wrapper > .page-num').removeClass('active');
-      $(this).addClass('active');
-      loadFunction(pageNumber);
-    });
-  }
-  setupPagination('.main-today-sale', loadSalePerformances);
-  setupPagination('.main-open-soon', loadOpenSoonPerformances);
+    } else {
+      alert("잘못된 접근입니다.");
+    }
+  });
+  $('#myPage').on('click', function () {
+    console.log('마이페이지 클릭');
+  });
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -398,5 +325,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/performance.js"], null)
-//# sourceMappingURL=/performance.bd0ebeec.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/header.js"], null)
+//# sourceMappingURL=/header.cb6abba2.js.map

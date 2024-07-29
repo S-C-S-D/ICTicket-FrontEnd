@@ -124,14 +124,48 @@ $(document).ready(function () {
   }).blur(function () {
     $(this).parent().removeClass('focused');
   });
-  $('#login').on('click', function () {
-    console.log("test");
-    // console.log(genreType);
-    if (true) {
-      window.location.href = "/login"; // 절대 경로 사용
-    } else {
-      window.location.href = "/home";
-    }
+
+  // [ 로그인 ]
+  $('#loginForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 폼 제출 동작을 막음
+
+    var requestData = {
+      password: $('#password').val(),
+      email: $('#email').val()
+    };
+    $.ajax({
+      url: 'http://localhost:8080/users/login',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(requestData),
+      xhrFields: {
+        withCredentials: true // 필요 시 추가
+      },
+      crossDomain: true,
+      success: function success(response, status, xhr) {
+        if (xhr.status === 200) {
+          alert(response.body.message);
+
+          // 토큰 저장
+          var accessToken = xhr.getResponseHeader('Authorization');
+          var refreshToken = xhr.getResponseHeader('RefreshToken');
+          localStorage.setItem('Authorization', accessToken);
+          localStorage.setItem('RefreshToken', refreshToken);
+
+          // home.html로 이동
+          window.location.href = 'home';
+        }
+      },
+      error: function error(jqXHR) {
+        var response = jqXHR.responseJSON;
+        if (response && response.message) {
+          alert(response.message);
+          console.error('Error:', response.message);
+        } else {
+          alert('로그인 중 오류가 발생했습니다.');
+        }
+      }
+    });
   });
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -159,7 +193,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60855" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53776" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

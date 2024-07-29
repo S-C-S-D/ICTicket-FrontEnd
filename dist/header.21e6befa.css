@@ -10,8 +10,7 @@
     gap: 40px;
 }
 
-.text-wrapper #login,
-#signUp {
+.text-wrapper #login, #signUp, #logOut, #myPage {
     cursor: pointer;
 }
 
