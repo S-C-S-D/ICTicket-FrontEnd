@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../src/assets/css/component.css">
     <link rel="stylesheet" href="../src/assets/css/rank-all.css">
     <script src="../src/components/nav-bar.js"></script>
+    <script src="../src/components/rank-all.js"></script>
 </head>
 
 <style>
@@ -44,7 +45,7 @@
             </div>
 
             <div class="nav-bar">
-                <div class="nav-option active" data-type="home">홈</div>
+                <div class="nav-option" data-type="home">홈</div>
                 <div class="border"></div>
                 <div class="nav-option" data-type="concert">콘서트</div>
                 <div class="border"></div>
@@ -65,14 +66,78 @@
         </div>
 
         <div class="inner">
-            <div class="column-wrapper">
-                <div class="column rank">랭킹</div>
-                <div class="column title">공연명</div>
-                <div class="column location">기간/장소</div>
-                <div class="column reserve">예매하기</div>
+
+            <div class="table-wrapper">
+                <div class="column-wrapper">
+                    <div class="column rank">랭킹</div>
+                    <div class="column title">공연명</div>
+                    <div class="column location">기간/장소</div>
+                    <div class="column reserve">예매하기</div>
+                </div>
+                <div class="row-table-wrapper">
+                <div class="row-wrapper">
+                    <div class="row rank" data-rank="1">1</div>
+                    <div class="row title" data-id="">
+                        <img class="performance-image" src="https://ifh.cc/g/lcWRWx.png">
+                        <div class="info-wrapper">
+                            <span class="performance-genre">뮤지컬</span>
+                            <span class="performance-title">아이유콘서트는 너무 멋있다.</span>
+                        </div>
+                    </div>
+                    <div class="row location">
+                        <div class="location-wrapper">
+                            <span class="performance-date">2024-08-24 ~ 2024-08-25</span>
+                            <span class="performance-venue">잠실종합운동장</span>
+                        </div>
+                    </div>
+                    <div class="row reserve">
+                        <div id="reserveBtn" data-id="">
+                            예매하기
+                        </div>
+                    </div>
+                </div>
+                <div class="row-wrapper">
+                    <div class="row rank" data-rank="2">
+                        2
+                    </div>
+                    <div class="row title">공연명</div>
+                    <div class="row location">기간/장소</div>
+                    <div class="row reserve">예매하기</div>
+                </div>
+
+                <div class="row-wrapper">
+                    <div class="row rank" data-rank="3">
+                        3
+                    </div>
+                    <div class="row title">공연명</div>
+                    <div class="row location">기간/장소</div>
+                    <div class="row reserve">예매하기</div>
+                </div>
+                <div class="row-wrapper">
+                    <div class="row rank" data-rank="4">
+                        4
+                    </div>
+                    <div class="row title">공연명</div>
+                    <div class="row location">기간/장소</div>
+                    <div class="row reserve">예매하기</div>
+                </div>
+            </div>
+            </div>
+            <div class="page-wrapper">
+                <div class="page-num active">1</div>
+                <div class="page-num">2</div>
+                <div class="page-num">3</div>
+                <div class="page-num">4</div>
+                <div class="page-num">5</div>
+                <div class="page-num">6</div>
+                <div class="page-num">7</div>
+                <div class="page-num">8</div>
+                <div class="page-num">9</div>
+                <div class="page-num">10</div>
             </div>
         </div>
     </div>
+
     <div class="footer">
         <div class="footer-wrapper">
             <div class="footer-nav-wrapper">

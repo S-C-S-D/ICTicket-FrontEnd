@@ -141,6 +141,7 @@
 .page-wrapper {
     display: flex;
     gap: 20px;
+    justify-content: center;
 }
 
 .page-wrapper .page-num {

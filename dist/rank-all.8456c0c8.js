@@ -117,62 +117,65 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-  return '/';
-}
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
+})({"../src/components/rank-all.js":[function(require,module,exports) {
+$(document).ready(function () {
+  //[ 할인 중 조회 ]
+  function loadRankAllPerformances(page) {
+    $.ajax({
+      url: "http://localhost:8080/performances/rank-all?page=".concat(page, "&size=10"),
+      type: 'GET',
+      success: function success(PerformanceRankResponseDto) {
+        console.log(PerformanceRankResponseDto);
+        var performances = PerformanceRankResponseDto.data;
+        var performanceListGridDiv = $('.row-table-wrapper');
+        performanceListGridDiv.empty();
+        console.log("page = " + page);
+        performances.forEach(function (performance, index) {
+          console.log("index = " + index);
+          function getKoreanGenreName(genreType) {
+            switch (genreType) {
+              case 'MUSICAL':
+                return '뮤지컬';
+              case 'CONCERT':
+                return '콘서트';
+              case 'FESTIVAL':
+                return '페스티벌';
+              case 'SPORTS':
+                return '스포츠';
+              case 'EXHIBITION':
+                return '전시회';
+              case 'CLASSIC':
+                return '클래식/무용';
+              case 'RANKING':
+                return '랭크';
+              default:
+                return '공연';
+              // 기본값 설정
+            }
+          }
+          var genreRankElement = "\n                        <div class=\"row-wrapper\">\n                            <div class=\"row rank\" data-rank=\"".concat(page * 10 - (9 - index), "\">").concat(page * 10 - (9 - index), "</div>\n                            <div class=\"row title\" data-id=\"").concat(performance.id, "\">\n                                <img class=\"performance-image\" src=\"").concat(performance.imageUrl, "\">\n                                <div class=\"info-wrapper\">\n                                    <span class=\"performance-genre\">").concat(getKoreanGenreName(performance.genreType), "</span>\n                                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                                </div>\n                            </div>\n                            <div class=\"row location\">\n                                <div class=\"location-wrapper\">\n                                    <span class=\"performance-date\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                                    <span class=\"performance-venue\">").concat(performance.venueName, "</span>\n                                </div>\n                            </div>\n                            <div class=\"row reserve\">\n                                <div id=\"reserveBtn\" data-id=\"").concat(performance.id, "\">\n                                    \uC608\uB9E4\uD558\uAE30\n                                </div>\n                            </div>\n                        </div>\n                    ");
+          performanceListGridDiv.append(genreRankElement);
+        });
+        window.scrollTo(0, 0);
+      },
+      error: function error(xhr) {
+        var perforamceTodayResponse = JSON.parse(xhr.responseText);
+        console.log(perforamceTodayResponse.message);
       }
-    }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../src/assets/css/component.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+    });
+  }
+  loadRankAllPerformances(1);
+  function setupPagination(containerSelector, loadFunction) {
+    $(containerSelector).on('click', '.page-num', function () {
+      var pageNumber = $(this).text();
+      $(containerSelector + ' > .page-wrapper > .page-num').removeClass('active');
+      $(this).addClass('active');
+      loadFunction(pageNumber);
+    });
+  }
+  setupPagination('.inner', loadRankAllPerformances);
+});
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -341,5 +344,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/component.741b3053.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/rank-all.js"], null)
+//# sourceMappingURL=/rank-all.8456c0c8.js.map
