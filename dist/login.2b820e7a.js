@@ -158,14 +158,18 @@ $(document).ready(function () {
       },
       error: function error(jqXHR) {
         var response = jqXHR.responseJSON;
-        if (response && response.message) {
-          alert(response.message);
-          console.error('Error:', response.message);
+        if (response != null) {
+          alert(response.body.message);
         } else {
           alert('로그인 중 오류가 발생했습니다.');
         }
       }
     });
+  });
+
+  //회원가입 페이지로 이동
+  $('#navigateButton').click(function () {
+    window.location.href = '/signup';
   });
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -193,7 +197,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53776" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54453" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

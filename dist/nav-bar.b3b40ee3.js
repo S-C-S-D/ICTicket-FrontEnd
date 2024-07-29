@@ -121,7 +121,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 $(document).ready(function () {
   // 현재 URL에서 genreType 추출
   var currentPath = window.location.pathname.split('/').pop();
-  console.log(currentPath);
 
   // nav-option 클릭 이벤트 핸들러
   $('.nav-bar').on('click', '.nav-option', function () {
@@ -166,7 +165,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53776" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54453" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

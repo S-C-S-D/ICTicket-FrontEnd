@@ -6,7 +6,7 @@ const app = express();
   const port = 3000;
 
 // Parcel 번들러 설정
-const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-rank-all.html', 'public/login.html'], {
+const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-rank-all.html', 'public/login.html', 'public/signup.html'], {
   outDir: './dist', // 번들된 파일들이 저장될 디렉토리
   watch: true, // 파일 변경 감지
 });
@@ -37,7 +37,7 @@ app.get('/performances', (req, res) => {
 
 // /signup 경로 요청 처리
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'signUp.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'signup.html'));
 });
 
 // /signup 경로 요청 처리

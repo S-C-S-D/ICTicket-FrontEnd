@@ -1,7 +1,6 @@
 $(document).ready(function() {
     // 현재 URL에서 genreType 추출
     const currentPath = window.location.pathname.split('/').pop();
-    console.log(currentPath)
     
     // nav-option 클릭 이벤트 핸들러
     $('.nav-bar').on('click', '.nav-option', function() {

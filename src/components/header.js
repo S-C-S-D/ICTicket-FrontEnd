@@ -45,6 +45,7 @@ $(document).ready(function () {
 
     $('#signUp').on('click', function() {
         console.log('회원가입 클릭');
+        window.location.href = '/signup';
     });
 
     $('#logOut').on('click', function() {

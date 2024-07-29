@@ -40,13 +40,17 @@ $(document).ready(function() {
             },
             error: function (jqXHR) {
                 const response = jqXHR.responseJSON;
-                if (response && response.message) {
-                    alert(response.message);
-                    console.error('Error:', response.message);
+                if (response != null) {
+                    alert(response.body.message);
                 } else {
                     alert('로그인 중 오류가 발생했습니다.');
                 }
             }
         });
+    });
+
+    //회원가입 페이지로 이동
+    $('#navigateButton').click(function () {
+        window.location.href = '/signup';
     });
 });
