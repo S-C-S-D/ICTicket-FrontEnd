@@ -3,6 +3,7 @@ $(document).ready(function () {
     const pathParts = window.location.pathname.split('/');
     const performanceId = pathParts[pathParts.indexOf('performances') + 1];
     const accessToken = localStorage.getItem('Authorization');
+    //관심 공연 등록 여부 조회 [1]
 
     $.ajax({
         url: `http://localhost:8080/performances/${performanceId}`,
@@ -76,13 +77,9 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="like-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M7.234 3.00391C4.582 3.00391 2 4.83291 2 8.18091C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18091C22 4.82791 19.42 3.01291 16.771 3.01291C14.935 3.01291 13.125 3.87891 12 5.56691C10.87 3.87091 9.065 3.00391 7.234 3.00391ZM7.234 4.50391C9.224 4.50491 10.436 5.85691 11.389 7.20391C11.529 7.40191 11.757 7.51991 12 7.52091C12.243 7.52091 12.471 7.40391 12.612 7.20691C13.567 5.86791 14.802 4.51291 16.771 4.51291C18.567 4.51291 20.5 5.66091 20.5 8.18091C20.5 10.8519 17.619 13.8539 12 19.3079C6.546 14.0229 3.5 10.9189 3.5 8.18091C3.5 7.05591 3.889 6.11191 4.624 5.45391C5.297 4.84991 6.249 4.50391 7.234 4.50391Z" fill="black"/>
-                    </svg>
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 5.71987C9.376 1.20287 2 2.52187 2 8.18087C2 11.9059 6.345 15.9079 11.303 20.7209C11.497 20.9099 11.749 21.0039 12 21.0039C12.251 21.0039 12.503 20.9099 12.697 20.7209C17.674 15.8899 22 11.9069 22 8.18087C22 2.50287 14.604 1.23687 12 5.71987Z" fill="#DA3F36"/>
-                    </svg> -->
-                    <span class="like-count">142,000명이 관심있음</span>
+                    <img class="unlike" src="https://ifh.cc/g/HCH5O9.png" style="width: 24px;">
+                    <img class="like" data-id="" src="https://ifh.cc/g/wGQQn7.png" style="width: 24px;">
+                    <span class="like-count"></span>
                 </div>
                 <div class="description">"${performance.description}"</div>
                 <div class="comment-info-wrapper">
@@ -119,12 +116,327 @@ $(document).ready(function () {
             `;
             performanceListGridDiv.append(performanceElement);
 
+            //관심 공연 좋아요 여부
+            $.ajax({
+                url: `http://localhost:8080/performances/${performanceId}/likes`,
+                type: 'GET',
+                xhrFields: {
+                    withCredentials: true // 필요 시 추가
+                },
+                crossDomain: true,
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                },
+                success: function (likeResponseDto) {
+                    console.log(likeResponseDto)
+
+                    if (likeResponseDto.data != null) {
+                        if (likeResponseDto.data.isLike) {
+                            $(".unlike").hide();
+                            $(".like").show();
+                            $(".like").attr("data-id", likeResponseDto.data.id);
+                        } else {
+                            $(".like").hide();
+                            $(".unlike").show();
+                        }
+                    } else {
+                        $(".like").hide();
+                        $(".unlike").show();
+                    }
+                    // location.reload(); // 페이지 리로드
+                },
+                error: function (jqXHR) {
+                    const commentResponse = jqXHR.responseJSON;
+                    const commentResponseText = jqXHR.responseText;
+
+                    if (commentResponse != null) {
+                        alert(commentResponse.message);
+                    } else {
+                        alert(commentResponseText)
+                    }
+
+                }
+            });
+
+            // 좋아요 등록
+            $('.unlike').click(function () {
+
+                $.ajax({
+                    url: `http://localhost:8080/performances/${performanceId}/likes`,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    xhrFields: {
+                        withCredentials: true // 필요 시 추가
+                    },
+                    crossDomain: true,
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                    },
+                    success: function (likeCreateResponse) {
+                        console.log(likeCreateResponse)
+                        // alert(likeCreateResponse.message)
+                        $(".like").data('id', likeCreateResponse.data.id);
+
+                        //관심 공연 좋아요 여부    
+                        $.ajax({
+                            url: `http://localhost:8080/performances/${performanceId}/likes`,
+                            type: 'GET',
+                            xhrFields: {
+                                withCredentials: true // 필요 시 추가
+                            },
+                            crossDomain: true,
+                            headers: {
+                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                            },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                            },
+                            success: function (likeResponseDto) {
+                                console.log(likeResponseDto)
+
+                                if (likeResponseDto.data != null) {
+                                    if (likeResponseDto.data.isLike) {
+                                        $(".unlike").hide();
+                                        $(".like").show();
+                                        $(".like").attr("data-id", likeResponseDto.data.id);
+                                    } else {
+                                        $(".like").hide();
+                                        $(".unlike").show();
+                                    }
+                                } else {
+                                    $(".like").hide();
+                                    $(".unlike").show();
+                                }
+                                // location.reload(); // 페이지 리로드
+                            },
+                            error: function (jqXHR) {
+                                const commentResponse = jqXHR.responseJSON;
+                                const commentResponseText = jqXHR.responseText;
+
+                                if (commentResponse != null) {
+                                    alert(commentResponse.message);
+                                } else {
+                                    alert(commentResponseText)
+                                }
+
+                            }
+                        });
+
+                        //좋아요 개수 조회
+                        $.ajax({
+                            url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                            type: 'GET',
+                            contentType: 'application/json',
+                            xhrFields: {
+                                withCredentials: true // 필요 시 추가
+                            },
+                            crossDomain: true,
+                            headers: {
+                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                            },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                            },
+                            success: function (boardResponse) {
+                                console.log(boardResponse)
+                                $(".like-count").text(boardResponse.data + "명이 관심있음");
+                                // location.reload(); // 페이지 리로드
+                            },
+                            error: function (jqXHR) {
+                                const commentResponse = jqXHR.responseJSON;
+                                const commentResponseText = jqXHR.responseText;
+
+                                if (commentResponse != null) {
+                                    alert(commentResponse.message);
+                                } else {
+                                    alert(commentResponseText)
+                                }
+
+                            }
+                        });
+                    },
+                    error: function (jqXHR) {
+                        const commentResponse = jqXHR.responseJSON;
+                        const commentResponseText = jqXHR.responseText;
+
+                        if (commentResponse != null) {
+                            alert(commentResponse.message);
+                        } else {
+                            alert(commentResponseText)
+                        }
+
+                    }
+                });
+            });
+
+            // 좋아요 취소
+            $('.like').click(function () {
+                var likeId = $(this).data('id')
+                $.ajax({
+                    url: `http://localhost:8080/performances/${performanceId}/likes/${likeId}`,
+                    type: 'DELETE',
+                    xhrFields: {
+                        withCredentials: true // 필요 시 추가
+                    },
+                    crossDomain: true,
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                    },
+                    success: function (likeDeleteResponse) {
+                        console.log(likeDeleteResponse)
+                        // alert(likeDeleteResponse.message)
+
+                        //관심 공연 좋아요 여부    
+                        $.ajax({
+                            url: `http://localhost:8080/performances/${performanceId}/likes`,
+                            type: 'GET',
+                            xhrFields: {
+                                withCredentials: true // 필요 시 추가
+                            },
+                            crossDomain: true,
+                            headers: {
+                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                            },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                            },
+                            success: function (likeResponseDto) {
+                                console.log(likeResponseDto)
+
+                                if (likeResponseDto.data != null) {
+                                    if (likeResponseDto.data.isLike) {
+                                        $(".unlike").hide();
+                                        $(".like").show();
+                                        $(".like").attr("data-id", likeResponseDto.data.id);
+                                    } else {
+                                        $(".like").hide();
+                                        $(".unlike").show();
+                                    }
+                                } else {
+                                    $(".like").hide();
+                                    $(".unlike").show();
+                                }
+                                // location.reload(); // 페이지 리로드
+                            },
+                            error: function (jqXHR) {
+                                const commentResponse = jqXHR.responseJSON;
+                                const commentResponseText = jqXHR.responseText;
+
+                                if (commentResponse != null) {
+                                    alert(commentResponse.message);
+                                } else {
+                                    alert(commentResponseText)
+                                }
+
+                            }
+                        });
+
+                        //좋아요 개수 조회
+                        $.ajax({
+                            url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                            type: 'GET',
+                            contentType: 'application/json',
+                            xhrFields: {
+                                withCredentials: true // 필요 시 추가
+                            },
+                            crossDomain: true,
+                            headers: {
+                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                            },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                            },
+                            success: function (boardResponse) {
+                                console.log(boardResponse)
+                                $(".like-count").text(boardResponse.data + "명이 관심있음");
+                                // location.reload(); // 페이지 리로드
+                            },
+                            error: function (jqXHR) {
+                                const commentResponse = jqXHR.responseJSON;
+                                const commentResponseText = jqXHR.responseText;
+
+                                if (commentResponse != null) {
+                                    alert(commentResponse.message);
+                                } else {
+                                    alert(commentResponseText)
+                                }
+
+                            }
+                        });
+                    },
+                    error: function (jqXHR) {
+                        const commentResponse = jqXHR.responseJSON;
+                        const commentResponseText = jqXHR.responseText;
+
+                        if (commentResponse != null) {
+                            alert(commentResponse.message);
+                        } else {
+                            alert(commentResponseText)
+                        }
+
+                    }
+                });
+            });
+
+
+
+            //좋아요 개수 조회
+            $.ajax({
+                url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                type: 'GET',
+                contentType: 'application/json',
+                xhrFields: {
+                    withCredentials: true // 필요 시 추가
+                },
+                crossDomain: true,
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                },
+                success: function (boardResponse) {
+                    console.log(boardResponse)
+                    $(".like-count").text(boardResponse.data + "명이 관심있음");
+                    // location.reload(); // 페이지 리로드
+                },
+                error: function (jqXHR) {
+                    const commentResponse = jqXHR.responseJSON;
+                    const commentResponseText = jqXHR.responseText;
+
+                    if (commentResponse != null) {
+                        alert(commentResponse.message);
+                    } else {
+                        alert(commentResponseText)
+                    }
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
             //댓글 작성 버튼이 생긴 후, 클릭 효과 주기
-            $("#commentBtn").on('click', function() {
+            $("#commentBtn").on('click', function () {
                 $(".comment.create-comment").show();
             });
 
-            $("#cancelBtn").on('click', function() {
+            $("#cancelBtn").on('click', function () {
                 $(".comment.create-comment").hide();
             });
 
@@ -132,12 +444,12 @@ $(document).ready(function () {
             //별 클릭 효과
             var selectedRate = 0;
             var isClicked = false;
-        
-        
-            $('.star-wrapper img').hover(function() {
+
+
+            $('.star-wrapper img').hover(function () {
                 if (!isClicked) {
                     var rate = $(this).data('rate');
-                    $('.star-wrapper img').each(function() {
+                    $('.star-wrapper img').each(function () {
                         if ($(this).data('rate') <= rate) {
                             $(this).attr('src', 'https://ifh.cc/g/dQCKxt.png');
                         } else {
@@ -145,10 +457,10 @@ $(document).ready(function () {
                         }
                     });
                 }
-            }, function() {
+            }, function () {
                 if (!isClicked) {
                     // 마우스가 벗어났을 때 고정된 이미지를 제외하고 초기화
-                    $('.star-wrapper img').each(function() {
+                    $('.star-wrapper img').each(function () {
                         if ($(this).data('rate') <= selectedRate) {
                             $(this).attr('src', 'https://ifh.cc/g/dQCKxt.png');
                         } else {
@@ -157,17 +469,17 @@ $(document).ready(function () {
                     });
                 }
             });
-        
-        
+
+
             // 클릭 시 고정
-            $('.star-wrapper img').click(function() {
+            $('.star-wrapper img').click(function () {
                 selectedRate = $(this).data('rate');
                 isClicked = true;
-        
+
                 $('.star-wrapper img').removeClass('selected');
-        
+
                 $(this).addClass('selected');
-                $('.star-wrapper img').each(function() {
+                $('.star-wrapper img').each(function () {
                     if ($(this).data('rate') <= selectedRate) {
                         $(this).attr('src', 'https://ifh.cc/g/dQCKxt.png');
                     } else {
@@ -175,7 +487,7 @@ $(document).ready(function () {
                     }
                 });
             });
-    
+
 
             // [댓글 조회]
             $.ajax({
@@ -219,7 +531,7 @@ $(document).ready(function () {
                 }
             });
 
-            
+
             //댓글 생성
             $('#createCommentBtn').click(function () {
                 console.log(selectedRate)
@@ -228,8 +540,7 @@ $(document).ready(function () {
                     description: $('#commentDescription').val(),
                     rate: selectedRate
                 };
-                console.log(requestData)
-        
+
                 $.ajax({
                     url: `http://localhost:8080/performances/${performanceId}/comments`,
                     type: 'POST',
@@ -243,12 +554,11 @@ $(document).ready(function () {
                         'Authorization': 'Bearer ' + accessToken // 헤더명 수정
                     },
                     beforeSend: function (xhr) {
-                        console.log(accessToken)
                         xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                     },
-                    success: function (boardResponse) {
-                        console.log(boardResponse)
-                        alert(boardResponse.message)
+                    success: function (commentCreateResponse) {
+                        console.log(commentCreateResponse)
+                        alert(commentCreateResponse.message)
                         location.reload(); // 페이지 리로드
                     },
                     error: function (jqXHR) {
@@ -260,7 +570,7 @@ $(document).ready(function () {
                         } else {
                             alert(commentResponseText)
                         }
-        
+
                     }
                 });
             });
@@ -271,7 +581,7 @@ $(document).ready(function () {
             const perforamceTodayResponse = JSON.parse(xhr.responseText);
             console.log(perforamceTodayResponse.message);
         }
-        
+
     });
 
     //예약하기 스크롤에 맞게 따라오기
@@ -306,10 +616,10 @@ $(document).ready(function () {
     // } else {
     //     console.error("parent-wrapper 또는 session-info-wrapper 요소를 찾을 수 없습니다.");
     // }
-    $(".container > .cover").on('click', function() {
+    $(".container > .cover").on('click', function () {
         $(".container > .cover").hide();
     });
 
-   
-    
+
+
 });

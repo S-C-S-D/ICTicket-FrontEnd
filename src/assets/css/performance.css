@@ -490,3 +490,7 @@ textarea:focus {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.like-wrapper{
+    cursor: pointer;
+}
