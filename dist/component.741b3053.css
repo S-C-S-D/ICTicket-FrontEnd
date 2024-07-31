@@ -161,7 +161,7 @@
     color: white;
 }
 
-.cover {
+.cover, .session-cover {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -175,6 +175,10 @@
 }
 
 .container .cover {
+    display: none;
+}
+
+.container .cover {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -182,5 +186,15 @@
     background-color: #0a0629;
     z-index: 1;
 }
+
+.container .session-info-wrapper .cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #0a0629;
+    z-index: 1;
+}
+
 
 /*# sourceMappingURL=/component.741b3053.css.map */

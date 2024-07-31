@@ -3,8 +3,8 @@ $(document).ready(function () {
     const pathParts = window.location.pathname.split('/');
     const performanceId = pathParts[pathParts.indexOf('performances') + 1];
     const accessToken = localStorage.getItem('Authorization');
-    //관심 공연 등록 여부 조회 [1]
 
+    //[관심공연 조회]
     $.ajax({
         url: `http://localhost:8080/performances/${performanceId}`,
         type: 'GET',
@@ -35,6 +35,14 @@ $(document).ready(function () {
                     default:
                         return '공연'; // 기본값 설정
                 }
+            }
+            const openAt = performance.openAt;
+            const currentTime = new Date();
+            const openAtTime = new Date(openAt.replace("-", "/").replace("-", "/")); // "2024-07-31-19:00"을 Date 객체로 변환
+    
+            if (currentTime < openAtTime) {
+                $(".reserveBtn").addClass("lock-btn");
+                $(".reserveBtn").text(`${openAt} 오픈 예정`);
             }
 
             const performanceElement = `
@@ -77,8 +85,8 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="like-wrapper">
-                    <img class="unlike" src="https://ifh.cc/g/HCH5O9.png" style="width: 24px;">
-                    <img class="like" data-id="" src="https://ifh.cc/g/wGQQn7.png" style="width: 24px;">
+                    <img class="unlike" src="https://ifh.cc/g/HCH5O9.png" style="width: 24px; display: none;">
+                    <img class="like" data-id="" src="https://ifh.cc/g/wGQQn7.png" style="width: 24px; display: none;">
                     <span class="like-count"></span>
                 </div>
                 <div class="description">"${performance.description}"</div>
@@ -181,7 +189,6 @@ $(document).ready(function () {
                     success: function (likeCreateResponse) {
                         console.log(likeCreateResponse)
                         // alert(likeCreateResponse.message)
-                        $(".like").data('id', likeCreateResponse.data.id);
 
                         //관심 공연 좋아요 여부    
                         $.ajax({
@@ -276,8 +283,8 @@ $(document).ready(function () {
             });
 
             // 좋아요 취소
-            $('.like').click(function () {
-                var likeId = $(this).data('id')
+            $('.like').off('click').on('click', function () {
+                var likeId = $(this).attr('data-id'); // 변경된 부분
                 $.ajax({
                     url: `http://localhost:8080/performances/${performanceId}/likes/${likeId}`,
                     type: 'DELETE',
@@ -292,10 +299,10 @@ $(document).ready(function () {
                         xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                     },
                     success: function (likeDeleteResponse) {
-                        console.log(likeDeleteResponse)
-                        // alert(likeDeleteResponse.message)
+                        console.log(likeDeleteResponse);
+                        // alert(likeDeleteResponse.message);
 
-                        //관심 공연 좋아요 여부    
+                        // 관심 공연 좋아요 여부    
                         $.ajax({
                             url: `http://localhost:8080/performances/${performanceId}/likes`,
                             type: 'GET',
@@ -310,13 +317,13 @@ $(document).ready(function () {
                                 xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                             },
                             success: function (likeResponseDto) {
-                                console.log(likeResponseDto)
+                                console.log(likeResponseDto);
 
                                 if (likeResponseDto.data != null) {
                                     if (likeResponseDto.data.isLike) {
                                         $(".unlike").hide();
                                         $(".like").show();
-                                        $(".like").attr("data-id", likeResponseDto.data.id);
+                                        $(".like").attr("data-id", likeResponseDto.data.id); // 변경된 부분
                                     } else {
                                         $(".like").hide();
                                         $(".unlike").show();
@@ -334,13 +341,12 @@ $(document).ready(function () {
                                 if (commentResponse != null) {
                                     alert(commentResponse.message);
                                 } else {
-                                    alert(commentResponseText)
+                                    alert(commentResponseText);
                                 }
-
                             }
                         });
 
-                        //좋아요 개수 조회
+                        // 좋아요 개수 조회
                         $.ajax({
                             url: `http://localhost:8080/performances/${performanceId}/likes-count`,
                             type: 'GET',
@@ -356,7 +362,7 @@ $(document).ready(function () {
                                 xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                             },
                             success: function (boardResponse) {
-                                console.log(boardResponse)
+                                console.log(boardResponse);
                                 $(".like-count").text(boardResponse.data + "명이 관심있음");
                                 // location.reload(); // 페이지 리로드
                             },
@@ -367,9 +373,8 @@ $(document).ready(function () {
                                 if (commentResponse != null) {
                                     alert(commentResponse.message);
                                 } else {
-                                    alert(commentResponseText)
+                                    alert(commentResponseText);
                                 }
-
                             }
                         });
                     },
@@ -380,12 +385,12 @@ $(document).ready(function () {
                         if (commentResponse != null) {
                             alert(commentResponse.message);
                         } else {
-                            alert(commentResponseText)
+                            alert(commentResponseText);
                         }
-
                     }
                 });
             });
+
 
 
 

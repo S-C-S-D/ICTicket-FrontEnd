@@ -117,62 +117,181 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
+})({"../src/components/session.js":[function(require,module,exports) {
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+$(document).ready(function () {
+  // URL에서 performanceId 추출
+  var pathParts = window.location.pathname.split('/');
+  var performanceId = pathParts[pathParts.indexOf('performances') + 1];
+  var accessToken = localStorage.getItem('Authorization');
+
+  // 초기 상태 메시지
+  function updateSeatCountMessage() {
+    if (!$('.date.active').length || !$('.session.active').length) {
+      $(".seat-text").text("날짜와 시간을 선택해 주세요");
+      $(".seat-count").text("");
+      $(".reserveBtn").addClass("disabled");
     }
   }
-  return '/';
-}
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
+
+  // 두 요소가 모두 활성화되었는지 확인하여 seat-text의 margin-right를 업데이트하는 함수
+  function updateSeatTextMargin() {
+    if ($('.date.active').length && $('.session.active').length) {
+      $(".seat-text").css("margin-right", "50px");
+      $(".reserveBtn").removeClass("disabled");
+    } else {
+      $(".seat-text").css("margin-right", "");
+    }
   }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
+
+  // [세션 조회]
+  $.ajax({
+    url: "http://localhost:8080/performances/".concat(performanceId, "/sessions"),
+    type: 'GET',
+    contentType: 'application/json',
+    xhrFields: {
+      withCredentials: true // 필요 시 추가
+    },
+    crossDomain: true,
+    headers: {
+      'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+    },
+    beforeSend: function beforeSend(xhr) {
+      xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+    },
+    success: function success(boardResponse) {
+      console.log(boardResponse);
+      var sessions = boardResponse.data;
+      var dates = {};
+
+      // 날짜별로 세션을 그룹화
+      sessions.forEach(function (session) {
+        if (!dates[session.date]) {
+          dates[session.date] = [];
+        }
+        dates[session.date].push(session);
+      });
+
+      // 날짜를 "2024년 08월 07일 수요일" 형식으로 변환하는 함수
+      function formatDate(dateString) {
+        var date = new Date(dateString);
+        var options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long'
+        };
+        return date.toLocaleDateString('ko-KR', options);
+      }
+
+      // 시간을 "오후 12시 00분" 형식으로 변환하는 함수
+      function formatTime(timeString) {
+        var _timeString$split$map = timeString.split(':').map(Number),
+          _timeString$split$map2 = _slicedToArray(_timeString$split$map, 2),
+          hour = _timeString$split$map2[0],
+          minute = _timeString$split$map2[1];
+        var period = hour >= 12 ? '오후' : '오전';
+        var adjustedHour = hour % 12 || 12;
+        return "".concat(period, " ").concat(String(adjustedHour).padStart(2, '0'), "\uC2DC ").concat(String(minute).padStart(2, '0'), "\uBD84");
+      }
+
+      // 날짜를 HTML에 추가
+      for (var date in dates) {
+        var formattedDate = formatDate(date);
+        $('.date-list-wrapper').append("<span class=\"date\" data-date=\"".concat(date, "\">").concat(formattedDate, "</span>"));
+      }
+
+      // 날짜 클릭 이벤트 핸들러
+      $('.date-list-wrapper').on('click', '.date', function () {
+        var selectedDate = $(this).attr('data-date');
+
+        // 모든 날짜에서 active 클래스 제거하고, 클릭한 날짜에만 추가
+        $('.date').removeClass('active');
+        $(this).addClass('active');
+
+        // 선택한 날짜에 맞는 세션을 session-list-wrapper에 추가
+        var selectedSessions = dates[selectedDate];
+        $('.session-list-wrapper').empty();
+        selectedSessions.forEach(function (session) {
+          var formattedTime = formatTime(session.time);
+          $('.session-list-wrapper').append("<span class=\"session\" data-id=\"".concat(session.id, "\">").concat(session.name, "\uD68C\uCC28 - ").concat(formattedTime, "</span>"));
+        });
+
+        // 첫 번째 세션을 기본적으로 선택된 상태로 설정
+        // $('.session').first().click();
+
+        // 좌석 메시지 업데이트
+        updateSeatCountMessage();
+
+        // seat-text margin-right 업데이트
+        updateSeatTextMargin();
+      });
+
+      // 세션 클릭 이벤트 핸들러
+      $('.session-list-wrapper').on('click', '.session', function () {
+        // 모든 세션에서 active 클래스 제거하고, 클릭한 세션에만 추가
+        $('.session').removeClass('active');
+        $(this).addClass('active');
+        var sessionId = $(this).attr('data-id');
+
+        // 클릭한 세션의 data-id 값을 이용하여 AJAX 요청
+        $.ajax({
+          url: "http://localhost:8080/performances/".concat(performanceId, "/sessions/").concat(sessionId, "/seat-count"),
+          type: 'GET',
+          xhrFields: {
+            withCredentials: true // 필요 시 추가
+          },
+          crossDomain: true,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+          },
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+          },
+          success: function success(seatCount) {
+            console.log(seatCount);
+            var seatCountData = seatCount.data;
+            $(".seat-text").text("잔여 좌석 개수");
+            $(".seat-count").text(seatCountData.restSeatCount + "/" + seatCountData.totalSeatCount);
+          },
+          error: function error(jqXHR) {
+            var commentResponse = jqXHR.responseJSON;
+            var commentResponseText = jqXHR.responseText;
+            if (commentResponse != null) {
+              alert(commentResponse.message);
+            } else {
+              alert(commentResponseText);
+            }
+          }
+        });
+
+        // seat-text margin-right 업데이트
+        updateSeatTextMargin();
+      });
+
+      // 초기 상태로 첫 번째 날짜를 선택한 상태로 설정
+      $('.date').first().click();
+    },
+    error: function error(jqXHR) {
+      var commentResponse = jqXHR.responseJSON;
+      var commentResponseText = jqXHR.responseText;
+      if (commentResponse != null) {
+        alert(commentResponse.message);
+      } else {
+        alert(commentResponseText);
       }
     }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../src/assets/css/main-genre-rank-swiper.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../images/img-arrow-left.png":[["img-arrow-left.5a5b9386.png","../src/assets/images/img-arrow-left.png"],"../src/assets/images/img-arrow-left.png"],"./../images/img-arrow-right.png":[["img-arrow-right.3429d2b8.png","../src/assets/images/img-arrow-right.png"],"../src/assets/images/img-arrow-right.png"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  });
+
+  // 초기 메시지 설정
+  updateSeatCountMessage();
+});
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -341,5 +460,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/main-genre-rank-swiper.9f5f64df.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/components/session.js"], null)
+//# sourceMappingURL=/session.3ad098d1.js.map

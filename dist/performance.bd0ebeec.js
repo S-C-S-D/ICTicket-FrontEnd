@@ -123,8 +123,8 @@ $(document).ready(function () {
   var pathParts = window.location.pathname.split('/');
   var performanceId = pathParts[pathParts.indexOf('performances') + 1];
   var accessToken = localStorage.getItem('Authorization');
-  //관심 공연 등록 여부 조회 [1]
 
+  //[관심공연 조회]
   $.ajax({
     url: "http://localhost:8080/performances/".concat(performanceId),
     type: 'GET',
@@ -154,7 +154,15 @@ $(document).ready(function () {
           // 기본값 설정
         }
       }
-      var performanceElement = "\n                <div class=\"title-wrapper\">\n                    <span class=\"genre-type\">".concat(getKoreanGenreName(performance.genreType), "</span>\n                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                </div>\n                <div class=\"image-info-wrapper\">\n                    <img src=\"").concat(performance.imageUrl, "\">\n                    <div class=\"info-wrapper\">\n                        <div class=\"info-title-wrapper\">\n                            <span class=\"info-title\">\uC7A5\uC18C</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uAE30\uAC04</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uC2DC\uAC04</span>\n                            <span class=\"info-title\">\uAD00\uB78C\uC5F0\uB839</span>\n                            <span class=\"info-title\">\uAC00\uACA9</span>\n                        </div>\n                        <div class=\"info-detail-wrapper\">\n                            <span class=\"info-detail\">").concat(performance.venueName, "</span>\n                            <span class=\"info-detail\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                            <span class=\"info-detail\">").concat(performance.runTime, "\uBD84</span>\n                            <span class=\"info-detail\">").concat(performance.ageGroup, "</span>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"like-wrapper\">\n                    <img class=\"unlike\" src=\"https://ifh.cc/g/HCH5O9.png\" style=\"width: 24px;\">\n                    <img class=\"like\" data-id=\"\" src=\"https://ifh.cc/g/wGQQn7.png\" style=\"width: 24px;\">\n                    <span class=\"like-count\"></span>\n                </div>\n                <div class=\"description\">\"").concat(performance.description, "\"</div>\n                <div class=\"comment-info-wrapper\">\n                    <div class=\"comment-header\">\n                        <div class=\"text-wrapper-comment\">\n                            <span>\uCD1D&nbsp;</span>\n                            <span class=\"comment-count\"></span>\n                            <span>\uAC1C\uC758 \uB313\uAE00\uC774 \uC788\uC2B5\uB2C8\uB2E4.</span>\n                        </div>\n\n                        <div id=\"commentBtn\">\uB313\uAE00\uC791\uC131</div>\n\n                    </div>\n                    <div class=\"border-row\"></div>\n                        <div class=\"comment create-comment\">\n                            <div class=\"star-wrapper\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"1\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"2\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"3\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"4\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"5\">\n                            </div>\n                            <div class=\"wrapper-label-input\">\n                                <input type=\"text\" id=\"commentTitle\" name=\"commentTitle\" placeholder=\"\uC81C\uBAA9\" autocomplete=\"off\" required>\n                            </div>\n                            <textarea type=\"text\" id=\"commentDescription\" placeholder=\"\uB0B4\uC6A9\"></textarea>\n                            <div class=\"btn-wrapper\">\n                                <div id=\"createCommentBtn\">\uC791\uC131\uD558\uAE30</div>\n                                <div id=\"cancelBtn\">\uCDE8\uC18C</div>\n                            </div>\n                        </div>\n                    <div class=\"comment-list-wrapper\"></div>\n                </div>\n            ");
+      var openAt = performance.openAt;
+      var currentTime = new Date();
+      var openAtTime = new Date(openAt.replace("-", "/").replace("-", "/")); // "2024-07-31-19:00"을 Date 객체로 변환
+
+      if (currentTime < openAtTime) {
+        $(".reserveBtn").addClass("lock-btn");
+        $(".reserveBtn").text("".concat(openAt, " \uC624\uD508 \uC608\uC815"));
+      }
+      var performanceElement = "\n                <div class=\"title-wrapper\">\n                    <span class=\"genre-type\">".concat(getKoreanGenreName(performance.genreType), "</span>\n                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                </div>\n                <div class=\"image-info-wrapper\">\n                    <img src=\"").concat(performance.imageUrl, "\">\n                    <div class=\"info-wrapper\">\n                        <div class=\"info-title-wrapper\">\n                            <span class=\"info-title\">\uC7A5\uC18C</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uAE30\uAC04</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uC2DC\uAC04</span>\n                            <span class=\"info-title\">\uAD00\uB78C\uC5F0\uB839</span>\n                            <span class=\"info-title\">\uAC00\uACA9</span>\n                        </div>\n                        <div class=\"info-detail-wrapper\">\n                            <span class=\"info-detail\">").concat(performance.venueName, "</span>\n                            <span class=\"info-detail\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                            <span class=\"info-detail\">").concat(performance.runTime, "\uBD84</span>\n                            <span class=\"info-detail\">").concat(performance.ageGroup, "</span>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">VIP\uC11D</span>\n                                <span class=\"info-price\">159,000\uC6D0</span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"like-wrapper\">\n                    <img class=\"unlike\" src=\"https://ifh.cc/g/HCH5O9.png\" style=\"width: 24px; display: none;\">\n                    <img class=\"like\" data-id=\"\" src=\"https://ifh.cc/g/wGQQn7.png\" style=\"width: 24px; display: none;\">\n                    <span class=\"like-count\"></span>\n                </div>\n                <div class=\"description\">\"").concat(performance.description, "\"</div>\n                <div class=\"comment-info-wrapper\">\n                    <div class=\"comment-header\">\n                        <div class=\"text-wrapper-comment\">\n                            <span>\uCD1D&nbsp;</span>\n                            <span class=\"comment-count\"></span>\n                            <span>\uAC1C\uC758 \uB313\uAE00\uC774 \uC788\uC2B5\uB2C8\uB2E4.</span>\n                        </div>\n\n                        <div id=\"commentBtn\">\uB313\uAE00\uC791\uC131</div>\n\n                    </div>\n                    <div class=\"border-row\"></div>\n                        <div class=\"comment create-comment\">\n                            <div class=\"star-wrapper\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"1\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"2\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"3\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"4\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"5\">\n                            </div>\n                            <div class=\"wrapper-label-input\">\n                                <input type=\"text\" id=\"commentTitle\" name=\"commentTitle\" placeholder=\"\uC81C\uBAA9\" autocomplete=\"off\" required>\n                            </div>\n                            <textarea type=\"text\" id=\"commentDescription\" placeholder=\"\uB0B4\uC6A9\"></textarea>\n                            <div class=\"btn-wrapper\">\n                                <div id=\"createCommentBtn\">\uC791\uC131\uD558\uAE30</div>\n                                <div id=\"cancelBtn\">\uCDE8\uC18C</div>\n                            </div>\n                        </div>\n                    <div class=\"comment-list-wrapper\"></div>\n                </div>\n            ");
       performanceListGridDiv.append(performanceElement);
 
       //관심 공연 좋아요 여부
@@ -218,7 +226,6 @@ $(document).ready(function () {
           success: function success(likeCreateResponse) {
             console.log(likeCreateResponse);
             // alert(likeCreateResponse.message)
-            $(".like").data('id', likeCreateResponse.data.id);
 
             //관심 공연 좋아요 여부    
             $.ajax({
@@ -306,8 +313,8 @@ $(document).ready(function () {
       });
 
       // 좋아요 취소
-      $('.like').click(function () {
-        var likeId = $(this).data('id');
+      $('.like').off('click').on('click', function () {
+        var likeId = $(this).attr('data-id'); // 변경된 부분
         $.ajax({
           url: "http://localhost:8080/performances/".concat(performanceId, "/likes/").concat(likeId),
           type: 'DELETE',
@@ -323,9 +330,9 @@ $(document).ready(function () {
           },
           success: function success(likeDeleteResponse) {
             console.log(likeDeleteResponse);
-            // alert(likeDeleteResponse.message)
+            // alert(likeDeleteResponse.message);
 
-            //관심 공연 좋아요 여부    
+            // 관심 공연 좋아요 여부    
             $.ajax({
               url: "http://localhost:8080/performances/".concat(performanceId, "/likes"),
               type: 'GET',
@@ -345,7 +352,7 @@ $(document).ready(function () {
                   if (likeResponseDto.data.isLike) {
                     $(".unlike").hide();
                     $(".like").show();
-                    $(".like").attr("data-id", likeResponseDto.data.id);
+                    $(".like").attr("data-id", likeResponseDto.data.id); // 변경된 부분
                   } else {
                     $(".like").hide();
                     $(".unlike").show();
@@ -367,7 +374,7 @@ $(document).ready(function () {
               }
             });
 
-            //좋아요 개수 조회
+            // 좋아요 개수 조회
             $.ajax({
               url: "http://localhost:8080/performances/".concat(performanceId, "/likes-count"),
               type: 'GET',
@@ -619,7 +626,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57142" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50933" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

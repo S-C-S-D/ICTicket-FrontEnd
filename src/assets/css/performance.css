@@ -29,7 +29,7 @@
     align-items: flex-start;
     gap: 16px;
     margin-top: 50px;
-    width: 650px;
+    width: 700px;
 }
 
 .performance-info-wrapper .title-wrapper{
@@ -134,7 +134,7 @@
     background-color: #f7f7f7;
     border-radius: 8px;
     margin-top: 20px;
-    width: 610px;
+    width: 660px;
 }
 
 /* session */
@@ -142,7 +142,7 @@
     position: sticky;
     top: 70px;
     width: 350px;
-    height: 700px;
+    height: 670px;
     margin-top: 140px;
 }
 
@@ -246,6 +246,10 @@
     font-size: 16px;
     font-weight: 600;
 }
+.session-info-wrapper .seat-text {
+    font-size: 16px;
+    font-weight: 400;
+}
 
 .session-info-wrapper .reserveBtn{
     display: flex;
@@ -258,6 +262,16 @@
     margin-top: 40px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.session-info-wrapper .reserveBtn.disabled{
+    background-color: #c5c5c5;
+    cursor:not-allowed;
+}
+
+.session-info-wrapper .reserveBtn.lock-btn{
+    background-color: #c5c5c5;
+    cursor:not-allowed;
 }
 
 
@@ -376,12 +390,6 @@
     margin-top: 0px;
     line-height: 22px;
     margin-bottom: 0px;
-}
-
-
-
-.container .cover {
-    display: none;
 }
 
 .popup {
