@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 // Parcel 번들러 설정
-const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-genre.html', 'public/performance-rank-all.html', 'public/login.html', 'public/signup.html'], {
+const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-genre.html', 'public/performance-rank-all.html', 'public/login.html', 'public/signup.html', 'public/mypage.html'], {
     outDir: './dist', // 번들된 파일들이 저장될 디렉토리
     watch: true, // 파일 변경 감지
 });
@@ -55,6 +55,12 @@ app.get('/signup', (req, res) => {
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
+
+//마이페이지
+app.get('/mypage', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'mypage.html'));
+});
+
 
 
 // 토큰 유효성 검사 미들웨어

@@ -1,3 +1,15 @@
+.main {
+    position: relative;
+}
+
+.container {
+    position: relative;
+}
+
+.mypage {
+    position: relative;
+}
+
 /* 폰트 크기 */
 .fs-14 {
     font-size: 14px;

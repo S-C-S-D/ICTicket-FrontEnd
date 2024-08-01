@@ -138,6 +138,7 @@ $(document).ready(function () {
   };
   $btnRight.off('click'); // 기존 이벤트 핸들러 제거
   $btnRight.on('click', function () {
+    console.log("test");
     var $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
     if (currentIndex < $items.length - itemsToShow) {
       currentIndex++;
@@ -210,7 +211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60776" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

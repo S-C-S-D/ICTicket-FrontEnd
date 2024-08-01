@@ -119,9 +119,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"../src/components/header.js":[function(require,module,exports) {
 $(document).ready(function () {
-  var authToken = localStorage.getItem('Authorization');
+  var accessToken = localStorage.getItem('Authorization');
   var refreshToken = localStorage.getItem('RefreshToken');
-  if (authToken && refreshToken) {
+  if (accessToken && refreshToken) {
     $('#loginOption').html("\n            <div class=\"text-wrapper login-success\">\n                <div class=\"logout\">\n                    <span id=\"logOut\" class=\"fs-15 medium\">\uB85C\uADF8\uC544\uC6C3</span>\n                </div>\n                <div class=\"mypage\">\n                    <span id=\"myPage\" class=\"fs-15 medium\">\uB9C8\uC774\uD398\uC774\uC9C0</span>\n                </div>\n            </div>\n        ");
   } else {
     $('#loginOption').html("\n            <div class=\"text-wrapper\">\n                <div class=\"login\">\n                    <span id=\"login\" class=\"fs-15 medium\">\uB85C\uADF8\uC778</span>\n                </div>\n                <div class=\"signup\">\n                    <span id=\"signUp\" class=\"fs-15 medium\">\uD68C\uC6D0\uAC00\uC785</span>\n                </div>\n            </div>\n        ");
@@ -143,7 +143,7 @@ $(document).ready(function () {
     window.location.href = '/signup';
   });
   $('#logOut').on('click', function () {
-    if (authToken && refreshToken) {
+    if (accessToken && refreshToken) {
       if (confirm("로그아웃 하시겠습니까?")) {
         localStorage.removeItem('Authorization');
         localStorage.removeItem('RefreshToken');
@@ -154,7 +154,36 @@ $(document).ready(function () {
     }
   });
   $('#myPage').on('click', function () {
-    console.log('마이페이지 클릭');
+    $.ajax({
+      url: "http://localhost:8080/users/profile",
+      type: 'GET',
+      xhrFields: {
+        withCredentials: true // 필요 시 추가
+      },
+      crossDomain: true,
+      headers: {
+        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+      },
+      beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+      },
+      success: function success(likeResponseDto) {
+        console.log(likeResponseDto);
+        window.location.href = '/mypage';
+      },
+      error: function error(jqXHR) {
+        var commentResponse = jqXHR.responseJSON;
+        var commentResponseText = jqXHR.responseText;
+        if (commentResponse != null) {
+          alert(commentResponse.message);
+          window.location.href = '/login';
+          localStorage.removeItem('Authorization');
+          localStorage.removeItem('RefreshToken');
+        } else {
+          alert(commentResponseText);
+        }
+      }
+    });
   });
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -182,7 +211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60776" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

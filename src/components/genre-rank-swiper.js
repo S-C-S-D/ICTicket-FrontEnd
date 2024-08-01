@@ -21,6 +21,7 @@ $(document).ready(function() {
 
     $btnRight.off('click'); // 기존 이벤트 핸들러 제거
     $btnRight.on('click', () => {
+        console.log("test")
         const $items = $container.find('.performance-info'); // 슬라이더 아이템 재초기화
         if (currentIndex < $items.length - itemsToShow) {
             currentIndex++;

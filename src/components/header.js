@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    const authToken = localStorage.getItem('Authorization');
+    const accessToken = localStorage.getItem('Authorization');
     const refreshToken = localStorage.getItem('RefreshToken');
 
-    if (authToken && refreshToken) {
+    if (accessToken && refreshToken) {
         $('#loginOption').html(`
             <div class="text-wrapper login-success">
                 <div class="logout">
@@ -49,7 +49,7 @@ $(document).ready(function () {
     });
 
     $('#logOut').on('click', function() {
-        if (authToken && refreshToken) {
+        if (accessToken && refreshToken) {
             if (confirm("로그아웃 하시겠습니까?")) {
                 localStorage.removeItem('Authorization');
                 localStorage.removeItem('RefreshToken');
@@ -61,6 +61,37 @@ $(document).ready(function () {
     });
 
     $('#myPage').on('click', function() {
-        console.log('마이페이지 클릭');
+        $.ajax({
+            url: `http://localhost:8080/users/profile`,
+            type: 'GET',
+            xhrFields: {
+                withCredentials: true // 필요 시 추가
+            },
+            crossDomain: true,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+            },
+            success: function (likeResponseDto) {
+                console.log(likeResponseDto)
+                window.location.href = '/mypage';
+            },
+            error: function (jqXHR) {
+                const commentResponse = jqXHR.responseJSON;
+                const commentResponseText = jqXHR.responseText;
+    
+                if (commentResponse != null) {
+                    alert(commentResponse.message);
+                    window.location.href = '/login';
+                    localStorage.removeItem('Authorization');
+                    localStorage.removeItem('RefreshToken');
+                } else {
+                    alert(commentResponseText)
+                }
+    
+            }
+        });
     });
 });
