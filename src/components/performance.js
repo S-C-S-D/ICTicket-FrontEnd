@@ -623,6 +623,8 @@ $(document).ready(function () {
     // }
     $(".container > .cover").on('click', function () {
         $(".container > .cover").hide();
+        $(".footer").show();
+        $(".popup").hide();
     });
 
 

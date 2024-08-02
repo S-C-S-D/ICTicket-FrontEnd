@@ -238,6 +238,10 @@ $(document).ready(function () {
         $('.session').removeClass('active');
         $(this).addClass('active');
         var sessionId = $(this).attr('data-id');
+        $(".reserveBtn").attr('data-session-id', sessionId);
+        $(".reserveBtn").attr('data-performance-title', $(".performance-title").text());
+        $(".reserveBtn").attr('data-date', $(".date.active").text());
+        $(".reserveBtn").attr('data-time', $(".session.active").text());
 
         // 클릭한 세션의 data-id 값을 이용하여 AJAX 요청
         $.ajax({
@@ -287,7 +291,49 @@ $(document).ready(function () {
       }
     }
   });
-
+  $('.reserveBtn').on('click', function () {
+    if ($(this).hasClass("disabled") || $(this).hasClass("lock-btn")) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+    $(".popup").show();
+    var sessionId = $(this).attr('data-session-id');
+    var performanceTitle = $(this).attr('data-performance-title');
+    var dateInfo = $(this).attr('data-date');
+    var timeInfo = $(this).attr('data-time');
+    $.ajax({
+      url: "http://localhost:8080/performances/".concat(performanceId, "/sessions/").concat(sessionId, "/seats"),
+      type: 'GET',
+      xhrFields: {
+        withCredentials: true // 필요 시 추가
+      },
+      crossDomain: true,
+      headers: {
+        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+      },
+      beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+      },
+      success: function success(seatCount) {
+        console.log(seatCount);
+        $(".container > .cover").show();
+        $(".performance-order-title").text(performanceTitle);
+        $(".performance-order-date").text(dateInfo);
+        $(".performance-order-time").text(timeInfo);
+        // $(".footer").hide()
+      },
+      error: function error(jqXHR) {
+        var commentResponse = jqXHR.responseJSON;
+        var commentResponseText = jqXHR.responseText;
+        if (commentResponse != null) {
+          alert(commentResponse.message);
+        } else {
+          alert(commentResponseText);
+        }
+      }
+    });
+  });
   // 초기 메시지 설정
   updateSeatCountMessage();
 });
@@ -316,7 +362,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60776" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51748" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

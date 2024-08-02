@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 200px;
+    margin-right: 150px;
 }
 
 .user-profile-wrapper .user-profile .order-count-wrap .order-count {

@@ -106,8 +106,14 @@ $(document).ready(function () {
                 // 모든 세션에서 active 클래스 제거하고, 클릭한 세션에만 추가
                 $('.session').removeClass('active');
                 $(this).addClass('active');
+   
 
                 const sessionId = $(this).attr('data-id');
+
+                $(".reserveBtn").attr('data-session-id', sessionId);
+                $(".reserveBtn").attr('data-performance-title', $(".performance-title").text());
+                $(".reserveBtn").attr('data-date', $(".date.active").text());
+                $(".reserveBtn").attr('data-time',  $(".session.active").text());
 
                 // 클릭한 세션의 data-id 값을 이용하여 AJAX 요청
                 $.ajax({
@@ -160,6 +166,56 @@ $(document).ready(function () {
         }
     });
 
+    $('.reserveBtn').on('click', function () {
+        if ($(this).hasClass("disabled") || $(this).hasClass("lock-btn")) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        }
+
+        $(".popup").show();
+
+        const sessionId = $(this).attr('data-session-id');
+        const performanceTitle = $(this).attr('data-performance-title');
+        const dateInfo = $(this).attr('data-date');
+        const timeInfo = $(this).attr('data-time');
+        
+        
+        $.ajax({
+            url: `http://localhost:8080/performances/${performanceId}/sessions/${sessionId}/seats`,
+            type: 'GET',
+            xhrFields: {
+                withCredentials: true // 필요 시 추가
+            },
+            crossDomain: true,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+            },
+            success: function (seatCount) {
+                console.log(seatCount);
+                $(".container > .cover").show()
+                $(".performance-order-title").text(performanceTitle)
+                $(".performance-order-date").text(dateInfo)
+                $(".performance-order-time").text(timeInfo)
+                // $(".footer").hide()
+
+            },
+            error: function (jqXHR) {
+                const commentResponse = jqXHR.responseJSON;
+                const commentResponseText = jqXHR.responseText;
+
+                if (commentResponse != null) {
+                    alert(commentResponse.message);
+                } else {
+                    alert(commentResponseText);
+                }
+            }
+        });
+        
+    });
     // 초기 메시지 설정
     updateSeatCountMessage();
 });
