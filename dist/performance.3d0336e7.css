@@ -480,7 +480,7 @@ textarea:focus {
 }
 
 
-/* order-popup */
+/* seat-popup */
 .popup {
     display: none;
     width: 1000px;
@@ -501,7 +501,6 @@ textarea:focus {
     flex-direction: column;
     align-items: center;
 }
-
 
 
 .popup .popup-flex .performance-session-info-wrapper {
@@ -583,12 +582,20 @@ textarea:focus {
     width: 25px;
 }
 
+.popup .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved {
+    cursor: pointer;
+}
+
+.popup .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved.selected {
+    cursor: pointer;
+}
+
+.popup .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved:hover {
+    opacity: 0.6;
+}
 
 
-
-
-
-/* popup */
+/* seat */
 .popup .seat-selected-info-wrapper {
     position: sticky;
     top: 70px;
@@ -641,14 +648,14 @@ textarea:focus {
 .popup .seat-selected-info-wrapper .seat-list-wrapper .selected-seat {
     font-size: 16px;
     padding: 10px 0px 9px 0px;
-    color: #777777;
+    color: #242424;
     font-weight: 500;
     cursor: pointer;
     width: 210px;
     text-align: center;
 }
 
-.popup .seat-selected-info-wrapper .seatConfirmBtn{
+.popup .seat-selected-info-wrapper #seatConfirmBtn{
     display: flex;
     font-size: 18px;
     color: white;
@@ -661,9 +668,230 @@ textarea:focus {
     cursor: pointer;
 }
 
-.popup .seat-selected-info-wrapper .seatConfirmBtn.disabled{
+.popup .seat-selected-info-wrapper #seatConfirmBtn.disabled{
     background-color: #c5c5c5;
     cursor:not-allowed;
+}
+
+
+
+
+
+/* order-popup */
+.popup-payment {
+    display:none;
+    width: 1000px;
+    /* height: 760px; */
+    padding: 80px 80px;
+    background-color: white;
+    border-radius: 16px;
+    position: fixed;  /* 변경: absolute -> fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+}
+
+.popup-payment .popup-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.popup-payment .popup-flex .performance-session-info-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
+}
+
+.popup-payment .popup-flex .performance-session-info-wrapper div{
+    font-size: 16px;
+    font-weight: 500;
+    color: #242424;
+}
+
+
+.popup-payment .popup-flex .performance-session-info-wrapper span{
+    font-size: 16px;
+    font-weight: 400;
+    color: #242424;
+    padding: 8px 26px;
+    background-color: #F4F4F4;
+    border-radius: 40px;
+    border: 1px solid #D0D0D0;
+}
+
+.popup-payment .popup-flex .seat-information-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.popup-payment .popup-flex .seat-information-wrapper .seat-info-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.popup-payment .popup-flex .seat-information-wrapper .seat-info-wrap img{
+    width: 25px;
+}
+
+
+.popup-payment .popup-flex .seat-information-wrapper .seat-info-wrap span{
+    font-size: 16px;
+    font-weight: 400;
+    color: #242424;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 60px;
+    gap: 100px;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 0fr);
+    justify-content: center;
+    gap: 10px;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid:nth-child(n+2) {
+    margin-top: 28px;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid img{
+    width: 25px;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved {
+    cursor: pointer;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved.selected {
+    cursor: pointer;
+}
+
+.popup-payment .popup-flex .row-wrapper-seat .column-wrapper-seat .seat-grid .notReserved:hover {
+    opacity: 0.6;
+}
+
+
+/* seat */
+.popup-payment .seat-selected-info-wrapper {
+    position: sticky;
+    top: 70px;
+    width: 300px;
+    /* height: 670px; */
+}
+
+.popup-payment .seat-selected-info-wrapper .date-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    align-items: center;
+    height: 55px;
+    border: 1px solid #C0C0C0;
+    box-sizing: border-box;
+    justify-content: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.popup-payment .seat-selected-info-wrapper .date-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-left: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0;
+    padding: 20px 0;
+    height: 160px;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    background-color: #f9f9f9;
+}
+
+.popup-payment .seat-selected-info-wrapper .seat-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-left: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+    padding: 20px 0;
+    height: 90px;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    background-color: #f9f9f9;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.popup-payment .seat-selected-info-wrapper .seat-list-wrapper .selected-seat {
+    font-size: 16px;
+    padding: 10px 0px 9px 0px;
+    color: #242424;
+    font-weight: 500;
+    cursor: pointer;
+    width: 210px;
+    text-align: center;
+}
+
+.popup-payment .seat-selected-info-wrapper #orderConfirmBtn{
+    display: flex;
+    font-size: 18px;
+    color: white;
+    background-color: #5C77BE;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.popup-payment .seat-selected-info-wrapper #orderConfirmBtn.disabled{
+    background-color: #c5c5c5;
+    cursor:not-allowed;
+}
+
+.popup-payment .seat-selected-info-wrapper .total-price-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #C0C0C0;
+    height: 100px;
+    border-radius: 8px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.popup-payment .seat-selected-info-wrapper .total-price-wrapper .price-text{
+    font-size: 16px;
+    color: #242424;
+    font-weight: 400;
+    margin-left: 30px;
+}
+
+.popup-payment .seat-selected-info-wrapper .total-price-wrapper .total-price{
+    font-size: 18px;
+    color: #3A5AAD;
+    font-weight: 800;
+    margin-right: 30px;
 }
 
 /*# sourceMappingURL=/performance.3d0336e7.css.map */

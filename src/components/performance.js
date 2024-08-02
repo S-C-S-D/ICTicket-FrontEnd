@@ -621,11 +621,6 @@ $(document).ready(function () {
     // } else {
     //     console.error("parent-wrapper 또는 session-info-wrapper 요소를 찾을 수 없습니다.");
     // }
-    $(".container > .cover").on('click', function () {
-        $(".container > .cover").hide();
-        $(".footer").show();
-        $(".popup").hide();
-    });
 
 
 
