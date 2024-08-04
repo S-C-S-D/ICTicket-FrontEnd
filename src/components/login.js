@@ -15,7 +15,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: 'http://localhost:8080/users/login', 
+            url: `${window.SERVER_URL}/users/login`, 
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),

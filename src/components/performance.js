@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     // URL에서 performanceId 추출
     const pathParts = window.location.pathname.split('/');
@@ -6,7 +8,7 @@ $(document).ready(function () {
 
     //[관심공연 조회]
     $.ajax({
-        url: `http://localhost:8080/performances/${performanceId}`,
+        url: `${window.SERVER_URL}/performances/${performanceId}`,
         type: 'GET',
         success: function (performanceDetailResponseDto) {
             console.log(performanceDetailResponseDto);
@@ -127,7 +129,7 @@ $(document).ready(function () {
 
             //관심 공연 좋아요 여부
             $.ajax({
-                url: `http://localhost:8080/performances/${performanceId}/likes`,
+                url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
                 type: 'GET',
                 xhrFields: {
                     withCredentials: true // 필요 시 추가
@@ -174,7 +176,7 @@ $(document).ready(function () {
             $('.unlike').click(function () {
 
                 $.ajax({
-                    url: `http://localhost:8080/performances/${performanceId}/likes`,
+                    url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
                     type: 'POST',
                     contentType: 'application/json',
                     xhrFields: {
@@ -193,7 +195,7 @@ $(document).ready(function () {
 
                         //관심 공연 좋아요 여부    
                         $.ajax({
-                            url: `http://localhost:8080/performances/${performanceId}/likes`,
+                            url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
                             type: 'GET',
                             xhrFields: {
                                 withCredentials: true // 필요 시 추가
@@ -238,7 +240,7 @@ $(document).ready(function () {
 
                         //좋아요 개수 조회
                         $.ajax({
-                            url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                            url: `${window.SERVER_URL}/performances/${performanceId}/likes-count`,
                             type: 'GET',
                             contentType: 'application/json',
                             xhrFields: {
@@ -287,7 +289,7 @@ $(document).ready(function () {
             $('.like').off('click').on('click', function () {
                 var likeId = $(this).attr('data-id'); // 변경된 부분
                 $.ajax({
-                    url: `http://localhost:8080/performances/${performanceId}/likes/${likeId}`,
+                    url: `${window.SERVER_URL}/performances/${performanceId}/likes/${likeId}`,
                     type: 'DELETE',
                     xhrFields: {
                         withCredentials: true // 필요 시 추가
@@ -305,7 +307,7 @@ $(document).ready(function () {
 
                         // 관심 공연 좋아요 여부    
                         $.ajax({
-                            url: `http://localhost:8080/performances/${performanceId}/likes`,
+                            url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
                             type: 'GET',
                             xhrFields: {
                                 withCredentials: true // 필요 시 추가
@@ -349,7 +351,7 @@ $(document).ready(function () {
 
                         // 좋아요 개수 조회
                         $.ajax({
-                            url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                            url: `${window.SERVER_URL}/performances/${performanceId}/likes-count`,
                             type: 'GET',
                             contentType: 'application/json',
                             xhrFields: {
@@ -397,7 +399,7 @@ $(document).ready(function () {
 
             //좋아요 개수 조회
             $.ajax({
-                url: `http://localhost:8080/performances/${performanceId}/likes-count`,
+                url: `${window.SERVER_URL}/performances/${performanceId}/likes-count`,
                 type: 'GET',
                 contentType: 'application/json',
                 xhrFields: {
@@ -497,7 +499,7 @@ $(document).ready(function () {
 
             // [댓글 조회]
             $.ajax({
-                url: `http://localhost:8080/performances/${performanceId}/comments`,
+                url: `${window.SERVER_URL}/performances/${performanceId}/comments`,
                 type: 'GET',
                 success: function (CommentResponseDto) {
                     console.log(CommentResponseDto);
@@ -548,7 +550,7 @@ $(document).ready(function () {
                 };
 
                 $.ajax({
-                    url: `http://localhost:8080/performances/${performanceId}/comments`,
+                    url: `${window.SERVER_URL}/performances/${performanceId}/comments`,
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(requestData),

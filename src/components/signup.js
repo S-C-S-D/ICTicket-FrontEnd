@@ -14,7 +14,7 @@ $(document).ready(function() {
             };
     
             $.ajax({
-                url: 'http://localhost:8080/users',
+                url: `${window.SERVER_URL}/users`,
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(requestData),

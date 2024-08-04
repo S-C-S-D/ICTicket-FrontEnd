@@ -122,7 +122,7 @@ $(document).ready(function () {
   //[ 할인 중 조회 ]
   function loadRankAllPerformances(page) {
     $.ajax({
-      url: "http://localhost:8080/performances/rank-all?page=".concat(page, "&size=10"),
+      url: "".concat(window.SERVER_URL, "/performances/rank-all?page=").concat(page, "&size=10"),
       type: 'GET',
       success: function success(PerformanceRankResponseDto) {
         console.log(PerformanceRankResponseDto);
@@ -200,7 +200,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

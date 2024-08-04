@@ -176,7 +176,7 @@ $(document).ready(function () {
 
   // [세션 조회]
   $.ajax({
-    url: "http://localhost:8080/performances/".concat(performanceId, "/sessions"),
+    url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/sessions"),
     type: 'GET',
     contentType: 'application/json',
     xhrFields: {
@@ -270,7 +270,7 @@ $(document).ready(function () {
 
         // 클릭한 세션의 data-id 값을 이용하여 AJAX 요청
         $.ajax({
-          url: "http://localhost:8080/performances/".concat(performanceId, "/sessions/").concat(sessionId, "/seat-count"),
+          url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/sessions/").concat(sessionId, "/seat-count"),
           type: 'GET',
           xhrFields: {
             withCredentials: true // 필요 시 추가
@@ -328,7 +328,7 @@ $(document).ready(function () {
     var dateInfo = $(this).attr('data-date');
     var timeInfo = $(this).attr('data-time');
     $.ajax({
-      url: "http://localhost:8080/performances/".concat(performanceId, "/sessions/").concat(sessionId, "/seats"),
+      url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/sessions/").concat(sessionId, "/seats"),
       type: 'GET',
       xhrFields: {
         withCredentials: true // 필요 시 추가
@@ -437,7 +437,7 @@ $(document).ready(function () {
             seatIdList: selectedSeats
           };
           $.ajax({
-            url: "http://localhost:8080/sessions/".concat(sessionId, "/seats/reserve"),
+            url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/seats/reserve"),
             type: 'PATCH',
             contentType: 'application/json',
             data: JSON.stringify(requestData),
@@ -486,7 +486,7 @@ $(document).ready(function () {
             modifiedAt: modifiedAt
           };
           $.ajax({
-            url: "http://localhost:8080/sessions/".concat(sessionId, "/orders"),
+            url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/orders"),
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestDtoData),
@@ -559,7 +559,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const Bundler = require('parcel-bundler');
+window.SERVER_URL = "http://localhost:8080";
 
 const app = express();
 const port = 3000;
+// export const SERVER_URL = 'http://localhost:8080'; //
 
 // Parcel 번들러 설정
 const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-genre.html', 'public/performance-rank-all.html', 'public/login.html', 'public/signup.html', 'public/mypage.html'], {

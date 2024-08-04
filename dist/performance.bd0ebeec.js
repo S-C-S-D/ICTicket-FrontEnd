@@ -126,7 +126,7 @@ $(document).ready(function () {
 
   //[관심공연 조회]
   $.ajax({
-    url: "http://localhost:8080/performances/".concat(performanceId),
+    url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId),
     type: 'GET',
     success: function success(performanceDetailResponseDto) {
       console.log(performanceDetailResponseDto);
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
       //관심 공연 좋아요 여부
       $.ajax({
-        url: "http://localhost:8080/performances/".concat(performanceId, "/likes"),
+        url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
         type: 'GET',
         xhrFields: {
           withCredentials: true // 필요 시 추가
@@ -210,7 +210,7 @@ $(document).ready(function () {
       // 좋아요 등록
       $('.unlike').click(function () {
         $.ajax({
-          url: "http://localhost:8080/performances/".concat(performanceId, "/likes"),
+          url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
           type: 'POST',
           contentType: 'application/json',
           xhrFields: {
@@ -229,7 +229,7 @@ $(document).ready(function () {
 
             //관심 공연 좋아요 여부    
             $.ajax({
-              url: "http://localhost:8080/performances/".concat(performanceId, "/likes"),
+              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
               type: 'GET',
               xhrFields: {
                 withCredentials: true // 필요 시 추가
@@ -271,7 +271,7 @@ $(document).ready(function () {
 
             //좋아요 개수 조회
             $.ajax({
-              url: "http://localhost:8080/performances/".concat(performanceId, "/likes-count"),
+              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes-count"),
               type: 'GET',
               contentType: 'application/json',
               xhrFields: {
@@ -316,7 +316,7 @@ $(document).ready(function () {
       $('.like').off('click').on('click', function () {
         var likeId = $(this).attr('data-id'); // 변경된 부분
         $.ajax({
-          url: "http://localhost:8080/performances/".concat(performanceId, "/likes/").concat(likeId),
+          url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes/").concat(likeId),
           type: 'DELETE',
           xhrFields: {
             withCredentials: true // 필요 시 추가
@@ -334,7 +334,7 @@ $(document).ready(function () {
 
             // 관심 공연 좋아요 여부    
             $.ajax({
-              url: "http://localhost:8080/performances/".concat(performanceId, "/likes"),
+              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
               type: 'GET',
               xhrFields: {
                 withCredentials: true // 필요 시 추가
@@ -376,7 +376,7 @@ $(document).ready(function () {
 
             // 좋아요 개수 조회
             $.ajax({
-              url: "http://localhost:8080/performances/".concat(performanceId, "/likes-count"),
+              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes-count"),
               type: 'GET',
               contentType: 'application/json',
               xhrFields: {
@@ -419,7 +419,7 @@ $(document).ready(function () {
 
       //좋아요 개수 조회
       $.ajax({
-        url: "http://localhost:8080/performances/".concat(performanceId, "/likes-count"),
+        url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes-count"),
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {
@@ -500,7 +500,7 @@ $(document).ready(function () {
 
       // [댓글 조회]
       $.ajax({
-        url: "http://localhost:8080/performances/".concat(performanceId, "/comments"),
+        url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/comments"),
         type: 'GET',
         success: function success(CommentResponseDto) {
           console.log(CommentResponseDto);
@@ -528,7 +528,7 @@ $(document).ready(function () {
           rate: selectedRate
         };
         $.ajax({
-          url: "http://localhost:8080/performances/".concat(performanceId, "/comments"),
+          url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/comments"),
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(requestData),
@@ -623,7 +623,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

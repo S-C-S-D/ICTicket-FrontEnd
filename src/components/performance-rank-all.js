@@ -3,7 +3,7 @@ $(document).ready(function () {
     //[ 할인 중 조회 ]
     function loadRankAllPerformances(page) {
         $.ajax({
-            url: `http://localhost:8080/performances/rank-all?page=${page}&size=10`,
+            url: `${window.SERVER_URL}/performances/rank-all?page=${page}&size=10`,
             type: 'GET',
             success: function (PerformanceRankResponseDto) {
                 console.log(PerformanceRankResponseDto);

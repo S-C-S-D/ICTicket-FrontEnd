@@ -58,7 +58,7 @@ $(document).ready(function () {
 
     // [세션 조회]
     $.ajax({
-        url: `http://localhost:8080/performances/${performanceId}/sessions`,
+        url: `${window.SERVER_URL}/performances/${performanceId}/sessions`,
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {
@@ -150,7 +150,7 @@ $(document).ready(function () {
 
                 // 클릭한 세션의 data-id 값을 이용하여 AJAX 요청
                 $.ajax({
-                    url: `http://localhost:8080/performances/${performanceId}/sessions/${sessionId}/seat-count`,
+                    url: `${window.SERVER_URL}/performances/${performanceId}/sessions/${sessionId}/seat-count`,
                     type: 'GET',
                     xhrFields: {
                         withCredentials: true // 필요 시 추가
@@ -217,7 +217,7 @@ $(document).ready(function () {
         
         
         $.ajax({
-            url: `http://localhost:8080/performances/${performanceId}/sessions/${sessionId}/seats`,
+            url: `${window.SERVER_URL}/performances/${performanceId}/sessions/${sessionId}/seats`,
             type: 'GET',
             xhrFields: {
                 withCredentials: true // 필요 시 추가
@@ -387,7 +387,7 @@ $(document).ready(function () {
                     };
                     
                     $.ajax({
-                        url: `http://localhost:8080/sessions/${sessionId}/seats/reserve`,
+                        url: `${window.SERVER_URL}/sessions/${sessionId}/seats/reserve`,
                         type: 'PATCH',
                         contentType: 'application/json',
                         data: JSON.stringify(requestData),
@@ -445,7 +445,7 @@ $(document).ready(function () {
                     
 
                     $.ajax({
-                        url: `http://localhost:8080/sessions/${sessionId}/orders`,
+                        url: `${window.SERVER_URL}/sessions/${sessionId}/orders`,
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(requestDtoData),

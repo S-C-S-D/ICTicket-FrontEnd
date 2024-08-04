@@ -133,7 +133,7 @@ $(document).ready(function () {
       address: $('#address').val() + " " + $('#address2').val()
     };
     $.ajax({
-      url: 'http://localhost:8080/users',
+      url: "".concat(window.SERVER_URL, "/users"),
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(requestData),
@@ -214,7 +214,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

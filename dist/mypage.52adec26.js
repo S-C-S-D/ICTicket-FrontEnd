@@ -122,7 +122,7 @@ $(document).ready(function () {
   var accessToken = localStorage.getItem('Authorization');
   //프로필 불러오기
   $.ajax({
-    url: "http://localhost:8080/users/profile",
+    url: "".concat(window.SERVER_URL, "/users/profile"),
     type: 'GET',
     xhrFields: {
       withCredentials: true // 필요 시 추가
@@ -157,7 +157,7 @@ $(document).ready(function () {
   // 예매내역 불러오기 함수
   function loadOrders(userId) {
     $.ajax({
-      url: "http://localhost:8080/users/".concat(userId, "/orders"),
+      url: "".concat(window.SERVER_URL, "/users/").concat(userId, "/orders"),
       type: 'GET',
       xhrFields: {
         withCredentials: true // 필요 시 추가
@@ -219,7 +219,7 @@ $(document).ready(function () {
           var confirmCancel = confirm("예매를 취소하시겠습니까?");
           if (confirmCancel) {
             $.ajax({
-              url: "http://localhost:8080/users/orders/".concat(orderId),
+              url: "".concat(window.SERVER_URL, "/users/orders/").concat(orderId),
               type: 'PATCH',
               xhrFields: {
                 withCredentials: true // 필요 시 추가
@@ -286,7 +286,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

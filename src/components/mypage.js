@@ -3,7 +3,7 @@ $(document).ready(function () {
     const accessToken = localStorage.getItem('Authorization');
     //프로필 불러오기
     $.ajax({
-        url: `http://localhost:8080/users/profile`,
+        url: `${window.SERVER_URL}/users/profile`,
         type: 'GET',
         xhrFields: {
             withCredentials: true // 필요 시 추가
@@ -58,7 +58,7 @@ $(document).ready(function () {
      // 예매내역 불러오기 함수
      function loadOrders(userId) {
         $.ajax({
-            url: `http://localhost:8080/users/${userId}/orders`,
+            url: `${window.SERVER_URL}/users/${userId}/orders`,
             type: 'GET',
             xhrFields: {
                 withCredentials: true // 필요 시 추가
@@ -163,7 +163,7 @@ $(document).ready(function () {
                     const confirmCancel = confirm("예매를 취소하시겠습니까?");
                     if (confirmCancel) {
                         $.ajax({
-                            url: `http://localhost:8080/users/orders/${orderId}`,
+                            url: `${window.SERVER_URL}/users/orders/${orderId}`,
                             type: 'PATCH',
                             xhrFields: {
                                 withCredentials: true // 필요 시 추가

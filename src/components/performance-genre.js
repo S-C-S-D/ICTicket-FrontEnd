@@ -37,7 +37,7 @@ $(document).ready(function () {
 
     //[ 장르별 랭킹 조회 ]
     $.ajax({
-        url: `http://localhost:8080/performances/ranking?genre=${genreType}&page=1&size=10`,
+        url: `${window.SERVER_URL}/performances/ranking?genre=${genreType}&page=1&size=10`,
         type: 'GET',
         success: function (PerformanceGenreRankResponseDto) {
             console.log(PerformanceGenreRankResponseDto);
@@ -75,7 +75,7 @@ $(document).ready(function () {
     //[ 할인 중 조회 ]
     function loadSalePerformances(page) {
         $.ajax({
-            url: `http://localhost:8080/performances/genre/discount?genre=${genreType}&page=${page}&size=5`,
+            url: `${window.SERVER_URL}/performances/genre/discount?genre=${genreType}&page=${page}&size=5`,
             type: 'GET',
             success: function (PerformanceDiscountResponseDto) {
                 console.log(PerformanceDiscountResponseDto);
@@ -116,7 +116,7 @@ $(document).ready(function () {
     //[ 오픈 예정 조회 ]
     function loadOpenSoonPerformances(page) {
         $.ajax({
-            url: `http://localhost:8080/performances/genre/will-be-opened?genre=${genreType}&page=${page}&size=5`,
+            url: `${window.SERVER_URL}/performances/genre/will-be-opened?genre=${genreType}&page=${page}&size=5`,
             type: 'GET',
             success: function (PerformanceDiscountResponseDto) {
                 console.log(PerformanceDiscountResponseDto);

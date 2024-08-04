@@ -121,7 +121,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 $(document).ready(function () {
   //[ 메인 배너 ]
   $.ajax({
-    url: "http://localhost:8080/banners?bannerType=MAIN",
+    url: "".concat(window.SERVER_URL, "/banners?bannerType=MAIN"),
     type: 'GET',
     success: function success(PerformanceGenreRankResponseDto) {
       console.log(PerformanceGenreRankResponseDto);
@@ -154,7 +154,7 @@ $(document).ready(function () {
   //[ 오늘 오픈 ]
   function loadPerformances(page) {
     $.ajax({
-      url: "http://localhost:8080/performances/today-open?page=".concat(page, "&size=10"),
+      url: "".concat(window.SERVER_URL, "/performances/today-open?page=").concat(page, "&size=10"),
       type: 'GET',
       success: function success(PerforamceTodayResponseDto) {
         console.log(PerforamceTodayResponseDto);
@@ -178,7 +178,7 @@ $(document).ready(function () {
   //[ 추천 티켓 ]
   function loadRecommandPerformances(page) {
     $.ajax({
-      url: "http://localhost:8080/performances/recommend?page=".concat(page, "&size=4"),
+      url: "".concat(window.SERVER_URL, "/performances/recommend?page=").concat(page, "&size=4"),
       type: 'GET',
       success: function success(PerformanceRecommendResponseDto) {
         console.log(PerformanceRecommendResponseDto);
@@ -200,7 +200,7 @@ $(document).ready(function () {
   //[ 장르별 랭킹 ]
   function loadRankingPerformances(genreType) {
     $.ajax({
-      url: "http://localhost:8080/performances/ranking?genre=".concat(genreType, "&page=1&size=10"),
+      url: "".concat(window.SERVER_URL, "/performances/ranking?genre=").concat(genreType, "&page=1&size=10"),
       type: 'GET',
       success: function success(PerformanceGenreRankResponseDto) {
         console.log(PerformanceGenreRankResponseDto);
@@ -279,7 +279,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56998" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
