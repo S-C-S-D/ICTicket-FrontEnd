@@ -11,6 +11,20 @@
 
 }
 
+.footer.rank-all{
+    /* background-color: #f7f7f7;
+    margin-top: 200px; */
+    position: relative;
+    bottom: 0px;
+    background-color: #f7f7f7;
+    margin-top: 200px;
+    /* bottom: -500px; */
+    /* position: absolute; */
+    /* left: 0; */
+    width: 100%;
+
+}
+
 .footer-wrapper {
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
