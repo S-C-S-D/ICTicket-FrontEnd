@@ -152,6 +152,7 @@ $(document).ready(function () {
   $(".container > .cover").on('click', function () {
     $(".container > .cover").hide();
     $(".popup").hide();
+    $(".popup-payment").hide();
     selectedSeats = [];
   });
 
@@ -426,6 +427,8 @@ $(document).ready(function () {
             $(this).addClass('selected');
             $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
             var selectedSeatElement = "\n                            <div data-id=\"".concat(seatId, "\" data-price=\"").concat(seatPrice, "\" class=\"selected-seat\">").concat(seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원", "<div>\n                        ");
+            // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
+
             seatListWrapperDiv.append(selectedSeatElement);
             selectedSeats.push(seatId);
             updateSeatConfirmBtn();
@@ -559,7 +562,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61051" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49466" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

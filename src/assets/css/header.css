@@ -13,3 +13,8 @@
 .text-wrapper #login, #signUp, #logOut, #myPage {
     cursor: pointer;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

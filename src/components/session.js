@@ -34,6 +34,7 @@ $(document).ready(function () {
     $(".container > .cover").on('click', function () {
         $(".container > .cover").hide();
         $(".popup").hide();
+        $(".popup-payment").hide();
         selectedSeats = [];
     });
 
@@ -367,6 +368,7 @@ $(document).ready(function () {
                         const selectedSeatElement = `
                             <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div>
                         `;
+                        // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
 
 
                         seatListWrapperDiv.append(selectedSeatElement);

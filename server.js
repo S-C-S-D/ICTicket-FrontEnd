@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const Bundler = require('parcel-bundler');
-window.SERVER_URL = "http://localhost:8080";
 
 const app = express();
 const port = 3000;

@@ -105,6 +105,7 @@
     font-size: 15px;
     color: #4E4E4E;
     font-weight: 500;
+    width: 40px;
 }
 
 .performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price{
@@ -557,7 +558,7 @@ textarea:focus {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 120px;
+    margin-top: 100px;
     gap: 100px;
 }
 
@@ -840,6 +841,16 @@ textarea:focus {
     background-color: #f9f9f9;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+.popup-payment .seat-selected-info-wrapper .seat-list-wrapper .selected-seat-wrapper-img{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    
+}
+
+.popup-payment .seat-selected-info-wrapper .seat-list-wrapper .selected-seat-wrapper-img img {    
+    width: 18px;
 }
 
 .popup-payment .seat-selected-info-wrapper .seat-list-wrapper .selected-seat {
