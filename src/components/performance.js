@@ -66,21 +66,22 @@ $(document).ready(function () {
                             <span class="info-detail">${performance.runTime}분</span>
                             <span class="info-detail">${performance.ageGroup}</span>
                             <div class="seat-price-wrapper">
-                                <span class="info-seat">VIP석</span>
-                                <span class="info-price">159,000원</span>
-                            </div>
-                            <div class="seat-price-wrapper">
-                                <span class="info-seat">VIP석</span>
-                                <span class="info-price">159,000원</span>
-                            </div>
-                            <div class="seat-price-wrapper">
-                                <span class="info-seat">VIP석</span>
-                                <span class="info-price">159,000원</span>
-                            </div>
-                            <div class="seat-price-wrapper">
-                                <span class="info-seat">VIP석</span>
-                                <span class="info-price">159,000원</span>
-                            </div>
+                                    <span class="info-seat">VIP석</span>
+                                    <span class="info-price">150,000원</span>
+                                </div>
+                                <div class="seat-price-wrapper">
+                                    <span class="info-seat">R석</span>
+                                    <span class="info-price">130,000원</span>
+                                </div>
+                                <div class="seat-price-wrapper">
+                                    <span class="info-seat">S석</span>
+                                    <span class="info-price">110,000원</span>
+                                </div>
+                                <div class="seat-price-wrapper">
+                                    <span class="info-seat">A석</span>
+                                    <span class="info-price">90,000원</span>
+                                </div>
+                                </div>
                         </div>
                     </div>
                 </div>
