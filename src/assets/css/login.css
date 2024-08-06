@@ -47,6 +47,8 @@ html {
 .footer.login-page {
     background-color: #f7f7f7;
     margin-top: 0px;
+    bottom: 0px;
+    position: static;
     width: 100%;
 }
 
