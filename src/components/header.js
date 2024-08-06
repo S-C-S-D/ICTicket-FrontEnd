@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     $('#myPage').on('click', function() {
         $.ajax({
-            url: `http://localhost:8080/users/profile`,
+            url: `${window.SERVER_URL}/users/profile`,
             type: 'GET',
             xhrFields: {
                 withCredentials: true // 필요 시 추가

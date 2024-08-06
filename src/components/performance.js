@@ -6,7 +6,7 @@ $(document).ready(function () {
     const performanceId = pathParts[pathParts.indexOf('performances') + 1];
     const accessToken = localStorage.getItem('Authorization');
 
-    //[관심공연 조회]
+    //[공연 조회]
     $.ajax({
         url: `${window.SERVER_URL}/performances/${performanceId}`,
         type: 'GET',

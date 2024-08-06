@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<style>.box1{
+        position: relative;
+        width: 1400px;
+        height: 700px;
+        background-color: black;
+    }
+    .box2{
+        position: absolute;
+        right: 0px;
+        width: 400px;
+        height: 400px;
+        background-color: violet;
+    }</style>
+
+
+<script>$(document).ready(function () {
+
+  // $.ajax({
+
+  //         url: `http://localhost:8080/performances/today-open?page=20&size=10`,
+  //         type: 'GET',
+  //         success: function (PerformanceDetailResponseDto) {
+  //             alert(PerformanceDetailResponseDto.message)
+
+  //             console.log(PerformanceDetailResponseDto.data);
+
+  //             const performancesDetail = PerformanceDetailResponseDto.data
+
+  //             const wrapperDiv = $(".wrapper");
+
+  //             wrapperDiv.empty();
+
+  //             performancesDetail.forEach(performance => {
+
+  //                 const performanceDetailElement = `
+  //                         <div class="age-group">${performance.ageGroup}</div>
+
+  //                         <div class="title">${performance.title}</div>
+
+  //                         <div class="genreType">${performance.genreType}</div>
+
+  //                         <div class="venueLocation">${performance.venueName}</div>
+
+  //                         <img src="${performance.imageUrl}">
+  //                     `;
+
+  //                     wrapperDiv.append(performanceDetailElement);
+  //             });
+
+  //         },
+  //         error: function (xhr) {
+  //             const perforamceTodayResponse = JSON.parse(xhr.responseText);
+
+  //         }
+  //     });
+});</script>
+
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+</body>
+</html>

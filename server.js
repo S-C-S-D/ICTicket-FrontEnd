@@ -4,7 +4,6 @@ const Bundler = require('parcel-bundler');
 
 const app = express();
 const port = 3000;
-// export const SERVER_URL = 'http://localhost:8080'; //
 
 // Parcel 번들러 설정
 const bundler = new Bundler(['public/home.html', 'public/performance.html', 'public/performance-genre.html', 'public/performance-rank-all.html', 'public/login.html', 'public/signup.html', 'public/mypage.html'], {
@@ -12,13 +11,10 @@ const bundler = new Bundler(['public/home.html', 'public/performance.html', 'pub
     watch: true, // 파일 변경 감지
 });
 
-// Parcel 미들웨어 사용
 app.use(bundler.middleware());
 
-// 정적 파일 서빙
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// 기본 루트 경로 요청 처리
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
@@ -31,33 +27,26 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'login.html'));
 });
 
-// /login 경로 요청 처리
 app.get('/performances/genre', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'performance-genre.html'));
 });
 
-// /boards/:boardId 경로 요청 처리
 app.get('/performances/genre/:genreType', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'performance-genre.html'));
 });
 
-// /boards/:boardId 경로 요청 처리
 app.get('/performances/:performanceId', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'performance.html'));
 });
 
-
-// /signup 경로 요청 처리
 app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'signup.html'));
 });
 
-// /signup 경로 요청 처리
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'home.html'));
 });
 
-//마이페이지
 app.get('/mypage', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'mypage.html'));
 });

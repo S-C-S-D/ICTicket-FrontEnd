@@ -124,7 +124,7 @@ $(document).ready(function () {
   var performanceId = pathParts[pathParts.indexOf('performances') + 1];
   var accessToken = localStorage.getItem('Authorization');
 
-  //[관심공연 조회]
+  //[공연 조회]
   $.ajax({
     url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId),
     type: 'GET',
@@ -623,7 +623,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54525" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52980" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

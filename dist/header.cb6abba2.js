@@ -155,7 +155,7 @@ $(document).ready(function () {
   });
   $('#myPage').on('click', function () {
     $.ajax({
-      url: "http://localhost:8080/users/profile",
+      url: "".concat(window.SERVER_URL, "/users/profile"),
       type: 'GET',
       xhrFields: {
         withCredentials: true // 필요 시 추가
@@ -211,7 +211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54525" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52980" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
