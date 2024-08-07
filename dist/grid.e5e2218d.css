@@ -9,12 +9,15 @@
     color: white;
     left: 20px;
     bottom: 10px;
-    position: absolute;
 }
 .performance-list-grid .performance-info .image-wrapper {
     position: relative;
+    display: flex;
     margin-bottom: 18px;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .performance-list-grid .performance-info .image-wrapper::before {
     content: '';
@@ -24,6 +27,20 @@
     width: 100%;
     height: 50%;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+
+.performance-list-grid .performance-info .image-wrapper.today-open-temp::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.6;
     border-radius: 8px;
     pointer-events: none;
 }
@@ -51,9 +68,22 @@
     font-weight: 600;
 }
 
+.performance-list-grid.layout-5 .performance-info .before-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+}
+
 .performance-list-grid.layout-5 .performance-info .open-time {
     font-size: 20px;
     font-weight: 600;
+}
+
+.performance-list-grid.layout-5 .performance-info .today {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
 }
 
 

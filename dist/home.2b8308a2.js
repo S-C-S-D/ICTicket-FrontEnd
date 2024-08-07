@@ -164,7 +164,7 @@ $(document).ready(function () {
         performances.forEach(function (performance) {
           // "2024-07-26-19:00" 형식에서 시간 부분만 추출
           var openTime = performance.openAt.split('-').pop();
-          var todayOpenElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <a href=\"/performances/").concat(performance.id, "\">\n                                    <div class=\"image-wrapper\">\n                                        <span class=\"open-time absolute fs-28\">").concat(openTime, "</span>\n                                        <img src=\"").concat(performance.imageUrl, "\">\n                                    </div>\n                                </a\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
+          var todayOpenElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <a href=\"/performances/").concat(performance.id, "\">\n                                    <div class=\"image-wrapper today-open-temp\">\n                                        <div class=\"before-wrapper\">\n                                            <span class=\"today\">\uC624\uB298</span>\n                                            <span class=\"open-time absolute fs-28\">").concat(openTime, "</span>\n                                        </div>\n                                        <img src=\"").concat(performance.imageUrl, "\">\n                                    </div>\n                                </a>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
           performanceListGridDiv.append(todayOpenElement);
         });
       },
@@ -279,7 +279,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54393" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54147" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

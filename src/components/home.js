@@ -54,11 +54,14 @@ $(document).ready(function () {
                     const todayOpenElement = `
                             <div class="performance-info" data-id="${performance.id}">
                                 <a href="/performances/${performance.id}">
-                                    <div class="image-wrapper">
-                                        <span class="open-time absolute fs-28">${openTime}</span>
+                                    <div class="image-wrapper today-open-temp">
+                                        <div class="before-wrapper">
+                                            <span class="today">오늘</span>
+                                            <span class="open-time absolute fs-28">${openTime}</span>
+                                        </div>
                                         <img src="${performance.imageUrl}">
                                     </div>
-                                </a
+                                </a>
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
                                 <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>

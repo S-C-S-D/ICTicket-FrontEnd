@@ -39,13 +39,31 @@ $(document).ready(function () {
                 }
             }
             const openAt = performance.openAt;
-            const currentTime = new Date();
+            // const currentTime = new Date();
             const openAtTime = new Date(openAt.replace("-", "/").replace("-", "/")); // "2024-07-31-19:00"을 Date 객체로 변환
     
-            if (currentTime < openAtTime) {
+            function updateCountdown() {
+                const currentTime = new Date();
+                const timeDiff = openAtTime - currentTime;
+    
+                if (timeDiff <= 0) {
+                    $(".reserveBtn").removeClass("lock-btn");
+                    $(".reserveBtn").text("예약 가능");
+                    clearInterval(countdownInterval);
+                    return;
+                }
+    
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    
                 $(".reserveBtn").addClass("lock-btn");
-                $(".reserveBtn").text(`${openAt} 오픈 예정`);
+                $(".reserveBtn").text(`${days}일 ${hours}시간 ${minutes}분 ${seconds}초 후 오픈 예정`);
             }
+    
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
 
             const performanceElement = `
                 <div class="title-wrapper">
