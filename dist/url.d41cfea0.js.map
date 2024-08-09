@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/components/url.js"],"names":["window","SERVER_URL"],"mappings":";AAAAA,OAAOC,WAAa","file":"url.d41cfea0.js","sourceRoot":"../public","sourcesContent":["window.SERVER_URL = \"http://api.icticket.shop:8080/\";"]}
