@@ -43,13 +43,21 @@ $(document).ready(function() {
         });
 
         //다음 주소 API
+        let isAddressWindowOpen = false;
+
         $('#address').on('click', function() {
-            console.log("test")
+            if (isAddressWindowOpen) return; // 창이 열려 있으면 클릭 무시
+    
+            isAddressWindowOpen = true; // 창이 열려 있음을 표시
+    
             new daum.Postcode({
                 oncomplete: function(data) {
-                    // 검색 결과에서 도로명 주소만을 사용
                     var address = data.roadAddress;
                     $('#address').val(address);
+                    isAddressWindowOpen = false; // 창이 닫혔음을 표시
+                },
+                onclose: function() {
+                    isAddressWindowOpen = false; // 창이 닫혔음을 표시
                 }
             }).open();
         });
