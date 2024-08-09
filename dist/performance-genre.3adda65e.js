@@ -166,6 +166,11 @@ $(document).ready(function () {
         var genreRankElement = "\n                <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                    <a href=\"/performances/").concat(performance.id, "\">\n                        <div class=\"image-wrapper\">\n                            <span class=\"rank absolute fs-28\">").concat(index + 1, "</span>\n                            <img src=\"").concat(performance.imageUrl, "\">\n                        </div>\n                    </a>\n                    <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                    \n                </div>\n            ");
         performanceListFlexDiv.append(genreRankElement);
       });
+      $.getScript('/genre-rank-swiper.0be238a9.js').done(function (script, textStatus) {
+        console.log('genre-rank-swiper.js 스크립트가 성공적으로 로드되었습니다.');
+      }).fail(function (jqxhr, settings, exception) {
+        console.log('genre-rank-swiper.js 스크립트 로드에 실패했습니다.');
+      });
     },
     error: function error(xhr) {
       var perforamceTodayResponse = JSON.parse(xhr.responseText);
@@ -254,7 +259,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54147" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56980" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

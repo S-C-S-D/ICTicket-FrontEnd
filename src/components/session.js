@@ -381,8 +381,6 @@ $(document).ready(function () {
 
 
                 $('#seatConfirmBtn').off('click').on('click', function() {
-                    
-                    console.log("testtest")
 
                     const requestData = {
                         seatIdList: selectedSeats
@@ -404,6 +402,8 @@ $(document).ready(function () {
                             xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                         },
                         success: function (seatSelectResponseDto) {
+                            alert("성공")
+
                             console.log(seatSelectResponseDto);
                             alert(seatSelectResponseDto.message)
 

@@ -64,6 +64,14 @@ $(document).ready(function () {
 
             });
 
+            $.getScript('/genre-rank-swiper.0be238a9.js')
+            .done(function(script, textStatus) {
+                console.log('genre-rank-swiper.js 스크립트가 성공적으로 로드되었습니다.');
+            })
+            .fail(function(jqxhr, settings, exception) {
+                console.log('genre-rank-swiper.js 스크립트 로드에 실패했습니다.');
+            });
+
 
         },
         error: function (xhr) {
