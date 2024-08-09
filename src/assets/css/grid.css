@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    align-items: flex-start;
 }
 
 .performance-list-grid .performance-info .absolute {
@@ -32,7 +33,7 @@
 }
 
 
-.performance-list-grid .performance-info .image-wrapper.today-open-temp::before {
+/* .performance-list-grid .performance-info .image-wrapper.today-open-temp::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -43,7 +44,7 @@
     opacity: 0.6;
     border-radius: 8px;
     pointer-events: none;
-}
+} */
 
 /* 레이아웃 5개 */
 .performance-list-grid.layout-5 {
@@ -57,6 +58,7 @@
 
 .performance-list-grid.layout-5 .performance-info img {
     width: 220px;
+    height: 295px;
     border-radius: 8px;
     border: 1px solid #e7e7e7;
     box-sizing: border-box;
@@ -73,11 +75,18 @@
     flex-direction: column;
     position: absolute;
     align-items: center;
+    background-color: #242424ba;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    justify-content: center;
 }
 
 .performance-list-grid.layout-5 .performance-info .open-time {
     font-size: 20px;
     font-weight: 600;
+    color: white;
+    z-index: 10;
 }
 
 .performance-list-grid.layout-5 .performance-info .today {
@@ -97,6 +106,16 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.performance-list-grid.layout-5 .performance-info .performance-genre {
+    font-size: 12px;
+    padding: 4px 10px 3px 10px;
+    background-color: #3A5AAD;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .performance-list-grid.layout-5 .performance-info .venue-location {

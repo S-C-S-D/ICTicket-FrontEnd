@@ -189,7 +189,11 @@ $(document).ready(function () {
         var performanceListGridDiv = $('.performance-list-grid.sale');
         performanceListGridDiv.empty();
         performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <a href=\"/performances/").concat(performance.id, "\">\n                                <div class=\"image-wrapper\">\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                            </a>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            <div class=\"sale-wrapper\">\n                                <p class=\"performance-discount-rate fs-17 black\">").concat(performance.discountRate, "%</p>\n                                <p class=\"performance-price fs-17 black\">56,000\uC6D0</p>\n                            </div>\n                        </div>\n                    ");
+          // 할인된 가격 계산
+          var discountedPrice = (performance.price * (100 - performance.discountRate) * 0.01).toFixed(0);
+          // 천 단위 쉼표 추가
+          var formattedPrice = Number(discountedPrice).toLocaleString();
+          var genreRankElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <a href=\"/performances/").concat(performance.id, "\">\n                                <div class=\"image-wrapper\">\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                            </a>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            <div class=\"sale-wrapper\">\n                                <p class=\"performance-discount-rate fs-17 black\">").concat(performance.discountRate, "%</p>\n                                <p class=\"performance-price fs-17 black\">").concat(formattedPrice, "\uC6D0</p>\n                            </div>\n                        </div>\n                    ");
           performanceListGridDiv.append(genreRankElement);
         });
       },
@@ -259,7 +263,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53898" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56945" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

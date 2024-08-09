@@ -94,6 +94,11 @@ $(document).ready(function () {
                 performanceListGridDiv.empty();
 
                 performances.forEach((performance, index) => {
+                    // 할인된 가격 계산
+                    const discountedPrice = (performance.price * (100 - performance.discountRate) * 0.01).toFixed(0);
+                    // 천 단위 쉼표 추가
+                    const formattedPrice = Number(discountedPrice).toLocaleString();
+
                     const genreRankElement = `
                         <div class="performance-info" data-id="${performance.id}">
                             <a href="/performances/${performance.id}">
@@ -106,7 +111,7 @@ $(document).ready(function () {
                             <p class="performance-date fs-15 medium">${performance.startAt}</p>
                             <div class="sale-wrapper">
                                 <p class="performance-discount-rate fs-17 black">${performance.discountRate}%</p>
-                                <p class="performance-price fs-17 black">56,000원</p>
+                                <p class="performance-price fs-17 black">${formattedPrice}원</p>
                             </div>
                         </div>
                     `;

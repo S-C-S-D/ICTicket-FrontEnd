@@ -160,12 +160,47 @@ $(document).ready(function () {
         console.log(PerforamceTodayResponseDto);
         var performances = PerforamceTodayResponseDto.data;
         var performanceListGridDiv = $('.main-today-open > .performance-list-grid');
+        function getKoreanGenreName(genreType) {
+          switch (genreType) {
+            case 'MUSICAL':
+              return '뮤지컬';
+            case 'CONCERT':
+              return '콘서트';
+            case 'FESTIVAL':
+              return '페스티벌';
+            case 'SPORTS':
+              return '스포츠';
+            case 'EXHIBITION':
+              return '전시회';
+            case 'CLASSIC':
+              return '클래식/무용';
+            case 'RANKING':
+              return '랭크';
+            default:
+              return '공연';
+            // 기본값 설정
+          }
+        }
         performanceListGridDiv.empty();
         performances.forEach(function (performance) {
           // "2024-07-26-19:00" 형식에서 시간 부분만 추출
           var openTime = performance.openAt.split('-').pop();
-          var todayOpenElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <a href=\"/performances/").concat(performance.id, "\">\n                                    <div class=\"image-wrapper today-open-temp\">\n                                        <div class=\"before-wrapper\">\n                                            <span class=\"today\">\uC624\uB298</span>\n                                            <span class=\"open-time absolute fs-28\">").concat(openTime, "</span>\n                                        </div>\n                                        <img src=\"").concat(performance.imageUrl, "\">\n                                    </div>\n                                </a>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
+          var openDateTime = new Date(performance.openAt.replace(/-/g, '/')); // Date 객체 생성
+          var now = new Date(); // 현재 시간
+
+          // 현재 시간이 openAt 시간을 지났는지 확인
+          var isOpen = now >= openDateTime ? 'open' : '';
+          var todayOpenElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <a href=\"/performances/").concat(performance.id, "\">\n                                <div class=\"image-wrapper today-open-temp\">\n                                    <div class=\"before-wrapper ").concat(isOpen, "\">\n                                        <span class=\"today\">\uC624\uB298</span>\n                                        <span class=\"open-time fs-28\">").concat(openTime, "</span>\n                                    </div>\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                            </a>\n                            <span class=\"performance-genre\">").concat(getKoreanGenreName(performance.genreType), "</span>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                        </div>\n                    ");
           performanceListGridDiv.append(todayOpenElement);
+          $('.performance-info').hover(function () {
+            $(this).find('.before-wrapper').fadeOut(100);
+          }, function () {
+            $(this).find('.before-wrapper').fadeIn(100);
+          });
+
+          // if (isOpen) {
+          //     $(".before-wrapper").hide()
+          // }
         });
       },
       error: function error(xhr) {
@@ -279,7 +314,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53898" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56945" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
