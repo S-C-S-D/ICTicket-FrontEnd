@@ -48,11 +48,11 @@ jobs:
         key: ${{ secrets.KEY }}
         envs: GITHUB_SHA
         script: |
-         sudo systemctrl stop nginx
+         sudo systemctl stop nginx
          sudo docker rm -f $(docker ps -qa)
          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
          docker-compose up -d
          docker image prune -f
-         sudo systemctrl start nginx
+         sudo systemctl start nginx
 
     
