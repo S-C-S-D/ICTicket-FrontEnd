@@ -84,23 +84,9 @@ $(document).ready(function () {
                             <span class="info-detail">${performance.startAt} ~ ${performance.endAt}</span>
                             <span class="info-detail">${performance.runTime}분</span>
                             <span class="info-detail">${performance.ageGroup}</span>
-                            <div class="seat-price-wrapper">
-                                    <span class="info-seat">VIP석</span>
-                                    <span class="info-price">150,000원</span>
-                                </div>
-                                <div class="seat-price-wrapper">
-                                    <span class="info-seat">R석</span>
-                                    <span class="info-price">130,000원</span>
-                                </div>
-                                <div class="seat-price-wrapper">
-                                    <span class="info-seat">S석</span>
-                                    <span class="info-price">110,000원</span>
-                                </div>
-                                <div class="seat-price-wrapper">
-                                    <span class="info-seat">A석</span>
-                                    <span class="info-price">90,000원</span>
-                                </div>
-                                </div>
+                            <div class="seat-container">
+                              
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,6 +129,48 @@ $(document).ready(function () {
                 </div>
             `;
             performanceListGridDiv.append(performanceElement);
+
+
+            const seatContainerDiv = $(".seat-container");
+            seatContainerDiv.empty();
+            
+            
+            
+            
+            performance.seatGrades.forEach((perform, index) => {
+                    // 할인된 가격 계산
+                    const discountedPrice = (performance.prices[index] * (100 - performance.discountRate) * 0.01).toFixed(0);
+                    // 할인 금액 천 단위 쉼표 추가
+                    const formattedDiscountPrice = Number(discountedPrice).toLocaleString();
+                    // 금액 천 단위 쉼표 추가
+                    const formattedPrice = Number(performance.prices[index]).toLocaleString();
+                    //할인 중일 경우
+                    if (performance.discountRate != null) { 
+                        const performanceSeatElement = `
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">${performance.seatGrades[index]}석</span>
+                                <div class="discount-wrapper">
+                                    <span class="discount-rate">${performance.discountRate}%</div>
+                                    <span class="info-price-discounted">${formattedDiscountPrice}원</span>
+                                    <span class="info-price">${formattedPrice}</span>
+                                </div>
+                            </div>
+                        `       
+                        seatContainerDiv.append(performanceSeatElement);
+                    } else {
+                        const performanceSeatElement = `
+                            <div class="seat-price-wrapper">
+                                <span class="info-seat">${performance.seatGrades[index]}석</span>
+                                <span class="info-price">${formattedPrice}원</span>
+                            </div>
+                        `
+                        
+                        seatContainerDiv.append(performanceSeatElement);
+                    }
+
+                });
+                
+
 
             //관심 공연 좋아요 여부
             $.ajax({

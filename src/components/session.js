@@ -402,7 +402,6 @@ $(document).ready(function () {
                             xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
                         },
                         success: function (seatSelectResponseDto) {
-                            alert("성공")
 
                             console.log(seatSelectResponseDto);
                             alert(seatSelectResponseDto.message)

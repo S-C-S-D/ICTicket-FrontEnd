@@ -95,10 +95,17 @@
     color: #242424;
 }
 
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .seat-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .seat-price-wrapper{
     display: flex;
     flex-direction: row;
     gap: 8px;
+    align-items: flex-end;
 }
 
 .performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-seat{
@@ -108,10 +115,23 @@
     width: 40px;
 }
 
-.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price{
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .discount-rate{
+    font-size: 15px;
+    color: #E33B3B;
+    font-weight: 700;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price-discounted{
     font-size: 15px;
     color: #242424;
     font-weight: 700;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price{
+    font-size: 14px;
+    color: #525252;
+    font-weight: 400;
+    text-decoration: line-through;
 }
 
 .performance-info-wrapper .like-wrapper{

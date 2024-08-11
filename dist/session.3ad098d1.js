@@ -454,7 +454,6 @@ $(document).ready(function () {
               xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
             },
             success: function success(seatSelectResponseDto) {
-              alert("성공");
               console.log(seatSelectResponseDto);
               alert(seatSelectResponseDto.message);
               var totalPrice = 0;
@@ -562,7 +561,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54736" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58396" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
