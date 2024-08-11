@@ -192,15 +192,16 @@ $(document).ready(function () {
           var isOpen = now >= openDateTime ? 'open' : '';
           var todayOpenElement = "\n                        <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                            <a href=\"/performances/").concat(performance.id, "\">\n                                <div class=\"image-wrapper today-open-temp\">\n                                    <div class=\"before-wrapper ").concat(isOpen, "\">\n                                        <span class=\"today\">\uC624\uB298</span>\n                                        <span class=\"open-time fs-28\">").concat(openTime, "</span>\n                                    </div>\n                                    <img src=\"").concat(performance.imageUrl, "\">\n                                </div>\n                            </a>\n                            <span class=\"performance-genre\">").concat(getKoreanGenreName(performance.genreType), "</span>\n                            <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                            <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                            <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                        </div>\n                    ");
           performanceListGridDiv.append(todayOpenElement);
-          $('.performance-info').hover(function () {
-            $(this).find('.before-wrapper').fadeOut(100);
-          }, function () {
-            $(this).find('.before-wrapper').fadeIn(100);
-          });
-
-          // if (isOpen) {
-          //     $(".before-wrapper").hide()
-          // }
+          if (isOpen) {
+            $(".before-wrapper").hide();
+          } else {
+            $(".before-wrapper").show();
+            $('.performance-info').hover(function () {
+              $(this).find('.before-wrapper').fadeOut(100);
+            }, function () {
+              $(this).find('.before-wrapper').fadeIn(100);
+            });
+          }
         });
       },
       error: function error(xhr) {
@@ -314,7 +315,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56945" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54736" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

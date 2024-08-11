@@ -140,10 +140,22 @@ $(document).ready(function () {
                 performanceListGridDiv.empty();
 
                 performances.forEach((performance, index) => {
+
+                                    // "2024-07-26-19:00" 형식에서 시간 부분만 추출
+                const openTime = performance.openAt.split('-').pop();
+                const openDateTime = new Date(performance.openAt.replace(/-/g, '/')); // Date 객체 생성
+                const now = new Date(); // 현재 시간
+
+                // 현재 시간이 openAt 시간을 지났는지 확인
+                const isOpen = now >= openDateTime ? 'open' : '';
                     const genreRankElement = `
                             <div class="performance-info" data-id="${performance.id}">
                                 <a href="/performances/${performance.id}">
                                     <div class="image-wrapper">
+                                        <div class="before-wrapper">
+                                            <span class="today">오픈까지</span>
+                                            <span class="open-time fs-28">${openTime}</span>
+                                        </div>
                                         <img src="${performance.imageUrl}">
                                     </div>
                                 </a>
@@ -153,6 +165,44 @@ $(document).ready(function () {
                             </div>
                         `;
                     performanceListGridDiv.append(genreRankElement);
+
+                                    // 카운트다운 업데이트 함수
+                function updateCountdown() {
+                    const now = new Date();
+                    const timeDifference = openDateTime - now;
+
+                    if (timeDifference > 0) {
+                        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                        const countdownText = `${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+                        $(".open-time").text(countdownText);
+                    } else {
+                        
+                    }
+                }
+
+                // 1초마다 카운트다운 업데이트
+                setInterval(updateCountdown, 1000);
+
+                // 초기 카운트다운 업데이트
+                updateCountdown();
+
+                if (isOpen) {
+                    $(".before-wrapper").hide()
+                } else {
+                    $(".before-wrapper").show()
+                    $('.performance-info').hover(
+                        function() {
+                            $(this).find('.before-wrapper').fadeOut(100);
+                        },
+                        function() {
+                            $(this).find('.before-wrapper').fadeIn(100); 
+                        }
+                    );
+                }
                 });
 
             },

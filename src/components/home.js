@@ -97,19 +97,21 @@ $(document).ready(function () {
                     `;
 
                     performanceListGridDiv.append(todayOpenElement);
+                    
 
-                    $('.performance-info').hover(
-                        function() {
-                            $(this).find('.before-wrapper').fadeOut(100);
-                        },
-                        function() {
-                            $(this).find('.before-wrapper').fadeIn(100); 
-                        }
-                    );
-
-                    // if (isOpen) {
-                    //     $(".before-wrapper").hide()
-                    // }
+                    if (isOpen) {
+                        $(".before-wrapper").hide()
+                    } else {
+                        $(".before-wrapper").show()
+                        $('.performance-info').hover(
+                            function() {
+                                $(this).find('.before-wrapper').fadeOut(100);
+                            },
+                            function() {
+                                $(this).find('.before-wrapper').fadeIn(100); 
+                            }
+                        );
+                    }
                 });
             },
             error: function (xhr) {

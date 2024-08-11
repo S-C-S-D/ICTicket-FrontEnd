@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/components/url.js"],"names":["window","SERVER_URL"],"mappings":"AAAAA,MAAM,CAACC,UAAU,GAAG,uBAAuB","file":"url.7f0f294b.js","sourceRoot":"../public","sourcesContent":["window.SERVER_URL = \"http://localhost:8080\";"]}
+{"version":3,"sources":["../src/components/url.js"],"names":["window","SERVER_URL"],"mappings":"AAAAA,MAAM,CAACC,UAAU,GAAG,uBAAuB;AAC3C","file":"url.7f0f294b.js","sourceRoot":"../public","sourcesContent":["window.SERVER_URL = \"http://localhost:8080\";\n// window.SERVER_URL = \"https://icticket.shop/api\";\n"]}

@@ -215,8 +215,45 @@ $(document).ready(function () {
         var performanceListGridDiv = $('.performance-list-grid.open-soon');
         performanceListGridDiv.empty();
         performances.forEach(function (performance, index) {
-          var genreRankElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <a href=\"/performances/").concat(performance.id, "\">\n                                    <div class=\"image-wrapper\">\n                                        <img src=\"").concat(performance.imageUrl, "\">\n                                    </div>\n                                </a>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
+          // "2024-07-26-19:00" 형식에서 시간 부분만 추출
+          var openTime = performance.openAt.split('-').pop();
+          var openDateTime = new Date(performance.openAt.replace(/-/g, '/')); // Date 객체 생성
+          var now = new Date(); // 현재 시간
+
+          // 현재 시간이 openAt 시간을 지났는지 확인
+          var isOpen = now >= openDateTime ? 'open' : '';
+          var genreRankElement = "\n                            <div class=\"performance-info\" data-id=\"".concat(performance.id, "\">\n                                <a href=\"/performances/").concat(performance.id, "\">\n                                    <div class=\"image-wrapper\">\n                                        <div class=\"before-wrapper\">\n                                            <span class=\"today\">\uC624\uD508\uAE4C\uC9C0</span>\n                                            <span class=\"open-time fs-28\">").concat(openTime, "</span>\n                                        </div>\n                                        <img src=\"").concat(performance.imageUrl, "\">\n                                    </div>\n                                </a>\n                                <p class=\"performance-title fs-17 bold\">").concat(performance.title, "</p>\n                                <p class=\"venue-location fs-15 medium\">").concat(performance.venueName, "</p>\n                                <p class=\"performance-date fs-15 medium\">").concat(performance.startAt, "</p>\n                            </div>\n                        ");
           performanceListGridDiv.append(genreRankElement);
+
+          // 카운트다운 업데이트 함수
+          function updateCountdown() {
+            var now = new Date();
+            var timeDifference = openDateTime - now;
+            if (timeDifference > 0) {
+              var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+              var hours = Math.floor(timeDifference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+              var minutes = Math.floor(timeDifference % (1000 * 60 * 60) / (1000 * 60));
+              var seconds = Math.floor(timeDifference % (1000 * 60) / 1000);
+              var countdownText = "".concat(days, "\uC77C ").concat(hours, "\uC2DC\uAC04 ").concat(minutes, "\uBD84 ").concat(seconds, "\uCD08");
+              $(".open-time").text(countdownText);
+            } else {}
+          }
+
+          // 1초마다 카운트다운 업데이트
+          setInterval(updateCountdown, 1000);
+
+          // 초기 카운트다운 업데이트
+          updateCountdown();
+          if (isOpen) {
+            $(".before-wrapper").hide();
+          } else {
+            $(".before-wrapper").show();
+            $('.performance-info').hover(function () {
+              $(this).find('.before-wrapper').fadeOut(100);
+            }, function () {
+              $(this).find('.before-wrapper').fadeIn(100);
+            });
+          }
         });
       },
       error: function error(xhr) {
@@ -263,7 +300,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56945" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54736" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

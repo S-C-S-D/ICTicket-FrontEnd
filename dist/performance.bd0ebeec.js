@@ -163,7 +163,6 @@ $(document).ready(function () {
         var timeDiff = openAtTime - currentTime;
         if (timeDiff <= 0) {
           $(".reserveBtn").removeClass("lock-btn");
-          $(".reserveBtn").text("예약 가능");
           clearInterval(countdownInterval);
           return;
         }
@@ -637,7 +636,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56945" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54736" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

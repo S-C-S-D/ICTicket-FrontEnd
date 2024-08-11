@@ -48,7 +48,6 @@ $(document).ready(function () {
     
                 if (timeDiff <= 0) {
                     $(".reserveBtn").removeClass("lock-btn");
-                    $(".reserveBtn").text("예약 가능");
                     clearInterval(countdownInterval);
                     return;
                 }
