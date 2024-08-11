@@ -3,30 +3,35 @@ $(document).ready(function () {
     $.ajax({
         url: `${window.SERVER_URL}/banners?bannerType=MAIN`,
         type: 'GET',
-        success: function (PerformanceGenreRankResponseDto) {
-            console.log(PerformanceGenreRankResponseDto);
+        success: function (BannerResponseDto) {
+            console.log(BannerResponseDto)
 
-            const performances = PerformanceGenreRankResponseDto.data;
-            const performanceListFlexDiv = $('.performance-list-genre');
+            const mainBanners = BannerResponseDto.data;
+            const mainBannerListFlexDiv = $('.slider-container > .slider');
+            const mainBannerDotsDiv = $('.dots');
 
-            // performanceListFlexDiv.empty();
+            mainBannerListFlexDiv.empty();
 
-            // performances.forEach((performance, index) => {
-            //         const genreRankElement = `
-            //                 <div class="performance-info" data-id="${performance.id}">
-            //                     <div class="image-wrapper">
-            //                         <span class="rank absolute fs-28">${index + 1}</span>
-            //                         <img src="${performance.imageUrl}">
-            //                     </div>
-            //                     <p class="performance-title fs-17 bold">${performance.title}</p>
-            //                     <p class="venue-location fs-15 medium">${performance.ㅍ}</p>
-            //                     <p class="performance-date fs-15 medium">${performance.startAt}</p>
-            //                 </div>
-            //             `;
-            //         performanceListFlexDiv.append(genreRankElement);
-            // });
+            mainBanners.forEach((mainBanner, index) => {
+                const genreRankElement = `
+                        <a href="${mainBanner.linkUrl}">
+                            <img src="${mainBanner.bannerImageUrl}" data-url="${mainBanner.linkUrl}">
+                        </a>
+                    `;
+                mainBannerListFlexDiv.append(genreRankElement);
 
-
+                const dotElement = `
+                        <span class="dot"></span>
+                        `;
+                mainBannerDotsDiv.append(dotElement);
+            });
+            $.getScript('/main-banner.12c41341.js')
+                .done(function (script, textStatus) {
+                    console.log('main-banner.js 스크립트가 성공적으로 로드되었습니다.');
+                })
+                .fail(function (jqxhr, settings, exception) {
+                    console.log('genre-rank-swiper.js 스크립트 로드에 실패했습니다.');
+                });
         },
         error: function (xhr) {
             const perforamceTodayResponse = JSON.parse(xhr.responseText);
@@ -97,18 +102,18 @@ $(document).ready(function () {
                     `;
 
                     performanceListGridDiv.append(todayOpenElement);
-                    
+
 
                     if (isOpen) {
                         $(".before-wrapper").hide()
                     } else {
                         $(".before-wrapper").show()
                         $('.performance-info').hover(
-                            function() {
+                            function () {
                                 $(this).find('.before-wrapper').fadeOut(100);
                             },
-                            function() {
-                                $(this).find('.before-wrapper').fadeIn(100); 
+                            function () {
+                                $(this).find('.before-wrapper').fadeIn(100);
                             }
                         );
                     }

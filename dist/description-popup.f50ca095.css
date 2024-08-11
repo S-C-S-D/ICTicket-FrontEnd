@@ -1,6 +1,6 @@
 .description-popup {
-    display: block;
-    width: 1000px;
+    display: none;
+    width: 800px;
     /* height: 760px; */
     padding: 60px 40px;
     background-color: white;
@@ -58,6 +58,7 @@
 
 .description-popup .description {
     font-size: 15px;
+    line-height: 24px;
     color: #242424;
 }
 

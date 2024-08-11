@@ -123,27 +123,23 @@ $(document).ready(function () {
   $.ajax({
     url: "".concat(window.SERVER_URL, "/banners?bannerType=MAIN"),
     type: 'GET',
-    success: function success(PerformanceGenreRankResponseDto) {
-      console.log(PerformanceGenreRankResponseDto);
-      var performances = PerformanceGenreRankResponseDto.data;
-      var performanceListFlexDiv = $('.performance-list-genre');
-
-      // performanceListFlexDiv.empty();
-
-      // performances.forEach((performance, index) => {
-      //         const genreRankElement = `
-      //                 <div class="performance-info" data-id="${performance.id}">
-      //                     <div class="image-wrapper">
-      //                         <span class="rank absolute fs-28">${index + 1}</span>
-      //                         <img src="${performance.imageUrl}">
-      //                     </div>
-      //                     <p class="performance-title fs-17 bold">${performance.title}</p>
-      //                     <p class="venue-location fs-15 medium">${performance.ㅍ}</p>
-      //                     <p class="performance-date fs-15 medium">${performance.startAt}</p>
-      //                 </div>
-      //             `;
-      //         performanceListFlexDiv.append(genreRankElement);
-      // });
+    success: function success(BannerResponseDto) {
+      console.log(BannerResponseDto);
+      var mainBanners = BannerResponseDto.data;
+      var mainBannerListFlexDiv = $('.slider-container > .slider');
+      var mainBannerDotsDiv = $('.dots');
+      mainBannerListFlexDiv.empty();
+      mainBanners.forEach(function (mainBanner, index) {
+        var genreRankElement = "\n                        <a href=\"".concat(mainBanner.linkUrl, "\">\n                            <img src=\"").concat(mainBanner.bannerImageUrl, "\" data-url=\"").concat(mainBanner.linkUrl, "\">\n                        </a>\n                    ");
+        mainBannerListFlexDiv.append(genreRankElement);
+        var dotElement = "\n                        <span class=\"dot\"></span>\n                        ";
+        mainBannerDotsDiv.append(dotElement);
+      });
+      $.getScript('/main-banner.12c41341.js').done(function (script, textStatus) {
+        console.log('main-banner.js 스크립트가 성공적으로 로드되었습니다.');
+      }).fail(function (jqxhr, settings, exception) {
+        console.log('genre-rank-swiper.js 스크립트 로드에 실패했습니다.');
+      });
     },
     error: function error(xhr) {
       var perforamceTodayResponse = JSON.parse(xhr.responseText);
@@ -315,7 +311,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57023" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62965" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

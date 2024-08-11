@@ -121,27 +121,37 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 $(document).ready(function () {
   var $slider = $('.slider');
   var $dots = $('.dot');
-  var $images = $slider.children('img');
+  var $images = $slider.children('a');
   var imageCount = $images.length;
   var isDragging = false;
   var startPos = 0;
   var currentTranslate = 0;
   var prevTranslate = 0;
   var currentIndex = 0;
+  var movedBy = 0; // 이동 거리 기록
+
   $slider.on('mousedown touchstart', function (event) {
     isDragging = true;
     startPos = getPositionX(event);
     $slider.addClass('grabbing');
+    movedBy = 0; // 이동 초기화
     event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
   });
-  $slider.on('mouseup mouseleave touchend', function () {
+  $slider.on('mouseup mouseleave touchend', function (event) {
     isDragging = false;
     $slider.removeClass('grabbing');
-    var movedBy = currentTranslate - prevTranslate;
+
+    // 이동 거리 계산
+    var finalTranslate = currentTranslate - prevTranslate;
+    movedBy = finalTranslate;
+
+    // 드래그가 너무 짧으면 클릭으로 간주
+    if (Math.abs(movedBy) < 10) {
+      return; // 클릭 이벤트로 처리하지 않음
+    }
     if (movedBy < -100) {
       currentIndex = (currentIndex + 1) % imageCount;
-    }
-    if (movedBy > 100) {
+    } else if (movedBy > 100) {
       currentIndex = (currentIndex - 1 + imageCount) % imageCount;
     }
     setPositionByIndex(true);
@@ -154,6 +164,15 @@ $(document).ready(function () {
       setSliderPosition();
       event.preventDefault(); // 기본 드래그 앤 드롭 기능 비활성화
     }
+  });
+  $images.on('click', function (event) {
+    // 스와이프가 이루어졌다면 클릭 이벤트 무시
+    if (Math.abs(movedBy) >= 10) {
+      event.preventDefault(); // 클릭 이벤트 기본 동작 방지
+      return; // 클릭 이벤트 무시
+    }
+    var url = $(this).find('img').data('url'); // img의 data-url 가져오기
+    window.location.href = url;
   });
   $dots.on('click', function () {
     currentIndex = $(this).index();
@@ -219,7 +238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57023" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62965" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

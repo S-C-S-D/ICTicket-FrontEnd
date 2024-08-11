@@ -56,9 +56,11 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div class="row reserve">
-                                <div id="reserveBtn" data-id="${performance.id}">
-                                    예매하기
-                                </div>
+                                <a href="/performances/${performance.id}">
+                                    <div id="reserveBtn" data-id="${performance.id}">
+                                        예매하기
+                                    </div>
+                                </a
                             </div>
                         </div>
                     `;
