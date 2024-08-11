@@ -52,6 +52,14 @@ html {
     width: 100%;
 }
 
+.footer.signup-page {
+    background-color: #f7f7f7;
+    margin-top: 0px;
+    bottom: 0px;
+    position: static;
+    width: 100%;
+}
+
 .footer-wrapper.login-page {
     margin-top: 0px;
 }

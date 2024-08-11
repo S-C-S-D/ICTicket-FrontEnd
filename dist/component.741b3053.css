@@ -10,6 +10,10 @@
     position: relative;
 }
 
+.relative {
+    position: relative;
+}
+
 /* 폰트 크기 */
 .fs-14 {
     font-size: 14px;
@@ -206,6 +210,5 @@
     background-color: #0a0629;
     z-index: 1;
 }
-
 
 /*# sourceMappingURL=/component.741b3053.css.map */

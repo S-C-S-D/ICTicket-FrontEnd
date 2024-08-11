@@ -135,8 +135,6 @@ $(document).ready(function () {
             seatContainerDiv.empty();
             
             
-            
-            
             performance.seatGrades.forEach((perform, index) => {
                     // 할인된 가격 계산
                     const discountedPrice = (performance.prices[index] * (100 - performance.discountRate) * 0.01).toFixed(0);

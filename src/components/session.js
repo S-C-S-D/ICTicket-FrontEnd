@@ -366,7 +366,7 @@ $(document).ready(function () {
                         $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
     
                         const selectedSeatElement = `
-                            <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div>
+                            <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 "}</div>
                         `;
                         // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
 
@@ -411,15 +411,27 @@ $(document).ready(function () {
                             // 모든 .selected-seat 요소를 순회하면서 data-price 값을 합산
                             $('.selected-seat').each(function() {
                                 const price = parseInt($(this).data('price'));
+                                const currentText = $(this).text();
+                                $(this).text(`${currentText} ${price}원`);
                                 totalPrice += price;
                             });
 
                             // 현재 시간을 전역 변수에 저장
                             modifiedAt = getFormattedDate();
+                            const discountedTotalPrice = (seatSelectResponseDto.data.totalPrice * (100 - seatSelectResponseDto.data.discountRate) * 0.01).toFixed(0);
+                            const formattedDiscountTotalPrice = Number(discountedTotalPrice).toLocaleString();
 
                             $(".container > .popup").hide()
-                            $(".total-price").text(totalPrice / 2 + "원")
+                            $(".total-price").text(formattedDiscountTotalPrice + "원")
+                            if (seatSelectResponseDto.data.discountRate != 0) {
+                                $(".seat-selected-info-wrapper > .discount-wrapper").show()
+                                $(".discount-rate").text(seatSelectResponseDto.data.discountRate + "%")
+                            } else {
+                                $(".seat-selected-info-wrapper > .discount-wrapper").hide()
+                            }
+
                             $(".container > .popup-payment").show()
+
 
 
                         },

@@ -919,10 +919,36 @@ textarea:focus {
 }
 
 .popup-payment .seat-selected-info-wrapper .total-price-wrapper .total-price{
+    font-size: 20px;
+    color: #3A5AAD;
+    font-weight: 800;
+    margin-right: 30px;
+}
+
+.popup-payment .seat-selected-info-wrapper .discount-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #C0C0C0;
+    height: 70px;
+    border-radius: 8px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.popup-payment .seat-selected-info-wrapper .discount-wrapper .discount-text{
+    font-size: 16px;
+    color: #242424;
+    font-weight: 400;
+    margin-left: 30px;
+}
+
+.popup-payment .seat-selected-info-wrapper .discount-wrapper .discount-rate{
     font-size: 18px;
     color: #3A5AAD;
     font-weight: 800;
     margin-right: 30px;
 }
+
+
 
 /*# sourceMappingURL=/performance.3d0336e7.css.map */
