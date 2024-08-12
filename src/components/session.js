@@ -348,45 +348,49 @@ $(document).ready(function () {
     
     
                     $('.notReserved').on('click', function() {
-    
-                        const seatId = $(this).data('id');
-                        const seatGrade = $(this).data('grade');
-                        const seatIndex = $(this).data('index');
-                        const seatPrice = $(this).data('price');
-    
-                        if ($(this).hasClass("selected")) {
-                            $(this).removeClass('selected');
-                            $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
-                            seatListWrapperDiv.find(`div[data-id="${seatId}"]`).remove();
-    
-                            selectedSeats = selectedSeats.filter(id => id !== seatId);
-                            updateSeatConfirmBtn();
-    
+                        if (selectedSeats.length >= 3) {
+                            alert("최대 4개의 좌석까지 선택 가능합니다.")
                         } else {
-            
-                            // 변수에 저장
-                            const seatData = {
-                                id: seatId,
-                                grade: seatGrade,
-                                index: seatIndex,
-                                price: seatPrice
-                            };
-    
-                            // 클릭한 요소에 selected 클래스 추가 및 src 변경
-                            $(this).addClass('selected');
-                            $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
+                            const seatId = $(this).data('id');
+                            const seatGrade = $(this).data('grade');
+                            const seatIndex = $(this).data('index');
+                            const seatPrice = $(this).data('price');
         
-                            const selectedSeatElement = `
-                                <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 "}</div>
-                            `;
-                            // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
-    
-    
-                            seatListWrapperDiv.append(selectedSeatElement);
-    
-                            selectedSeats.push(seatId);
-                            updateSeatConfirmBtn();
+                            if ($(this).hasClass("selected")) {
+                                $(this).removeClass('selected');
+                                $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
+                                seatListWrapperDiv.find(`div[data-id="${seatId}"]`).remove();
+        
+                                selectedSeats = selectedSeats.filter(id => id !== seatId);
+                                updateSeatConfirmBtn();
+        
+                            } else {
+                
+                                // 변수에 저장
+                                const seatData = {
+                                    id: seatId,
+                                    grade: seatGrade,
+                                    index: seatIndex,
+                                    price: seatPrice
+                                };
+        
+                                // 클릭한 요소에 selected 클래스 추가 및 src 변경
+                                $(this).addClass('selected');
+                                $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
+            
+                                const selectedSeatElement = `
+                                    <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 "}</div>
+                                `;
+                                // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
+        
+        
+                                seatListWrapperDiv.append(selectedSeatElement);
+        
+                                selectedSeats.push(seatId);
+                                updateSeatConfirmBtn();
+                            }
                         }
+
                     });
     
     

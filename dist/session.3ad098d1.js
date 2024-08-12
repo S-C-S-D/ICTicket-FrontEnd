@@ -410,36 +410,40 @@ $(document).ready(function () {
           var seatListWrapperDiv = $('.seat-list-wrapper');
           seatListWrapperDiv.empty();
           $('.notReserved').on('click', function () {
-            var seatId = $(this).data('id');
-            var seatGrade = $(this).data('grade');
-            var seatIndex = $(this).data('index');
-            var seatPrice = $(this).data('price');
-            if ($(this).hasClass("selected")) {
-              $(this).removeClass('selected');
-              $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
-              seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
-              selectedSeats = selectedSeats.filter(function (id) {
-                return id !== seatId;
-              });
-              updateSeatConfirmBtn();
+            if (selectedSeats.length >= 3) {
+              alert("최대 4개의 좌석까지 선택 가능합니다.");
             } else {
-              // 변수에 저장
-              var seatData = {
-                id: seatId,
-                grade: seatGrade,
-                index: seatIndex,
-                price: seatPrice
-              };
+              var seatId = $(this).data('id');
+              var seatGrade = $(this).data('grade');
+              var seatIndex = $(this).data('index');
+              var seatPrice = $(this).data('price');
+              if ($(this).hasClass("selected")) {
+                $(this).removeClass('selected');
+                $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
+                seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
+                selectedSeats = selectedSeats.filter(function (id) {
+                  return id !== seatId;
+                });
+                updateSeatConfirmBtn();
+              } else {
+                // 변수에 저장
+                var seatData = {
+                  id: seatId,
+                  grade: seatGrade,
+                  index: seatIndex,
+                  price: seatPrice
+                };
 
-              // 클릭한 요소에 selected 클래스 추가 및 src 변경
-              $(this).addClass('selected');
-              $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
-              var selectedSeatElement = "\n                                <div data-id=\"".concat(seatId, "\" data-price=\"").concat(seatPrice, "\" class=\"selected-seat\">").concat(seatGrade + "석 " + seatIndex + "번 ", "</div>\n                            ");
-              // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
+                // 클릭한 요소에 selected 클래스 추가 및 src 변경
+                $(this).addClass('selected');
+                $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
+                var selectedSeatElement = "\n                                    <div data-id=\"".concat(seatId, "\" data-price=\"").concat(seatPrice, "\" class=\"selected-seat\">").concat(seatGrade + "석 " + seatIndex + "번 ", "</div>\n                                ");
+                // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
 
-              seatListWrapperDiv.append(selectedSeatElement);
-              selectedSeats.push(seatId);
-              updateSeatConfirmBtn();
+                seatListWrapperDiv.append(selectedSeatElement);
+                selectedSeats.push(seatId);
+                updateSeatConfirmBtn();
+              }
             }
           });
           $('#seatConfirmBtn').off('click').on('click', function () {
@@ -583,7 +587,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53857" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62633" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
