@@ -151,9 +151,13 @@ $(document).ready(function () {
           var refreshToken = xhr.getResponseHeader('RefreshToken');
           localStorage.setItem('Authorization', accessToken);
           localStorage.setItem('RefreshToken', refreshToken);
-
-          // home.html로 이동
-          window.location.href = 'home';
+          var redirectUrl = sessionStorage.getItem('redirectUrl');
+          if (redirectUrl) {
+            sessionStorage.removeItem('redirectUrl'); // 사용 후 제거
+            window.location.href = redirectUrl; // 원래 페이지로 이동
+          } else {
+            window.location.href = '/home';
+          }
         }
       },
       error: function error(jqXHR) {
@@ -197,7 +201,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53857" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

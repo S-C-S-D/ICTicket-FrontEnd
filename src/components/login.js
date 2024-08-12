@@ -33,9 +33,13 @@ $(document).ready(function() {
 
                     localStorage.setItem('Authorization', accessToken);
                     localStorage.setItem('RefreshToken', refreshToken);
-
-                    // home.html로 이동
-                    window.location.href = 'home';
+                    const redirectUrl = sessionStorage.getItem('redirectUrl');
+                    if (redirectUrl) {
+                        sessionStorage.removeItem('redirectUrl'); // 사용 후 제거
+                        window.location.href = redirectUrl; // 원래 페이지로 이동
+                    } else {
+                        window.location.href = '/home';
+                    }
                 }
             },
             error: function (jqXHR) {

@@ -318,229 +318,241 @@ $(document).ready(function () {
     }
   });
   $('.reserveBtn').on('click', function () {
-    if ($(this).hasClass("disabled") || $(this).hasClass("lock-btn")) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
-    }
-    updateSeatConfirmBtn();
-    var sessionId = $(this).attr('data-session-id');
-    var performanceTitle = $(this).attr('data-performance-title');
-    var dateInfo = $(this).attr('data-date');
-    var timeInfo = $(this).attr('data-time');
-    $.ajax({
-      url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/sessions/").concat(sessionId, "/seats"),
-      type: 'GET',
-      xhrFields: {
-        withCredentials: true // 필요 시 추가
-      },
-      crossDomain: true,
-      headers: {
-        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-      },
-      beforeSend: function beforeSend(xhr) {
-        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-      },
-      success: function success(seatList) {
-        console.log(seatList);
-        $(".container > .popup").show();
-        $(".container > .cover").show();
-        $(".performance-order-title").text(performanceTitle);
-        $(".performance-order-date").text(dateInfo);
-        $(".performance-order-time").text(timeInfo);
-        var vipGridDiv = $('.seat-grid.vip');
-        var rGridDiv = $('.seat-grid.r');
-        var sGridDiv = $('.seat-grid.s');
-        var aGridDiv = $('.seat-grid.a');
-        var seatLists = seatList.data;
-        vipGridDiv.empty();
-        rGridDiv.empty();
-        sGridDiv.empty();
-        aGridDiv.empty();
-        seatLists.forEach(function (seat, index) {
-          if (seat.seatGrade == "VIP") {
-            var notReserved = "\n                            <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                        ");
-            var paying = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            var paymentCompleted = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            if (seat.seatStatus == "NOT_RESERVED") {
-              vipGridDiv.append(notReserved);
-            } else {
-              vipGridDiv.append(paying);
-            }
-          }
-          if (seat.seatGrade == "R") {
-            var _notReserved = "\n                            <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                        ");
-            var _paying = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            var _paymentCompleted = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            if (seat.seatStatus == "NOT_RESERVED") {
-              rGridDiv.append(_notReserved);
-            } else {
-              rGridDiv.append(_paying);
-            }
-          }
-          if (seat.seatGrade == "S") {
-            var _notReserved2 = "\n                            <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                        ");
-            var _paying2 = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            var _paymentCompleted2 = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            if (seat.seatStatus == "NOT_RESERVED") {
-              sGridDiv.append(_notReserved2);
-            } else {
-              sGridDiv.append(_paying2);
-            }
-          }
-          if (seat.seatGrade == "A") {
-            var _notReserved3 = "\n                            <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                        ");
-            var _paying3 = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            var _paymentCompleted3 = "\n                            <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                        ");
-            if (seat.seatStatus == "NOT_RESERVED") {
-              aGridDiv.append(_notReserved3);
-            } else {
-              aGridDiv.append(_paying3);
-            }
-          }
-        });
-        var seatListWrapperDiv = $('.seat-list-wrapper');
-        seatListWrapperDiv.empty();
-        $('.notReserved').on('click', function () {
-          var seatId = $(this).data('id');
-          var seatGrade = $(this).data('grade');
-          var seatIndex = $(this).data('index');
-          var seatPrice = $(this).data('price');
-          if ($(this).hasClass("selected")) {
-            $(this).removeClass('selected');
-            $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
-            seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
-            selectedSeats = selectedSeats.filter(function (id) {
-              return id !== seatId;
-            });
-            updateSeatConfirmBtn();
-          } else {
-            // 변수에 저장
-            var seatData = {
-              id: seatId,
-              grade: seatGrade,
-              index: seatIndex,
-              price: seatPrice
-            };
-
-            // 클릭한 요소에 selected 클래스 추가 및 src 변경
-            $(this).addClass('selected');
-            $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
-            var selectedSeatElement = "\n                            <div data-id=\"".concat(seatId, "\" data-price=\"").concat(seatPrice, "\" class=\"selected-seat\">").concat(seatGrade + "석 " + seatIndex + "번 ", "</div>\n                        ");
-            // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
-
-            seatListWrapperDiv.append(selectedSeatElement);
-            selectedSeats.push(seatId);
-            updateSeatConfirmBtn();
-          }
-        });
-        $('#seatConfirmBtn').off('click').on('click', function () {
-          var requestData = {
-            seatIdList: selectedSeats
-          };
-          $.ajax({
-            url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/seats/reserve"),
-            type: 'PATCH',
-            contentType: 'application/json',
-            data: JSON.stringify(requestData),
-            xhrFields: {
-              withCredentials: true // 필요 시 추가
-            },
-            crossDomain: true,
-            headers: {
-              'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-            },
-            beforeSend: function beforeSend(xhr) {
-              xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-            },
-            success: function success(seatSelectResponseDto) {
-              console.log(seatSelectResponseDto);
-              alert(seatSelectResponseDto.message);
-              var totalPrice = 0;
-
-              // 모든 .selected-seat 요소를 순회하면서 data-price 값을 합산
-              $('.selected-seat').each(function () {
-                var price = parseInt($(this).data('price'));
-                var currentText = $(this).text();
-                $(this).text("".concat(currentText, " ").concat(price, "\uC6D0"));
-                totalPrice += price;
-              });
-
-              // 현재 시간을 전역 변수에 저장
-              modifiedAt = getFormattedDate();
-              var discountedTotalPrice = (seatSelectResponseDto.data.totalPrice * (100 - seatSelectResponseDto.data.discountRate) * 0.01).toFixed(0);
-              var formattedDiscountTotalPrice = Number(discountedTotalPrice).toLocaleString();
-              $(".container > .popup").hide();
-              $(".total-price").text(formattedDiscountTotalPrice + "원");
-              if (seatSelectResponseDto.data.discountRate != 0) {
-                $(".seat-selected-info-wrapper > .discount-wrapper").show();
-                $(".discount-rate").text(seatSelectResponseDto.data.discountRate + "%");
-              } else {
-                $(".seat-selected-info-wrapper > .discount-wrapper").hide();
-              }
-              $(".container > .popup-payment").show();
-            },
-            error: function error(jqXHR) {
-              var commentResponse = jqXHR.responseJSON;
-              var commentResponseText = jqXHR.responseText;
-              if (commentResponse != null) {
-                alert(commentResponse.message);
-              } else {
-                alert(commentResponseText);
-              }
-            }
-          });
-        });
-        $('#orderConfirmBtn').off('click').on('click', function () {
-          console.log(modifiedAt);
-          var requestDtoData = {
-            seatIdList: selectedSeats,
-            modifiedAt: modifiedAt
-          };
-          $.ajax({
-            url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/orders"),
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestDtoData),
-            xhrFields: {
-              withCredentials: true // 필요 시 추가
-            },
-            crossDomain: true,
-            headers: {
-              'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-            },
-            beforeSend: function beforeSend(xhr) {
-              xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-            },
-            success: function success(seatSelectResponseDto) {
-              console.log(seatSelectResponseDto);
-              alert(seatSelectResponseDto.message);
-              $(".container > .popup").hide();
-              $(".container > .popup-payment").hide();
-              window.location.href = '/mypage';
-            },
-            error: function error(jqXHR) {
-              var commentResponse = jqXHR.responseJSON;
-              var commentResponseText = jqXHR.responseText;
-              if (commentResponse != null) {
-                alert(commentResponse.message);
-              } else {
-                alert(commentResponseText);
-              }
-            }
-          });
-        });
-      },
-      error: function error(jqXHR) {
-        var commentResponse = jqXHR.responseJSON;
-        var commentResponseText = jqXHR.responseText;
-        if (commentResponse != null) {
-          alert(commentResponse.message);
-        } else {
-          alert(commentResponseText);
-        }
+    if (!accessToken) {
+      var userConfirmed = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+      if (userConfirmed) {
+        // 현재 페이지의 URL을 세션 스토리지에 저장
+        sessionStorage.setItem('redirectUrl', window.location.href);
+        window.location.href = '/login'; // 확인 버튼 클릭 시 로그인 페이지로 이동
       }
-    });
+    } else {
+      if ($(this).hasClass("disabled") || $(this).hasClass("lock-btn")) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      }
+      updateSeatConfirmBtn();
+      var sessionId = $(this).attr('data-session-id');
+      var performanceTitle = $(this).attr('data-performance-title');
+      var dateInfo = $(this).attr('data-date');
+      var timeInfo = $(this).attr('data-time');
+      $.ajax({
+        url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/sessions/").concat(sessionId, "/seats"),
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true // 필요 시 추가
+        },
+        crossDomain: true,
+        headers: {
+          'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+        },
+        beforeSend: function beforeSend(xhr) {
+          xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+        },
+        success: function success(seatList) {
+          console.log(seatList);
+          $(".container > .popup").show();
+          $(".container > .cover").show();
+          $(".performance-order-title").text(performanceTitle);
+          $(".performance-order-date").text(dateInfo);
+          $(".performance-order-time").text(timeInfo);
+          var vipGridDiv = $('.seat-grid.vip');
+          var rGridDiv = $('.seat-grid.r');
+          var sGridDiv = $('.seat-grid.s');
+          var aGridDiv = $('.seat-grid.a');
+          var seatLists = seatList.data;
+          vipGridDiv.empty();
+          rGridDiv.empty();
+          sGridDiv.empty();
+          aGridDiv.empty();
+          seatLists.forEach(function (seat, index) {
+            if (seat.seatGrade == "VIP") {
+              var notReserved = "\n                                <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                            ");
+              var paying = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              var paymentCompleted = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              if (seat.seatStatus == "NOT_RESERVED") {
+                vipGridDiv.append(notReserved);
+              } else {
+                vipGridDiv.append(paying);
+              }
+            }
+            if (seat.seatGrade == "R") {
+              var _notReserved = "\n                                <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                            ");
+              var _paying = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              var _paymentCompleted = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              if (seat.seatStatus == "NOT_RESERVED") {
+                rGridDiv.append(_notReserved);
+              } else {
+                rGridDiv.append(_paying);
+              }
+            }
+            if (seat.seatGrade == "S") {
+              var _notReserved2 = "\n                                <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                            ");
+              var _paying2 = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              var _paymentCompleted2 = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              if (seat.seatStatus == "NOT_RESERVED") {
+                sGridDiv.append(_notReserved2);
+              } else {
+                sGridDiv.append(_paying2);
+              }
+            }
+            if (seat.seatGrade == "A") {
+              var _notReserved3 = "\n                                <img class=\"notReserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/5HSMgs.png\">\n                            ");
+              var _paying3 = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              var _paymentCompleted3 = "\n                                <img class=\"reserved\" data-id=\"".concat(seat.id, "\" data-grade=\"").concat(seat.seatGrade, "\" data-index=\"").concat(index + 1, "\" data-price=\"").concat(seat.price, "\" src=\"https://ifh.cc/g/QqyHzC.png\">\n                            ");
+              if (seat.seatStatus == "NOT_RESERVED") {
+                aGridDiv.append(_notReserved3);
+              } else {
+                aGridDiv.append(_paying3);
+              }
+            }
+          });
+          var seatListWrapperDiv = $('.seat-list-wrapper');
+          seatListWrapperDiv.empty();
+          $('.notReserved').on('click', function () {
+            var seatId = $(this).data('id');
+            var seatGrade = $(this).data('grade');
+            var seatIndex = $(this).data('index');
+            var seatPrice = $(this).data('price');
+            if ($(this).hasClass("selected")) {
+              $(this).removeClass('selected');
+              $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
+              seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
+              selectedSeats = selectedSeats.filter(function (id) {
+                return id !== seatId;
+              });
+              updateSeatConfirmBtn();
+            } else {
+              // 변수에 저장
+              var seatData = {
+                id: seatId,
+                grade: seatGrade,
+                index: seatIndex,
+                price: seatPrice
+              };
+
+              // 클릭한 요소에 selected 클래스 추가 및 src 변경
+              $(this).addClass('selected');
+              $(this).attr('src', 'https://ifh.cc/g/7a0wjw.png');
+              var selectedSeatElement = "\n                                <div data-id=\"".concat(seatId, "\" data-price=\"").concat(seatPrice, "\" class=\"selected-seat\">").concat(seatGrade + "석 " + seatIndex + "번 ", "</div>\n                            ");
+              // <div data-id="${seatId}" data-price="${seatPrice}" class="selected-seat">${seatGrade + "석 " + seatIndex + "번 " + " " + seatPrice + "원" }<div></div>
+
+              seatListWrapperDiv.append(selectedSeatElement);
+              selectedSeats.push(seatId);
+              updateSeatConfirmBtn();
+            }
+          });
+          $('#seatConfirmBtn').off('click').on('click', function () {
+            var requestData = {
+              seatIdList: selectedSeats
+            };
+            $.ajax({
+              url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/seats/reserve"),
+              type: 'PATCH',
+              contentType: 'application/json',
+              data: JSON.stringify(requestData),
+              xhrFields: {
+                withCredentials: true // 필요 시 추가
+              },
+              crossDomain: true,
+              headers: {
+                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+              },
+              beforeSend: function beforeSend(xhr) {
+                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+              },
+              success: function success(seatSelectResponseDto) {
+                console.log(seatSelectResponseDto);
+                alert(seatSelectResponseDto.message);
+                var totalPrice = 0;
+
+                // 모든 .selected-seat 요소를 순회하면서 data-price 값을 합산
+                $('.selected-seat').each(function () {
+                  var price = parseInt($(this).data('price'));
+                  var currentText = $(this).text();
+                  $(this).text("".concat(currentText, " ").concat(price, "\uC6D0"));
+                  totalPrice += price;
+                });
+
+                // 현재 시간을 전역 변수에 저장
+                modifiedAt = getFormattedDate();
+                var discountedTotalPrice = (seatSelectResponseDto.data.totalPrice * (100 - seatSelectResponseDto.data.discountRate) * 0.01).toFixed(0);
+                var formattedDiscountTotalPrice = Number(discountedTotalPrice).toLocaleString();
+                $(".container > .popup").hide();
+                $(".total-price").text(formattedDiscountTotalPrice + "원");
+                if (seatSelectResponseDto.data.discountRate != 0) {
+                  $(".seat-selected-info-wrapper > .discount-wrapper").show();
+                  $(".discount-rate").text(seatSelectResponseDto.data.discountRate + "%");
+                } else {
+                  $(".seat-selected-info-wrapper > .discount-wrapper").hide();
+                }
+                $(".container > .popup-payment").show();
+              },
+              error: function error(jqXHR) {
+                var commentResponse = jqXHR.responseJSON;
+                var commentResponseText = jqXHR.responseText;
+                if (commentResponse != null) {
+                  if (commentResponse.errorType == "REQUIRES_LOGIN") {
+                    alert(commentResponse.message);
+                    window.location.href = '/login';
+                  }
+                } else {
+                  alert(commentResponseText);
+                }
+              }
+            });
+          });
+          $('#orderConfirmBtn').off('click').on('click', function () {
+            console.log(modifiedAt);
+            var requestDtoData = {
+              seatIdList: selectedSeats,
+              modifiedAt: modifiedAt
+            };
+            $.ajax({
+              url: "".concat(window.SERVER_URL, "/sessions/").concat(sessionId, "/orders"),
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(requestDtoData),
+              xhrFields: {
+                withCredentials: true // 필요 시 추가
+              },
+              crossDomain: true,
+              headers: {
+                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+              },
+              beforeSend: function beforeSend(xhr) {
+                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+              },
+              success: function success(seatSelectResponseDto) {
+                console.log(seatSelectResponseDto);
+                alert(seatSelectResponseDto.message);
+                $(".container > .popup").hide();
+                $(".container > .popup-payment").hide();
+                window.location.href = '/mypage';
+              },
+              error: function error(jqXHR) {
+                var commentResponse = jqXHR.responseJSON;
+                var commentResponseText = jqXHR.responseText;
+                if (commentResponse != null) {
+                  alert(commentResponse.message);
+                } else {
+                  alert(commentResponseText);
+                }
+              }
+            });
+          });
+        },
+        error: function error(jqXHR) {
+          var commentResponse = jqXHR.responseJSON;
+          var commentResponseText = jqXHR.responseText;
+          if (commentResponse != null) {
+            alert(commentResponse.message);
+          } else {
+            alert(commentResponseText);
+          }
+        }
+      });
+    }
   });
 
   // 초기 메시지 설정
@@ -571,7 +583,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53857" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

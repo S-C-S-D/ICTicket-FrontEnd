@@ -630,6 +630,22 @@ textarea:focus {
     /* height: 670px; */
 }
 
+.popup .close-popup-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    /* height: 670px; */
+}
+
+.popup-payment .close-popup-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    /* height: 670px; */
+}
+
 .popup .seat-selected-info-wrapper .date-wrapper {
     display: flex;
     flex-direction: column;

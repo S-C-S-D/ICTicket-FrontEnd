@@ -96,7 +96,15 @@ $(document).ready(function () {
                     <span class="like-count"></span>
                 </div>
                 <div class="description">"${performance.description}"</div>
-                <div class="comment-info-wrapper">
+                <div class="comment-info-wrapper relative">
+                    <div class="info-mark comment-mark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12.0019 2.00488C17.5199 2.00488 21.9999 6.48488 21.9999 12.0019C21.9999 17.5199 17.5199 21.9999 12.0019 21.9999C6.48488 21.9999 2.00488 17.5199 2.00488 12.0019C2.00488 6.48488 6.48488 2.00488 12.0019 2.00488ZM12.0019 10.0049C11.5879 10.0049 11.2519 10.3409 11.2519 10.7549V16.2549C11.2519 16.6689 11.5879 17.0049 12.0019 17.0049C12.4159 17.0049 12.7519 16.6689 12.7519 16.2549V10.7549C12.7519 10.3409 12.4159 10.0049 12.0019 10.0049ZM11.9999 7.00488C11.4479 7.00488 10.9999 7.45288 10.9999 8.00488C10.9999 8.55688 11.4479 9.00488 11.9999 9.00488C12.5519 9.00488 12.9999 8.55688 12.9999 8.00488C12.9999 7.45288 12.5519 7.00488 11.9999 7.00488Z"
+                            fill="#D7D7D7" />
+                    </svg>
+                    <div class="info-mark-text">조회 방법 보기</div>
+                    </div>
                     <div class="comment-header">
                         <div class="text-wrapper-comment">
                             <span>총&nbsp;</span>
@@ -133,6 +141,14 @@ $(document).ready(function () {
 
             const seatContainerDiv = $(".seat-container");
             seatContainerDiv.empty();
+
+            $.getScript('/description-popup.8cd9cd53.js')
+            .done(function (script, textStatus) {
+                console.log('description-popup.js 스크립트가 성공적으로 로드되었습니다.');
+            })
+            .fail(function (jqxhr, settings, exception) {
+                console.log('description-popup.js 스크립트 로드에 실패했습니다.');
+            });
             
             
             performance.seatGrades.forEach((perform, index) => {
@@ -218,114 +234,125 @@ $(document).ready(function () {
             // 좋아요 등록
             $('.unlike').click(function () {
 
-                $.ajax({
-                    url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
-                    type: 'POST',
-                    contentType: 'application/json',
-                    xhrFields: {
-                        withCredentials: true // 필요 시 추가
-                    },
-                    crossDomain: true,
-                    headers: {
-                        'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-                    },
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-                    },
-                    success: function (likeCreateResponse) {
-                        console.log(likeCreateResponse)
-                        // alert(likeCreateResponse.message)
+                if (!accessToken) {
+                    const userConfirmed = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+                    if (userConfirmed) {
+                        // 현재 페이지의 URL을 세션 스토리지에 저장
+                        sessionStorage.setItem('redirectUrl', window.location.href);
+                        window.location.href = '/login'; // 확인 버튼 클릭 시 로그인 페이지로 이동
+                    }
+                } else {
 
-                        //관심 공연 좋아요 여부    
-                        $.ajax({
-                            url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
-                            type: 'GET',
-                            xhrFields: {
-                                withCredentials: true // 필요 시 추가
-                            },
-                            crossDomain: true,
-                            headers: {
-                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-                            },
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-                            },
-                            success: function (likeResponseDto) {
-                                console.log(likeResponseDto)
-
-                                if (likeResponseDto.data != null) {
-                                    if (likeResponseDto.data.isLike) {
-                                        $(".unlike").hide();
-                                        $(".like").show();
-                                        $(".like").attr("data-id", likeResponseDto.data.id);
+                    $.ajax({
+                        url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        xhrFields: {
+                            withCredentials: true // 필요 시 추가
+                        },
+                        crossDomain: true,
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                        },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                        },
+                        success: function (likeCreateResponse) {
+                            console.log(likeCreateResponse)
+                            // alert(likeCreateResponse.message)
+    
+                            //관심 공연 좋아요 여부    
+                            $.ajax({
+                                url: `${window.SERVER_URL}/performances/${performanceId}/likes`,
+                                type: 'GET',
+                                xhrFields: {
+                                    withCredentials: true // 필요 시 추가
+                                },
+                                crossDomain: true,
+                                headers: {
+                                    'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                                },
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                                },
+                                success: function (likeResponseDto) {
+                                    console.log(likeResponseDto)
+    
+                                    if (likeResponseDto.data != null) {
+                                        if (likeResponseDto.data.isLike) {
+                                            $(".unlike").hide();
+                                            $(".like").show();
+                                            $(".like").attr("data-id", likeResponseDto.data.id);
+                                        } else {
+                                            $(".like").hide();
+                                            $(".unlike").show();
+                                        }
                                     } else {
                                         $(".like").hide();
                                         $(".unlike").show();
                                     }
-                                } else {
-                                    $(".like").hide();
-                                    $(".unlike").show();
+                                    // location.reload(); // 페이지 리로드
+                                },
+                                error: function (jqXHR) {
+                                    const commentResponse = jqXHR.responseJSON;
+                                    const commentResponseText = jqXHR.responseText;
+    
+                                    if (commentResponse != null) {
+                                        alert(commentResponse.message);
+                                    } else {
+                                        alert(commentResponseText)
+                                    }
+    
                                 }
-                                // location.reload(); // 페이지 리로드
-                            },
-                            error: function (jqXHR) {
-                                const commentResponse = jqXHR.responseJSON;
-                                const commentResponseText = jqXHR.responseText;
-
-                                if (commentResponse != null) {
-                                    alert(commentResponse.message);
-                                } else {
-                                    alert(commentResponseText)
+                            });
+    
+                            //좋아요 개수 조회
+                            $.ajax({
+                                url: `${window.SERVER_URL}/performances/${performanceId}/likes-count`,
+                                type: 'GET',
+                                contentType: 'application/json',
+                                xhrFields: {
+                                    withCredentials: true // 필요 시 추가
+                                },
+                                crossDomain: true,
+                                headers: {
+                                    'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                                },
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                                },
+                                success: function (boardResponse) {
+                                    console.log(boardResponse)
+                                    $(".like-count").text(boardResponse.data + "명이 관심있음");
+                                    // location.reload(); // 페이지 리로드
+                                },
+                                error: function (jqXHR) {
+                                    const commentResponse = jqXHR.responseJSON;
+                                    const commentResponseText = jqXHR.responseText;
+    
+                                    if (commentResponse != null) {
+                                        alert(commentResponse.message);
+                                    } else {
+                                        alert(commentResponseText)
+                                    }
+    
                                 }
-
+                            });
+                        },
+                        error: function (jqXHR) {
+                            const commentResponse = jqXHR.responseJSON;
+                            const commentResponseText = jqXHR.responseText;
+    
+                            if (commentResponse != null) {
+                                alert(commentResponse.message);
+                            } else {
+                                alert(commentResponseText)
                             }
-                        });
-
-                        //좋아요 개수 조회
-                        $.ajax({
-                            url: `${window.SERVER_URL}/performances/${performanceId}/likes-count`,
-                            type: 'GET',
-                            contentType: 'application/json',
-                            xhrFields: {
-                                withCredentials: true // 필요 시 추가
-                            },
-                            crossDomain: true,
-                            headers: {
-                                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-                            },
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-                            },
-                            success: function (boardResponse) {
-                                console.log(boardResponse)
-                                $(".like-count").text(boardResponse.data + "명이 관심있음");
-                                // location.reload(); // 페이지 리로드
-                            },
-                            error: function (jqXHR) {
-                                const commentResponse = jqXHR.responseJSON;
-                                const commentResponseText = jqXHR.responseText;
-
-                                if (commentResponse != null) {
-                                    alert(commentResponse.message);
-                                } else {
-                                    alert(commentResponseText)
-                                }
-
-                            }
-                        });
-                    },
-                    error: function (jqXHR) {
-                        const commentResponse = jqXHR.responseJSON;
-                        const commentResponseText = jqXHR.responseText;
-
-                        if (commentResponse != null) {
-                            alert(commentResponse.message);
-                        } else {
-                            alert(commentResponseText)
+    
                         }
+                    });
+                }
 
-                    }
-                });
             });
 
             // 좋아요 취소
@@ -474,17 +501,20 @@ $(document).ready(function () {
             });
 
 
-
-
-
-
-
-
-
-
             //댓글 작성 버튼이 생긴 후, 클릭 효과 주기
             $("#commentBtn").on('click', function () {
-                $(".comment.create-comment").show();
+                if (!accessToken) {
+                    
+                    const userConfirmed = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+                    if (userConfirmed) {
+                        sessionStorage.setItem('redirectUrl', window.location.href);
+                        window.location.href = '/login'; // 확인 버튼 클릭 시 로그인 페이지로 이동
+                    }
+                } else {
+
+                    $(".comment.create-comment").show();
+                }
+
             });
 
             $("#cancelBtn").on('click', function () {

@@ -142,7 +142,7 @@
 .nav-bar .nav-option.active{
     font-size: 16px;
     color: #3A5AAD;
-    font-weight: 700;
+    font-weight: 800;
     border-bottom: 2px solid #3A5AAD;
 }
 
@@ -197,9 +197,9 @@
 .container .cover {
     position: absolute;
     width: 100%;
-    height: 130vh;
+    height: 100%;
     background-color: #3131314f;
-    z-index: 1;
+    z-index: 2;
 }
 
 .container .session-info-wrapper .cover {

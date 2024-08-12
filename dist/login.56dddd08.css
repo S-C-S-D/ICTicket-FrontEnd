@@ -82,6 +82,7 @@ button {
     text-align: center; /* 텍스트 중앙 정렬 */
     margin-top: 20px;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 input {

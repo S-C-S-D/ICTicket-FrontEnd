@@ -1,0 +1,400 @@
+.session-title {
+    margin-bottom: 40px;
+}
+
+.genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.genre-list .genre-btn {
+    display: inline-block;
+    padding: 10px;
+    border: 0.5px solid #9C9C9C;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.genre-btn.active {
+    background-color: #3A5AAD;
+    border: 0.5px solid #3A5AAD;
+    color: white;
+}
+
+.performance-list-genre.layout-5 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-5 .performance-info {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.performance-list-genre.layout-5 .performance-info:first-child {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 14px;
+}
+
+.performance-list-genre.layout-5 .performance-info img {
+    width: 220px;
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid #e7e7e7;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-5 .performance-info .image-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.performance-list-genre.layout-5 .performance-info .image-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 73%;
+    background: linear-gradient(to top, rgb(0 0 0 / 63%), rgb(0 0 0 / 0%));
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.performance-list-genre.layout-5 .performance-info .absolute {
+    color: white;
+    left: 20px;
+    bottom: 2px;
+    position: absolute;
+}
+
+.performance-list-genre.layout-5 .performance-info .rank {
+    font-size: 60px;
+    font-weight: 600;
+}
+
+.performance-list-genre.layout-5 .performance-info .open-time {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.performance-list-genre.layout-5 .performance-info .performance-title {
+    width: 220px;
+    margin-bottom: 8px;
+    white-space: normal;
+    word-wrap: break-word;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.performance-list-genre.layout-5 .performance-info .venue-location {
+    width: 220px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #242424;
+    word-wrap: break-word;
+}
+
+.performance-list-genre.layout-5 .performance-info .performance-date {
+    width: 220px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #999999;
+    word-wrap: break-word;
+}
+
+.redirect-btn {
+    width: 500px;
+    height: 54px;
+    background-color: #3A5AAD;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+.slider-container {
+    position: relative;
+    width: 80%;
+    width: 1180px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.2s ease;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+    pointer-events: none;
+}
+.slider a {
+    max-width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+
+.slider img {
+    width: 1180px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #3A5AAD;
+}
+
+.dot-rank {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.dot-rank.active {
+    background-color: #3A5AAD;
+}
+
+
+.gerne-ranking .slider-container-rank {
+    position: relative;
+    width: 1204px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.gerne-ranking .slider-container-rank .slider-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.main-genre-ranking .slider-container-rank {
+    position: relative;
+    width: 1204px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.main-genre-ranking .slider-container-rank .slider-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    height: 460px;
+}
+
+
+.image-wrapper img {
+    width: 100%;
+}
+
+.main-genre-ranking .nav-button {
+    position: absolute;
+    top: 36%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 37px;
+    height: 37px;
+    border-radius: 100px;
+    flex-shrink: 0;
+}
+
+.main-genre-ranking .nav-button.left {
+    left: 2px;
+    background: url('../images/img-arrow-left.png') no-repeat center center;
+    background-position-x: 6px;
+    background-size: 50%;
+    background-color: white;
+}
+
+.main-genre-ranking .nav-button.right {
+    right: 2px;
+    background: url('../images/img-arrow-right.png') no-repeat center center;
+    background-position-x: 11px;
+    background-size: 50%;
+    background-color: white;
+}
+
+
+.gerne-ranking .nav-button {
+    position: absolute;
+    top: 46%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    flex-shrink: 0;
+}
+
+.gerne-ranking .nav-button.left {
+    left: 0px;
+    background: url('../images/img-arrow-left.png') no-repeat center center;
+    background-position-x: 9px;
+    background-size: 50%;
+    background-color: white;
+}
+
+.gerne-ranking .nav-button.right {
+    right: 0px;
+    background: url('../images/img-arrow-right.png') no-repeat center center;
+    background-position-x: 17px;
+    background-size: 50%;
+    background-color: white;
+}
+
+
+.performance-list-genre.layout-4 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-4 .performance-info {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.performance-list-genre.layout-4 .performance-info:first-child {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 14px;
+}
+
+.performance-list-genre.layout-4 .performance-info img {
+    width: 280px;
+    height: 375px;
+    border-radius: 8px;
+    border: 1px solid #7b7b7b;
+    box-sizing: border-box;
+}
+
+.performance-list-genre.layout-4 .performance-info .image-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.performance-list-genre.layout-4 .performance-info .image-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to top, rgb(0 0 0 / 53%), rgba(0, 0, 0, 0));
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.performance-list-genre.layout-4 .performance-info .absolute {
+    color: white;
+    left: 25px;
+    bottom: 5px;
+    position: absolute;
+}
+
+.performance-list-genre.layout-4 .performance-info .rank {
+    font-size: 70px;
+    font-weight: 600;
+}
+
+.performance-list-genre.layout-4 .performance-info .open-time {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.performance-list-genre.layout-4 .performance-info .performance-title {
+    width: 280px;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e5e5e5;
+}
+
+.performance-list-genre.layout-4 .performance-info .venue-location {
+    width: 280px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #242424;
+    word-wrap: break-word;
+}
+
+.performance-list-genre.layout-4 .performance-info .performance-date {
+    width: 280px;
+    margin-bottom: 4px;
+    white-space: normal;
+    color: #999999;
+    word-wrap: break-word;
+}
+

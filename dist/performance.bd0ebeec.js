@@ -175,10 +175,15 @@ $(document).ready(function () {
       }
       updateCountdown();
       var countdownInterval = setInterval(updateCountdown, 1000);
-      var performanceElement = "\n                <div class=\"title-wrapper\">\n                    <span class=\"genre-type\">".concat(getKoreanGenreName(performance.genreType), "</span>\n                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                </div>\n                <div class=\"image-info-wrapper\">\n                    <img src=\"").concat(performance.imageUrl, "\">\n                    <div class=\"info-wrapper\">\n                        <div class=\"info-title-wrapper\">\n                            <span class=\"info-title\">\uC7A5\uC18C</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uAE30\uAC04</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uC2DC\uAC04</span>\n                            <span class=\"info-title\">\uAD00\uB78C\uC5F0\uB839</span>\n                            <span class=\"info-title\">\uAC00\uACA9</span>\n                        </div>\n                        <div class=\"info-detail-wrapper\">\n                            <span class=\"info-detail\">").concat(performance.venueName, "</span>\n                            <span class=\"info-detail\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                            <span class=\"info-detail\">").concat(performance.runTime, "\uBD84</span>\n                            <span class=\"info-detail\">").concat(performance.ageGroup, "</span>\n                            <div class=\"seat-container\">\n                              \n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"like-wrapper\">\n                    <img class=\"unlike\" src=\"https://ifh.cc/g/HCH5O9.png\" style=\"width: 24px; display: none;\">\n                    <img class=\"like\" data-id=\"\" src=\"https://ifh.cc/g/wGQQn7.png\" style=\"width: 24px; display: none;\">\n                    <span class=\"like-count\"></span>\n                </div>\n                <div class=\"description\">\"").concat(performance.description, "\"</div>\n                <div class=\"comment-info-wrapper\">\n                    <div class=\"comment-header\">\n                        <div class=\"text-wrapper-comment\">\n                            <span>\uCD1D&nbsp;</span>\n                            <span class=\"comment-count\"></span>\n                            <span>\uAC1C\uC758 \uB313\uAE00\uC774 \uC788\uC2B5\uB2C8\uB2E4.</span>\n                        </div>\n\n                        <div id=\"commentBtn\">\uB313\uAE00\uC791\uC131</div>\n\n                    </div>\n                    <div class=\"border-row\"></div>\n                        <div class=\"comment create-comment\">\n                            <div class=\"star-wrapper\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"1\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"2\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"3\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"4\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"5\">\n                            </div>\n                            <div class=\"wrapper-label-input\">\n                                <input type=\"text\" id=\"commentTitle\" name=\"commentTitle\" placeholder=\"\uC81C\uBAA9\" autocomplete=\"off\" required>\n                            </div>\n                            <textarea type=\"text\" id=\"commentDescription\" placeholder=\"\uB0B4\uC6A9\"></textarea>\n                            <div class=\"btn-wrapper\">\n                                <div id=\"createCommentBtn\">\uC791\uC131\uD558\uAE30</div>\n                                <div id=\"cancelBtn\">\uCDE8\uC18C</div>\n                            </div>\n                        </div>\n                    <div class=\"comment-list-wrapper\"></div>\n                </div>\n            ");
+      var performanceElement = "\n                <div class=\"title-wrapper\">\n                    <span class=\"genre-type\">".concat(getKoreanGenreName(performance.genreType), "</span>\n                    <span class=\"performance-title\">").concat(performance.title, "</span>\n                </div>\n                <div class=\"image-info-wrapper\">\n                    <img src=\"").concat(performance.imageUrl, "\">\n                    <div class=\"info-wrapper\">\n                        <div class=\"info-title-wrapper\">\n                            <span class=\"info-title\">\uC7A5\uC18C</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uAE30\uAC04</span>\n                            <span class=\"info-title\">\uACF5\uC5F0\uC2DC\uAC04</span>\n                            <span class=\"info-title\">\uAD00\uB78C\uC5F0\uB839</span>\n                            <span class=\"info-title\">\uAC00\uACA9</span>\n                        </div>\n                        <div class=\"info-detail-wrapper\">\n                            <span class=\"info-detail\">").concat(performance.venueName, "</span>\n                            <span class=\"info-detail\">").concat(performance.startAt, " ~ ").concat(performance.endAt, "</span>\n                            <span class=\"info-detail\">").concat(performance.runTime, "\uBD84</span>\n                            <span class=\"info-detail\">").concat(performance.ageGroup, "</span>\n                            <div class=\"seat-container\">\n                              \n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"like-wrapper\">\n                    <img class=\"unlike\" src=\"https://ifh.cc/g/HCH5O9.png\" style=\"width: 24px; display: none;\">\n                    <img class=\"like\" data-id=\"\" src=\"https://ifh.cc/g/wGQQn7.png\" style=\"width: 24px; display: none;\">\n                    <span class=\"like-count\"></span>\n                </div>\n                <div class=\"description\">\"").concat(performance.description, "\"</div>\n                <div class=\"comment-info-wrapper relative\">\n                    <div class=\"info-mark comment-mark\">\n                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\">\n                        <path\n                            d=\"M12.0019 2.00488C17.5199 2.00488 21.9999 6.48488 21.9999 12.0019C21.9999 17.5199 17.5199 21.9999 12.0019 21.9999C6.48488 21.9999 2.00488 17.5199 2.00488 12.0019C2.00488 6.48488 6.48488 2.00488 12.0019 2.00488ZM12.0019 10.0049C11.5879 10.0049 11.2519 10.3409 11.2519 10.7549V16.2549C11.2519 16.6689 11.5879 17.0049 12.0019 17.0049C12.4159 17.0049 12.7519 16.6689 12.7519 16.2549V10.7549C12.7519 10.3409 12.4159 10.0049 12.0019 10.0049ZM11.9999 7.00488C11.4479 7.00488 10.9999 7.45288 10.9999 8.00488C10.9999 8.55688 11.4479 9.00488 11.9999 9.00488C12.5519 9.00488 12.9999 8.55688 12.9999 8.00488C12.9999 7.45288 12.5519 7.00488 11.9999 7.00488Z\"\n                            fill=\"#D7D7D7\" />\n                    </svg>\n                    <div class=\"info-mark-text\">\uC870\uD68C \uBC29\uBC95 \uBCF4\uAE30</div>\n                    </div>\n                    <div class=\"comment-header\">\n                        <div class=\"text-wrapper-comment\">\n                            <span>\uCD1D&nbsp;</span>\n                            <span class=\"comment-count\"></span>\n                            <span>\uAC1C\uC758 \uB313\uAE00\uC774 \uC788\uC2B5\uB2C8\uB2E4.</span>\n                        </div>\n\n                        <div id=\"commentBtn\">\uB313\uAE00\uC791\uC131</div>\n\n                    </div>\n                    <div class=\"border-row\"></div>\n                        <div class=\"comment create-comment\">\n                            <div class=\"star-wrapper\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"1\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"2\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"3\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"4\">\n                                <img src=\"https://ifh.cc/g/9HJY7N.png\" data-rate=\"5\">\n                            </div>\n                            <div class=\"wrapper-label-input\">\n                                <input type=\"text\" id=\"commentTitle\" name=\"commentTitle\" placeholder=\"\uC81C\uBAA9\" autocomplete=\"off\" required>\n                            </div>\n                            <textarea type=\"text\" id=\"commentDescription\" placeholder=\"\uB0B4\uC6A9\"></textarea>\n                            <div class=\"btn-wrapper\">\n                                <div id=\"createCommentBtn\">\uC791\uC131\uD558\uAE30</div>\n                                <div id=\"cancelBtn\">\uCDE8\uC18C</div>\n                            </div>\n                        </div>\n                    <div class=\"comment-list-wrapper\"></div>\n                </div>\n            ");
       performanceListGridDiv.append(performanceElement);
       var seatContainerDiv = $(".seat-container");
       seatContainerDiv.empty();
+      $.getScript('/description-popup.8cd9cd53.js').done(function (script, textStatus) {
+        console.log('description-popup.js 스크립트가 성공적으로 로드되었습니다.');
+      }).fail(function (jqxhr, settings, exception) {
+        console.log('description-popup.js 스크립트 로드에 실패했습니다.');
+      });
       performance.seatGrades.forEach(function (perform, index) {
         // 할인된 가격 계산
         var discountedPrice = (performance.prices[index] * (100 - performance.discountRate) * 0.01).toFixed(0);
@@ -240,107 +245,116 @@ $(document).ready(function () {
 
       // 좋아요 등록
       $('.unlike').click(function () {
-        $.ajax({
-          url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
-          type: 'POST',
-          contentType: 'application/json',
-          xhrFields: {
-            withCredentials: true // 필요 시 추가
-          },
-          crossDomain: true,
-          headers: {
-            'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-          },
-          beforeSend: function beforeSend(xhr) {
-            xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-          },
-          success: function success(likeCreateResponse) {
-            console.log(likeCreateResponse);
-            // alert(likeCreateResponse.message)
+        if (!accessToken) {
+          var userConfirmed = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+          if (userConfirmed) {
+            // 현재 페이지의 URL을 세션 스토리지에 저장
+            sessionStorage.setItem('redirectUrl', window.location.href);
+            window.location.href = '/login'; // 확인 버튼 클릭 시 로그인 페이지로 이동
+          }
+        } else {
+          $.ajax({
+            url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
+            type: 'POST',
+            contentType: 'application/json',
+            xhrFields: {
+              withCredentials: true // 필요 시 추가
+            },
+            crossDomain: true,
+            headers: {
+              'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+            },
+            beforeSend: function beforeSend(xhr) {
+              xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+            },
+            success: function success(likeCreateResponse) {
+              console.log(likeCreateResponse);
+              // alert(likeCreateResponse.message)
 
-            //관심 공연 좋아요 여부    
-            $.ajax({
-              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
-              type: 'GET',
-              xhrFields: {
-                withCredentials: true // 필요 시 추가
-              },
-              crossDomain: true,
-              headers: {
-                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-              },
-              beforeSend: function beforeSend(xhr) {
-                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-              },
-              success: function success(likeResponseDto) {
-                console.log(likeResponseDto);
-                if (likeResponseDto.data != null) {
-                  if (likeResponseDto.data.isLike) {
-                    $(".unlike").hide();
-                    $(".like").show();
-                    $(".like").attr("data-id", likeResponseDto.data.id);
+              //관심 공연 좋아요 여부    
+              $.ajax({
+                url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes"),
+                type: 'GET',
+                xhrFields: {
+                  withCredentials: true // 필요 시 추가
+                },
+                crossDomain: true,
+                headers: {
+                  'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                },
+                beforeSend: function beforeSend(xhr) {
+                  xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                },
+                success: function success(likeResponseDto) {
+                  console.log(likeResponseDto);
+                  if (likeResponseDto.data != null) {
+                    if (likeResponseDto.data.isLike) {
+                      $(".unlike").hide();
+                      $(".like").show();
+                      $(".like").attr("data-id", likeResponseDto.data.id);
+                    } else {
+                      $(".like").hide();
+                      $(".unlike").show();
+                    }
                   } else {
                     $(".like").hide();
                     $(".unlike").show();
                   }
-                } else {
-                  $(".like").hide();
-                  $(".unlike").show();
+                  // location.reload(); // 페이지 리로드
+                },
+                error: function error(jqXHR) {
+                  var commentResponse = jqXHR.responseJSON;
+                  var commentResponseText = jqXHR.responseText;
+                  if (commentResponse != null) {
+                    alert(commentResponse.message);
+                  } else {
+                    alert(commentResponseText);
+                  }
                 }
-                // location.reload(); // 페이지 리로드
-              },
-              error: function error(jqXHR) {
-                var commentResponse = jqXHR.responseJSON;
-                var commentResponseText = jqXHR.responseText;
-                if (commentResponse != null) {
-                  alert(commentResponse.message);
-                } else {
-                  alert(commentResponseText);
-                }
-              }
-            });
+              });
 
-            //좋아요 개수 조회
-            $.ajax({
-              url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes-count"),
-              type: 'GET',
-              contentType: 'application/json',
-              xhrFields: {
-                withCredentials: true // 필요 시 추가
-              },
-              crossDomain: true,
-              headers: {
-                'Authorization': 'Bearer ' + accessToken // 헤더명 수정
-              },
-              beforeSend: function beforeSend(xhr) {
-                xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
-              },
-              success: function success(boardResponse) {
-                console.log(boardResponse);
-                $(".like-count").text(boardResponse.data + "명이 관심있음");
-                // location.reload(); // 페이지 리로드
-              },
-              error: function error(jqXHR) {
-                var commentResponse = jqXHR.responseJSON;
-                var commentResponseText = jqXHR.responseText;
-                if (commentResponse != null) {
-                  alert(commentResponse.message);
-                } else {
-                  alert(commentResponseText);
+              //좋아요 개수 조회
+              $.ajax({
+                url: "".concat(window.SERVER_URL, "/performances/").concat(performanceId, "/likes-count"),
+                type: 'GET',
+                contentType: 'application/json',
+                xhrFields: {
+                  withCredentials: true // 필요 시 추가
+                },
+                crossDomain: true,
+                headers: {
+                  'Authorization': 'Bearer ' + accessToken // 헤더명 수정
+                },
+                beforeSend: function beforeSend(xhr) {
+                  xhr.setRequestHeader('Authorization', accessToken); // 헤더명 수정
+                },
+                success: function success(boardResponse) {
+                  console.log(boardResponse);
+                  $(".like-count").text(boardResponse.data + "명이 관심있음");
+                  // location.reload(); // 페이지 리로드
+                },
+                error: function error(jqXHR) {
+                  var commentResponse = jqXHR.responseJSON;
+                  var commentResponseText = jqXHR.responseText;
+                  if (commentResponse != null) {
+                    alert(commentResponse.message);
+                  } else {
+                    alert(commentResponseText);
+                  }
                 }
+              });
+            },
+            error: function error(jqXHR) {
+              var commentResponse = jqXHR.responseJSON;
+              var commentResponseText = jqXHR.responseText;
+              if (commentResponse != null) {
+                alert(commentResponse.message);
+              } else {
+                alert(commentResponseText);
               }
-            });
-          },
-          error: function error(jqXHR) {
-            var commentResponse = jqXHR.responseJSON;
-            var commentResponseText = jqXHR.responseText;
-            if (commentResponse != null) {
-              alert(commentResponse.message);
-            } else {
-              alert(commentResponseText);
             }
-          }
-        });
+          });
+        }
       });
 
       // 좋아요 취소
@@ -481,7 +495,15 @@ $(document).ready(function () {
 
       //댓글 작성 버튼이 생긴 후, 클릭 효과 주기
       $("#commentBtn").on('click', function () {
-        $(".comment.create-comment").show();
+        if (!accessToken) {
+          var userConfirmed = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+          if (userConfirmed) {
+            sessionStorage.setItem('redirectUrl', window.location.href);
+            window.location.href = '/login'; // 확인 버튼 클릭 시 로그인 페이지로 이동
+          }
+        } else {
+          $(".comment.create-comment").show();
+        }
       });
       $("#cancelBtn").on('click', function () {
         $(".comment.create-comment").hide();
@@ -654,7 +676,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53857" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

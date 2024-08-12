@@ -185,7 +185,7 @@
 }
 
 .dot.active {
-    background-color: #3A5AAD;
+    background-color: #ffffff;
 }
 
 .dot-rank {
@@ -228,7 +228,7 @@
     display: flex;
     transition: transform 0.3s ease;
     will-change: transform;
-    height: 460px;
+    height: auto;
 }
 
 

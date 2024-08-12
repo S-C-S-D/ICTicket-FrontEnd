@@ -71,10 +71,15 @@
     margin-left: 20px;
 }
 
+.cancel-info {
+    font-size: 14px;
+    color: #787878;
+}
+
 .table-wrapper {
     display: flex;
     flex-direction: column;
-    margin-top: 80px;
+    margin-top: 10px;
 }
 
 .column-wrapper {

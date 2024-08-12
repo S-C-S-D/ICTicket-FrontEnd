@@ -86,7 +86,7 @@
     font-size: 20px;
     font-weight: 600;
     color: white;
-    z-index: 10;
+    z-index: 2;
 }
 
 .performance-list-grid.layout-5 .performance-info .today {
