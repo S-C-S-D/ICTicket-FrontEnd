@@ -153,8 +153,8 @@ $(document).ready(function () {
                     const isOpen = now >= openDateTime ? 'open' : '';
 
                     const todayOpenElement = `
+                    <a href="/performances/${performance.id}">
                         <div class="performance-info" data-id="${performance.id}">
-                            <a href="/performances/${performance.id}">
                                 <div class="image-wrapper today-open-temp">
                                     <div class="before-wrapper ${isOpen}">
                                         <span class="today">오늘</span>
@@ -162,12 +162,13 @@ $(document).ready(function () {
                                     </div>
                                     <img src="${performance.imageUrl}">
                                 </div>
-                            </a>
+                            
                             <span class="performance-genre">${getKoreanGenreName(performance.genreType)}</span>
                             <p class="performance-title fs-17 bold">${performance.title}</p>
                             <p class="venue-location fs-15 medium">${performance.venueName}</p>
                             <p class="performance-date fs-15 medium">${performance.startAt}</p>
                         </div>
+                    </a>
                     `;
 
                     performanceListGridDiv.append(todayOpenElement);
@@ -210,16 +211,16 @@ $(document).ready(function () {
 
                 performances.forEach(performance => {
                     const todayOpenElement = `
+                        <a href="/performances/${performance.id}">
                             <div class="performance-info" data-id="${performance.id}">
-                                <a href="/performances/${performance.id}">
-                                    <div class="image-wrapper">
-                                        <img src="${performance.imageUrl}">
-                                    </div>
-                                </a>
+                                <div class="image-wrapper">
+                                    <img src="${performance.imageUrl}">
+                                </div>
                                 <p class="performance-title fs-17 bold">${performance.title}</p>
                                 <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                 <p class="performance-date fs-15 medium">${performance.startAt}</p>
                             </div>
+                        </a>
                         `;
                     performanceListGridDiv.append(todayOpenElement);
                 });
@@ -246,17 +247,17 @@ $(document).ready(function () {
 
                 performances.forEach((performance, index) => {
                     const genreRankElement = `
+                            <a href="/performances/${performance.id}">
                                 <div class="performance-info" data-id="${performance.id}">
-                                    <a href="/performances/${performance.id}">
-                                        <div class="image-wrapper">
-                                            <span class="rank absolute fs-28">${index + 1}</span>
-                                            <img src="${performance.imageUrl}">
-                                        </div>
-                                    </a>
+                                    <div class="image-wrapper">
+                                        <span class="rank absolute fs-28">${index + 1}</span>
+                                        <img src="${performance.imageUrl}">
+                                    </div>
                                     <p class="performance-title fs-17 bold">${performance.title}</p>
                                     <p class="venue-location fs-15 medium">${performance.venueName}</p>
                                     <p class="performance-date fs-15 medium">${performance.startAt}</p>
                                 </div>
+                            </a>
                             `;
                     performanceListFlexDiv.append(genreRankElement);
                 });

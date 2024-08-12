@@ -49,16 +49,16 @@ $(document).ready(function () {
 
             performances.forEach((performance, index) => {
                 const genreRankElement = `
-                <div class="performance-info" data-id="${performance.id}">
-                    <a href="/performances/${performance.id}">
-                        <div class="image-wrapper">
-                            <span class="rank absolute fs-28">${index + 1}</span>
-                            <img src="${performance.imageUrl}">
-                        </div>
-                    </a>
+                <a href="/performances/${performance.id}">
+                    <div class="performance-info" data-id="${performance.id}">
+                    <div class="image-wrapper">
+                        <span class="rank absolute fs-28">${index + 1}</span>
+                        <img src="${performance.imageUrl}">
+                    </div>
                     <p class="performance-title fs-17 bold">${performance.title}</p>
                     
-                </div>
+                    </div>
+                </a>
             `;
                 performanceListFlexDiv.append(genreRankElement);
 
@@ -100,20 +100,20 @@ $(document).ready(function () {
                     const formattedPrice = Number(discountedPrice).toLocaleString();
 
                     const genreRankElement = `
+                    <a href="/performances/${performance.id}">
                         <div class="performance-info" data-id="${performance.id}">
-                            <a href="/performances/${performance.id}">
                                 <div class="image-wrapper">
                                     <img src="${performance.imageUrl}">
                                 </div>
-                            </a>
-                            <p class="performance-title fs-17 bold">${performance.title}</p>
-                            <p class="venue-location fs-15 medium">${performance.venueName}</p>
-                            <p class="performance-date fs-15 medium">${performance.startAt}</p>
-                            <div class="sale-wrapper">
+                                <p class="performance-title fs-17 bold">${performance.title}</p>
+                                <p class="venue-location fs-15 medium">${performance.venueName}</p>
+                                <p class="performance-date fs-15 medium">${performance.startAt}</p>
+                                <div class="sale-wrapper">
                                 <p class="performance-discount-rate fs-17 black">${performance.discountRate}%</p>
                                 <p class="performance-price fs-17 black">${formattedPrice}원</p>
-                            </div>
+                                </div>
                         </div>
+                                </a>
                     `;
                     performanceListGridDiv.append(genreRankElement);
                 });
@@ -149,8 +149,8 @@ $(document).ready(function () {
                     // 현재 시간이 openAt 시간을 지났는지 확인
                     const isOpen = now >= openDateTime ? 'open' : '';
                     const genreRankElement = `
+                    <a href="/performances/${performance.id}">
                             <div class="performance-info" data-id="${performance.id}">
-                                <a href="/performances/${performance.id}">
                                     <div class="image-wrapper">
                                         <div class="before-wrapper">
                                             <span class="today">오픈까지</span>
@@ -158,11 +158,11 @@ $(document).ready(function () {
                                         </div>
                                         <img src="${performance.imageUrl}">
                                     </div>
-                                </a>
-                                <p class="performance-title fs-17 bold">${performance.title}</p>
-                                <p class="venue-location fs-15 medium">${performance.venueName}</p>
-                                <p class="performance-date fs-15 medium">${performance.startAt}</p>
-                            </div>
+                                    <p class="performance-title fs-17 bold">${performance.title}</p>
+                                    <p class="venue-location fs-15 medium">${performance.venueName}</p>
+                                    <p class="performance-date fs-15 medium">${performance.startAt}</p>
+                                    </div>
+                                    </a>
                         `;
                     performanceListGridDiv.append(genreRankElement);
 
