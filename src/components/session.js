@@ -5,6 +5,13 @@ $(document).ready(function () {
     const accessToken = localStorage.getItem('Authorization');
     let selectedSeats = [];
 
+    $(".close-popup-btn").on('click', function () {
+        selectedSeats = [];
+    });
+
+    $(".close-popup-payment-btn").on('click', function () {
+        selectedSeats = [];
+    });
 
     function updateSeatConfirmBtn() {
         if (selectedSeats.length === 0) {
@@ -348,7 +355,7 @@ $(document).ready(function () {
     
     
                     $('.notReserved').on('click', function() {
-                        if (selectedSeats.length >= 3) {
+                        if (selectedSeats.length >= 4) {
                             alert("최대 4개의 좌석까지 선택 가능합니다.")
                         } else {
                             const seatId = $(this).data('id');

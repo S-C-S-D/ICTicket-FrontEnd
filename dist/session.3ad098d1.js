@@ -130,6 +130,12 @@ $(document).ready(function () {
   var performanceId = pathParts[pathParts.indexOf('performances') + 1];
   var accessToken = localStorage.getItem('Authorization');
   var selectedSeats = [];
+  $(".close-popup-btn").on('click', function () {
+    selectedSeats = [];
+  });
+  $(".close-popup-payment-btn").on('click', function () {
+    selectedSeats = [];
+  });
   function updateSeatConfirmBtn() {
     if (selectedSeats.length === 0) {
       console.log("Test");
@@ -410,7 +416,7 @@ $(document).ready(function () {
           var seatListWrapperDiv = $('.seat-list-wrapper');
           seatListWrapperDiv.empty();
           $('.notReserved').on('click', function () {
-            if (selectedSeats.length >= 3) {
+            if (selectedSeats.length >= 4) {
               alert("최대 4개의 좌석까지 선택 가능합니다.");
             } else {
               var seatId = $(this).data('id');
@@ -587,7 +593,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62633" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62921" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
