@@ -468,6 +468,8 @@ $(document).ready(function () {
                                     if(commentResponse.errorType == "REQUIRES_LOGIN") {
                                         alert(commentResponse.message);
                                         window.location.href = '/login';
+                                    } else {
+                                        alert(commentResponse.message)
                                     }
                                 } else {
                                     alert(commentResponseText);

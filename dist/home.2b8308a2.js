@@ -119,6 +119,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"../src/components/home.js":[function(require,module,exports) {
 $(document).ready(function () {
+  var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  if (!isChrome) {
+    alert("Chrome을 사용하지 않으면, 정상적인 서비스 이용이 어렵습니다. 추후에 빠르게 수정하겠습니다.");
+  }
+
   //[ 메인 배너 ]
   $.ajax({
     url: "".concat(window.SERVER_URL, "/banners?bannerType=MAIN"),
@@ -361,7 +366,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51197" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60463" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

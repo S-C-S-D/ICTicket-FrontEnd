@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    if (!isChrome) {
+        alert("Chrome을 사용하지 않으면, 정상적인 서비스 이용이 어렵습니다. 추후에 빠르게 수정하겠습니다.")
+    }
+
     //[ 메인 배너 ]
     $.ajax({
         url: `${window.SERVER_URL}/banners?bannerType=MAIN`,
