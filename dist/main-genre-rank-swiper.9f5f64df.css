@@ -39,7 +39,7 @@
     cursor: pointer;
 }
 
-.performance-list-genre.layout-5 .performance-info:first-child {
+.performance-list-genre.layout-5 a:first-child {
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -317,7 +317,7 @@
     cursor: pointer;
 }
 
-.performance-list-genre.layout-4 .performance-info:first-child {
+.performance-list-genre.layout-4 a:first-child {
     display: flex;
     flex-direction: column;
     cursor: pointer;
