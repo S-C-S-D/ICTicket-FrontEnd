@@ -355,24 +355,24 @@ $(document).ready(function () {
     
     
                     $('.notReserved').on('click', function() {
-                        if (selectedSeats.length >= 4) {
-                            alert("최대 4개의 좌석까지 선택 가능합니다.")
+                        const seatId = $(this).data('id');
+                        const seatGrade = $(this).data('grade');
+                        const seatIndex = $(this).data('index');
+                        const seatPrice = $(this).data('price');
+    
+                        if ($(this).hasClass("selected") ) {
+                            $(this).removeClass('selected');
+                            $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
+                            seatListWrapperDiv.find(`div[data-id="${seatId}"]`).remove();
+    
+                            selectedSeats = selectedSeats.filter(id => id !== seatId);
+                            updateSeatConfirmBtn();
+    
                         } else {
-                            const seatId = $(this).data('id');
-                            const seatGrade = $(this).data('grade');
-                            const seatIndex = $(this).data('index');
-                            const seatPrice = $(this).data('price');
-        
-                            if ($(this).hasClass("selected")) {
-                                $(this).removeClass('selected');
-                                $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
-                                seatListWrapperDiv.find(`div[data-id="${seatId}"]`).remove();
-        
-                                selectedSeats = selectedSeats.filter(id => id !== seatId);
-                                updateSeatConfirmBtn();
-        
+                               
+                            if (selectedSeats.length >= 4) {
+                                alert("최대 4개의 좌석까지 선택 가능합니다.")
                             } else {
-                
                                 // 변수에 저장
                                 const seatData = {
                                     id: seatId,
@@ -396,7 +396,10 @@ $(document).ready(function () {
                                 selectedSeats.push(seatId);
                                 updateSeatConfirmBtn();
                             }
+    
                         }
+                        
+
 
                     });
     

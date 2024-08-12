@@ -118,8 +118,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"../src/components/url.js":[function(require,module,exports) {
-window.SERVER_URL = "http://localhost:8080";
-// window.SERVER_URL = "https://icticket.shop/api";
+// window.SERVER_URL = "http://localhost:8080";
+window.SERVER_URL = "https://icticket.shop/api";
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -145,7 +145,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62921" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51197" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

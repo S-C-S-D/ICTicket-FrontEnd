@@ -416,21 +416,21 @@ $(document).ready(function () {
           var seatListWrapperDiv = $('.seat-list-wrapper');
           seatListWrapperDiv.empty();
           $('.notReserved').on('click', function () {
-            if (selectedSeats.length >= 4) {
-              alert("최대 4개의 좌석까지 선택 가능합니다.");
+            var seatId = $(this).data('id');
+            var seatGrade = $(this).data('grade');
+            var seatIndex = $(this).data('index');
+            var seatPrice = $(this).data('price');
+            if ($(this).hasClass("selected")) {
+              $(this).removeClass('selected');
+              $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
+              seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
+              selectedSeats = selectedSeats.filter(function (id) {
+                return id !== seatId;
+              });
+              updateSeatConfirmBtn();
             } else {
-              var seatId = $(this).data('id');
-              var seatGrade = $(this).data('grade');
-              var seatIndex = $(this).data('index');
-              var seatPrice = $(this).data('price');
-              if ($(this).hasClass("selected")) {
-                $(this).removeClass('selected');
-                $(this).attr('src', 'https://ifh.cc/g/5HSMgs.png');
-                seatListWrapperDiv.find("div[data-id=\"".concat(seatId, "\"]")).remove();
-                selectedSeats = selectedSeats.filter(function (id) {
-                  return id !== seatId;
-                });
-                updateSeatConfirmBtn();
+              if (selectedSeats.length >= 4) {
+                alert("최대 4개의 좌석까지 선택 가능합니다.");
               } else {
                 // 변수에 저장
                 var seatData = {
@@ -593,7 +593,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62921" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51197" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
