@@ -188,7 +188,7 @@ $(document).ready(function () {
         var formattedPrice = Number(performance.prices[index]).toLocaleString();
         //할인 중일 경우
         if (performance.discountRate != null) {
-          var performanceSeatElement = "\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">".concat(performance.seatGrades[index], "\uC11D</span>\n                                <div class=\"discount-wrapper\">\n                                    <span class=\"discount-rate\">").concat(performance.discountRate, "%</div>\n                                    <span class=\"info-price-discounted\">").concat(formattedDiscountPrice, "\uC6D0</span>\n                                    <span class=\"info-price\">").concat(formattedPrice, "</span>\n                                </div>\n                            </div>\n                        ");
+          var performanceSeatElement = "\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">".concat(performance.seatGrades[index], "\uC11D</span>\n                                <div class=\"discount-wrapper\">\n                                    <span class=\"discount-rate\">").concat(performance.discountRate, "%</div>\n                                    <span class=\"info-price-discounted\">").concat(formattedDiscountPrice, "\uC6D0</span>\n                                    <span class=\"info-price-retail\">").concat(formattedPrice, "</span>\n                                </div>\n                            </div>\n                        ");
           seatContainerDiv.append(performanceSeatElement);
         } else {
           var _performanceSeatElement = "\n                            <div class=\"seat-price-wrapper\">\n                                <span class=\"info-seat\">".concat(performance.seatGrades[index], "\uC11D</span>\n                                <span class=\"info-price\">").concat(formattedPrice, "\uC6D0</span>\n                            </div>\n                        ");
@@ -654,7 +654,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

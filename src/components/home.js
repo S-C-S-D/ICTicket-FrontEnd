@@ -39,6 +39,70 @@ $(document).ready(function () {
         }
     });
 
+    //[ 미들 배너 ]
+    $.ajax({
+        url: `${window.SERVER_URL}/banners?bannerType=MIDDLE`,
+        type: 'GET',
+        success: function (BannerResponseDto) {
+            console.log(BannerResponseDto);
+
+            const middleBanners = BannerResponseDto.data;
+            const mainBannerListFlexDiv = $('.middle-banner');
+
+            mainBannerListFlexDiv.empty();
+
+            // 포지션 값이 가장 높은 배너 찾기
+            if (middleBanners.length > 0) {
+                const highestPositionBanner = middleBanners.reduce((prev, current) => {
+                    return (prev.position > current.position) ? prev : current;
+                });
+
+                const middleBannerElement = `
+                    <a href="${highestPositionBanner.linkUrl}">
+                        <img src="${highestPositionBanner.bannerImageUrl}" data-url="${highestPositionBanner.linkUrl}">
+                    </a>
+                `;
+                mainBannerListFlexDiv.append(middleBannerElement);
+            }
+        },
+        error: function (xhr) {
+            const perforamceTodayResponse = JSON.parse(xhr.responseText);
+            console.log(perforamceTodayResponse.message);
+        }
+    });
+
+    //[ 바텀 배너 ]
+    $.ajax({
+        url: `${window.SERVER_URL}/banners?bannerType=BOTTOM`,
+        type: 'GET',
+        success: function (BannerResponseDto) {
+            console.log(BannerResponseDto);
+
+            const middleBanners = BannerResponseDto.data;
+            const mainBannerListFlexDiv = $('.bottom-banner');
+
+            mainBannerListFlexDiv.empty();
+
+            // 포지션 값이 가장 높은 배너 찾기
+            if (middleBanners.length > 0) {
+                const highestPositionBanner = middleBanners.reduce((prev, current) => {
+                    return (prev.position > current.position) ? prev : current;
+                });
+
+                const middleBannerElement = `
+                        <a href="${highestPositionBanner.linkUrl}">
+                            <img src="${highestPositionBanner.bannerImageUrl}" data-url="${highestPositionBanner.linkUrl}">
+                        </a>
+                    `;
+                mainBannerListFlexDiv.append(middleBannerElement);
+            }
+        },
+        error: function (xhr) {
+            const perforamceTodayResponse = JSON.parse(xhr.responseText);
+            console.log(perforamceTodayResponse.message);
+        }
+    });
+
 
     //[ 오늘 오픈 ]
     function loadPerformances(page) {

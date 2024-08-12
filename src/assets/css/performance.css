@@ -128,6 +128,12 @@
 }
 
 .performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price{
+    font-size: 15px;
+    color: #242424;
+    font-weight: 600;
+}
+
+.performance-info-wrapper .image-info-wrapper .info-wrapper .info-detail-wrapper .info-price-retail{
     font-size: 14px;
     color: #525252;
     font-weight: 400;

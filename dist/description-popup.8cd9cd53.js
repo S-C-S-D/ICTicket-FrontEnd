@@ -187,6 +187,18 @@ $(document).ready(function () {
 
       //설명글
       $(".description-popup > .popup-flex > .description").text("해당 장르의 오늘 오픈 예정인 공연들을 조회합니다. 오픈 시간이 빠른 순으로 보여집니다. 오늘 오픈일은 티켓 판매 시작일을 의미합니다. (pagenation 적용)");
+      // [performances/rank-all] 전체 랭킹
+    } else if ($(this).hasClass('rank-all')) {
+      //보여줄 링크
+      $(".service-link").show();
+      $(".queryDsl-link").show();
+
+      //새로운 링크
+      $(".service-link").attr("href", "https://github.com/S-C-S-D/ICTicket-BackEnd/blob/826d401cdb1bc6215681173bb600b5d421869eb4/src/main/java/com/sparta/icticket/performance/PerformanceService.java#L148-L152");
+      $(".queryDsl-link").attr("href", "https://github.com/S-C-S-D/ICTicket-BackEnd/blob/0cbfe4fd9c550b5ac33da2518f0e5ba02e74b462/src/main/java/com/sparta/icticket/performance/PerformanceRepositoryQueryImpl.java#L117-L137");
+
+      //설명글
+      $(".description-popup > .popup-flex > .description").text("전체 공연의 인기 순위가 조회됩니다. 인기 순위는 공연 좋아요 수와 조회수의 합산으로 정해집니다. (pagenation 적용)");
     }
   });
   $(".cover-description");
@@ -226,7 +238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

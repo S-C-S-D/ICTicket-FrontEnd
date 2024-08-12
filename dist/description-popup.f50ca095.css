@@ -173,6 +173,13 @@
     cursor: pointer;
 }
 
+.info-mark.rank-all{
+    position: absolute;
+    right: 0px;
+    top: -60px;
+    cursor: pointer;
+}
+
 .info-mark-text {
     width: 120px;
     font-size: 13px;

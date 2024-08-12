@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="../src/assets/css/footer.css">
     <link rel="stylesheet" href="../src/assets/css/component.css">
     <link rel="stylesheet" href="../src/assets/css/rank-all.css">
+    <link rel="stylesheet" href="../src/assets/css/description-popup.css">
+
     <script src="../src/components/url.js"></script>
     <script src="../src/components/nav-bar.js"></script>
     <script src="../src/components/performance-rank-all.js"></script>
     <script src="../src/components/login.js"></script>
     <script src="../src/components/header.js"></script>
+    <script src="../src/components/description-popup.js"></script>
 </head>
 
 <style>
@@ -29,6 +32,36 @@
 
 <body>
     <div class="rank-all">
+        <div class="description-popup">
+            <div class="close-popup-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M12.0019 2.00488C17.5199 2.00488 21.9999 6.48488 21.9999 12.0019C21.9999 17.5199 17.5199 21.9999 12.0019 21.9999C6.48488 21.9999 2.00488 17.5199 2.00488 12.0019C2.00488 6.48488 6.48488 2.00488 12.0019 2.00488ZM12.0019 10.9379L9.28088 8.21588C9.13488 8.06988 8.94188 7.99688 8.74988 7.99688C8.34588 7.99688 7.99988 8.32088 7.99988 8.74588C7.99988 8.93888 8.07288 9.12988 8.21888 9.27688L10.9409 11.9989L8.21288 14.7269C8.06588 14.8739 7.99288 15.0669 7.99288 15.2579C7.99288 15.6849 8.34288 16.0079 8.74388 16.0079C8.93588 16.0079 9.12788 15.9349 9.27388 15.7889L12.0019 13.0609L14.7309 15.7889C14.8769 15.9349 15.0689 16.0079 15.2609 16.0079C15.6619 16.0079 16.0109 15.6849 16.0109 15.2579C16.0109 15.0669 15.9379 14.8739 15.7909 14.7269L13.0639 11.9989L15.7809 9.28188C15.9269 9.13488 15.9999 8.94388 15.9999 8.75088C15.9999 8.32588 15.6539 8.00088 15.2499 8.00088C15.0579 8.00088 14.8649 8.07388 14.7189 8.22088L12.0019 10.9379Z"
+                        fill="#3A5AAD" />
+                </svg>
+            </div>
+            <div class="popup-flex">
+                <span class="description">장르별로 인기 순 TOP 10의 공연들을 조회합니다. 인기 순위는 공연 좋아요 수와 조회수의 합산으로 정해집니다.
+                    (pagenation적용)</span>
+                <div class="popup-flex-row">
+                    <a class="service-link" href="" target="_blank">
+                        <div class="github-wrapper">
+                            <img src="../src/assets/images/img_github_logo.png">
+                            <span class="github-link-title">service</span>
+                        </div>
+                    </a>
+                    <a class="queryDsl-link" href="" target="_blank">
+                        <div class="github-wrapper">
+                            <img src="../src/assets/images/img_github_logo.png">
+                            <span class="github-link-title">queryDsl</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="cover-description">
+        </div>
+
         <div class="inner">
             <!-- [00_main-header 최상단 영역] -->
             <div class="header">
@@ -65,7 +98,15 @@
 
         <div class="inner">
 
-            <div class="table-wrapper">
+            <div class="table-wrapper relative">
+                <div class="info-mark rank-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12.0019 2.00488C17.5199 2.00488 21.9999 6.48488 21.9999 12.0019C21.9999 17.5199 17.5199 21.9999 12.0019 21.9999C6.48488 21.9999 2.00488 17.5199 2.00488 12.0019C2.00488 6.48488 6.48488 2.00488 12.0019 2.00488ZM12.0019 10.0049C11.5879 10.0049 11.2519 10.3409 11.2519 10.7549V16.2549C11.2519 16.6689 11.5879 17.0049 12.0019 17.0049C12.4159 17.0049 12.7519 16.6689 12.7519 16.2549V10.7549C12.7519 10.3409 12.4159 10.0049 12.0019 10.0049ZM11.9999 7.00488C11.4479 7.00488 10.9999 7.45288 10.9999 8.00488C10.9999 8.55688 11.4479 9.00488 11.9999 9.00488C12.5519 9.00488 12.9999 8.55688 12.9999 8.00488C12.9999 7.45288 12.5519 7.00488 11.9999 7.00488Z"
+                            fill="#D7D7D7" />
+                    </svg>
+                    <div class="info-mark-text">조회 방법 보기</div>
+                </div>
                 <div class="column-wrapper">
                     <div class="column rank">랭킹</div>
                     <div class="column title">공연명</div>

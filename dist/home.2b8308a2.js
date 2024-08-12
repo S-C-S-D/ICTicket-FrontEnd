@@ -147,6 +147,56 @@ $(document).ready(function () {
     }
   });
 
+  //[ 미들 배너 ]
+  $.ajax({
+    url: "".concat(window.SERVER_URL, "/banners?bannerType=MIDDLE"),
+    type: 'GET',
+    success: function success(BannerResponseDto) {
+      console.log(BannerResponseDto);
+      var middleBanners = BannerResponseDto.data;
+      var mainBannerListFlexDiv = $('.middle-banner');
+      mainBannerListFlexDiv.empty();
+
+      // 포지션 값이 가장 높은 배너 찾기
+      if (middleBanners.length > 0) {
+        var highestPositionBanner = middleBanners.reduce(function (prev, current) {
+          return prev.position > current.position ? prev : current;
+        });
+        var middleBannerElement = "\n                    <a href=\"".concat(highestPositionBanner.linkUrl, "\">\n                        <img src=\"").concat(highestPositionBanner.bannerImageUrl, "\" data-url=\"").concat(highestPositionBanner.linkUrl, "\">\n                    </a>\n                ");
+        mainBannerListFlexDiv.append(middleBannerElement);
+      }
+    },
+    error: function error(xhr) {
+      var perforamceTodayResponse = JSON.parse(xhr.responseText);
+      console.log(perforamceTodayResponse.message);
+    }
+  });
+
+  //[ 바텀 배너 ]
+  $.ajax({
+    url: "".concat(window.SERVER_URL, "/banners?bannerType=BOTTOM"),
+    type: 'GET',
+    success: function success(BannerResponseDto) {
+      console.log(BannerResponseDto);
+      var middleBanners = BannerResponseDto.data;
+      var mainBannerListFlexDiv = $('.bottom-banner');
+      mainBannerListFlexDiv.empty();
+
+      // 포지션 값이 가장 높은 배너 찾기
+      if (middleBanners.length > 0) {
+        var highestPositionBanner = middleBanners.reduce(function (prev, current) {
+          return prev.position > current.position ? prev : current;
+        });
+        var middleBannerElement = "\n                        <a href=\"".concat(highestPositionBanner.linkUrl, "\">\n                            <img src=\"").concat(highestPositionBanner.bannerImageUrl, "\" data-url=\"").concat(highestPositionBanner.linkUrl, "\">\n                        </a>\n                    ");
+        mainBannerListFlexDiv.append(middleBannerElement);
+      }
+    },
+    error: function error(xhr) {
+      var perforamceTodayResponse = JSON.parse(xhr.responseText);
+      console.log(perforamceTodayResponse.message);
+    }
+  });
+
   //[ 오늘 오픈 ]
   function loadPerformances(page) {
     $.ajax({
@@ -311,7 +361,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51237" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -150,7 +150,7 @@ $(document).ready(function () {
                                 <div class="discount-wrapper">
                                     <span class="discount-rate">${performance.discountRate}%</div>
                                     <span class="info-price-discounted">${formattedDiscountPrice}원</span>
-                                    <span class="info-price">${formattedPrice}</span>
+                                    <span class="info-price-retail">${formattedPrice}</span>
                                 </div>
                             </div>
                         `       
